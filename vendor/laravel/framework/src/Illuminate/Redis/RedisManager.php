@@ -89,11 +89,7 @@ class RedisManager implements Factory
     {
         $name = enum_value($name) ?: 'default';
 
-        if (isset($this->connections[$name])) {
-            return $this->connections[$name];
-        }
-
-        return $this->connections[$name] = $this->configure(
+        return $this->connections[$name] ?? $this->connections[$name] = $this->configure(
             $this->resolve($name), $name
         );
     }
@@ -246,12 +242,12 @@ class RedisManager implements Factory
     /**
      * Disconnect the given connection and remove from local cache.
      *
-     * @param  string|null  $name
+     * @param  \UnitEnum|string|null  $name
      * @return void
      */
     public function purge($name = null)
     {
-        $name = $name ?: 'default';
+        $name = enum_value($name) ?: 'default';
 
         unset($this->connections[$name]);
     }

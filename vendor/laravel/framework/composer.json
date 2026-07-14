@@ -27,7 +27,7 @@
         "ext-session": "*",
         "ext-tokenizer": "*",
         "composer-runtime-api": "^2.2",
-        "brick/math": "^0.14.2 || ^0.15 || ^0.16 || ^0.17",
+        "brick/math": "^0.14.2 || ^0.15 || ^0.16 || ^0.17 || ^0.18",
         "doctrine/inflector": "^2.0.5",
         "dragonmantank/cron-expression": "^3.4",
         "egulias/email-validator": "^4.0",
@@ -55,8 +55,9 @@
         "symfony/http-kernel": "^7.4.0 || ^8.0.0",
         "symfony/mailer": "^7.4.0 || ^8.0.0",
         "symfony/mime": "^7.4.0 || ^8.0.0",
-        "symfony/polyfill-php84": "^1.33",
-        "symfony/polyfill-php85": "^1.33",
+        "symfony/polyfill-php84": "^1.36",
+        "symfony/polyfill-php85": "^1.36",
+        "symfony/polyfill-php86": "^1.36",
         "symfony/process": "^7.4.5 || ^8.0.5",
         "symfony/routing": "^7.4.0 || ^8.0.0",
         "symfony/uid": "^7.4.0 || ^8.0.0",
@@ -70,7 +71,7 @@
         "ably/ably-php": "^1.0",
         "aws/aws-sdk-php": "^3.322.9",
         "fakerphp/faker": "^1.24",
-        "guzzlehttp/psr7": "^2.4",
+        "guzzlehttp/psr7": "^2.9",
         "laravel/pint": "^1.18",
         "league/flysystem-aws-s3-v3": "^3.25.1",
         "league/flysystem-ftp": "^3.25.1",
@@ -215,6 +216,7 @@
         },
         "audit": {
             "ignore": {
+                "GHSA-qrr6-mg7r-m243": "Ensure testing features are compatible with affected PHPUnit versions",
                 "GHSA-vvj3-c3rp-c85p": "Ensure testing features are compatible with affected PHPUnit versions"
             }
         },
