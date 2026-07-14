@@ -4,6 +4,7 @@ namespace Illuminate\Queue;
 
 use Closure;
 use DateTimeInterface;
+use Illuminate\Bus\DebounceLock;
 use Illuminate\Bus\UniqueLock;
 use Illuminate\Container\Container;
 use Illuminate\Contracts\Cache\Repository as Cache;
@@ -364,13 +365,7 @@ abstract class Queue
     {
         if ($this->shouldDispatchAfterCommit($job) &&
             $this->container->bound('db.transactions')) {
-            if ($job instanceof ShouldBeUnique) {
-                $this->container->make('db.transactions')->addCallbackForRollback(
-                    function () use ($job) {
-                        (new UniqueLock($this->container->make(Cache::class)))->release($job);
-                    }
-                );
-            }
+            $this->registerRollbackCallbacksForJobsThatDispatchAfterCommit($job);
 
             return $this->container->make('db.transactions')->addCallback(
                 function () use ($queue, $job, $payload, $delay, $callback) {
@@ -407,6 +402,31 @@ abstract class Queue
         }
 
         return $this->dispatchAfterCommit ?? false;
+    }
+
+    /**
+     * Register callbacks to release locks if the current database transaction is rolled back.
+     *
+     * @param  \Closure|string|object  $job
+     * @return void
+     */
+    protected function registerRollbackCallbacksForJobsThatDispatchAfterCommit($job)
+    {
+        if ($job instanceof ShouldBeUnique) {
+            $this->container->make('db.transactions')->addCallbackForRollback(
+                function () use ($job) {
+                    (new UniqueLock($this->container->make(Cache::class)))->release($job);
+                }
+            );
+        }
+
+        if (! empty($job->debounceOwner ?? '')) {
+            $this->container->make('db.transactions')->addCallbackForRollback(
+                function () use ($job) {
+                    (new DebounceLock($this->container->make(Cache::class)))->release($job, $job->debounceOwner ?? '');
+                }
+            );
+        }
     }
 
     /**
