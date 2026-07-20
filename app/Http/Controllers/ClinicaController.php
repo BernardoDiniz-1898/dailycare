@@ -7,8 +7,17 @@ use App\Models\Especialidade;
 use App\Models\ServicoAcessibilidade;
 use Illuminate\Http\Request;
 
+/**
+ * Controlador de clínicas.
+ * Sua função é listar clínicas aprovadas e exibir o detalhamento de cada perfil.
+ * O uso de consultas com filtros mostra a semântica de busca e relacionamento no Eloquent.
+ */
 class ClinicaController extends Controller
 {
+    /**
+     * Lista clínicas aprovadas aplicando filtros recebidos na requisição.
+     * Os métodos whereHas e where permitem montar consultas mais específicas.
+     */
     public function index(Request $request)
     {
         $query = Clinica::aprovadas()->with(['especialidades', 'servicosAcessibilidade']);
@@ -50,6 +59,10 @@ class ClinicaController extends Controller
         return view('clinicas.index', compact('clinicas', 'especialidades', 'servicos'));
     }
 
+    /**
+     * Exibe o detalhe de uma clínica aprovada.
+     * O método carrega relações para mostrar informações completas na view.
+     */
     public function show(Clinica $clinica)
     {
         if ($clinica->status !== 'aprovada') {

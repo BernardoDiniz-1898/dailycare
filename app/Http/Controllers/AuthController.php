@@ -8,13 +8,25 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules\Password;
 
+/**
+ * Controlador de autenticação.
+ * Responsável por exibir formulários de login e cadastro, validar credenciais
+ * e gerenciar a sessão do usuário com o Laravel Auth.
+ */
 class AuthController extends Controller
 {
+    /**
+     * Retorna a view de login para o usuário acessar o sistema.
+     */
     public function showLogin()
     {
         return view('auth.login');
     }
 
+    /**
+     * Processa o login do usuário.
+     * A validação de dados e a checagem de senha são exemplos de semântica de entrada/saída.
+     */
     public function login(Request $request)
     {
         $credentials = $request->validate([
@@ -39,11 +51,18 @@ class AuthController extends Controller
         return redirect()->intended(route('dashboard'));
     }
 
+    /**
+     * Retorna a view de cadastro para novos usuários.
+     */
     public function showRegister()
     {
         return view('auth.register');
     }
 
+    /**
+     * Cria um novo usuário após validar as regras de cadastro.
+     * O uso de Hash::make garante que a senha fique protegida no banco.
+     */
     public function register(Request $request)
     {
         $validated = $request->validate([
@@ -69,6 +88,9 @@ class AuthController extends Controller
         return redirect()->route('dashboard');
     }
 
+    /**
+     * Finaliza a sessão do usuário autenticado.
+     */
     public function logout(Request $request)
     {
         Auth::logout();

@@ -6,8 +6,17 @@ use App\Models\Avaliacao;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
+/**
+ * Controlador de avaliações.
+ * Este arquivo organiza a lógica para um paciente avaliar uma clínica.
+ * A semântica central é impedir avaliações duplicadas e validar a disponibilidade da clínica.
+ */
 class AvaliacaoController extends Controller
 {
+    /**
+     * Salva uma nova avaliação enviada pelo paciente.
+     * O método valida os dados, verifica se a clínica está aprovada e evita avaliações repetidas.
+     */
     public function store(Request $request)
     {
         $validated = $request->validate([
