@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Daily Care - Marketplace acessivel de fisioterapia conectando clinicas a pacientes com deficiencias motoras.">
-    <meta name="theme-color" content="#1A56DB">
+    <meta name="theme-color" content="#009688">
     <title>@yield('titulo', 'Daily Care') - Marketplace de Fisioterapia</title>
 
     {{-- Google Fonts: Roboto --}}

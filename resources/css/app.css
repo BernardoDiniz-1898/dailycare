@@ -1,22 +1,21 @@
-@import 'tailwindcss';
-
-@source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
-@source '../../storage/framework/views/*.php';
-@source '../**/*.blade.php';
-@source '../**/*.js';
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@600;700;800&family=Nunito:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&display=swap');
 
 /* =============================================
    DAILY CARE - ACESSIBILIDADE WCAG 2.1 AA
-   Paleta: Azul #1A56DB / Verde #047857 / Cinza #1F2937
-   Tipografia: Roboto (sans-serif) | Min: 16px | Line-height: 1.5
+   Paleta: Teal #009688 / Verde-petroleo #1E3A3A / Dourado #D4AF37
+   Tipografia: Poppins (titulos) + Nunito (corpo) | Min: 16px | Line-height: 1.5
    Contraste minimo: 4.5:1 (texto) / 3:1 (grande)
+   Base visual: prototipo de alta fidelidade (Figma)
    ============================================= */
 
-@theme {
-    --font-sans: 'Roboto', 'Open Sans', 'Arial', ui-sans-serif, system-ui, sans-serif;
-    --color-primary: #1A56DB;
-    --color-primary-dark: #1E40AF;
-    --color-primary-light: #DBEAFE;
+:root {
+    --font-sans: 'Nunito', 'Open Sans', 'Arial', ui-sans-serif, system-ui, sans-serif;
+    --font-heading: 'Poppins', 'Nunito', ui-sans-serif, system-ui, sans-serif;
+    --color-primary: #009688;
+    --color-primary-dark: #00695C;
+    --color-primary-light: #E0F2F1;
+    --color-accent: #D4AF37;
+    --color-accent-light: #FBF3D9;
     --color-success: #047857;
     --color-success-light: #D1FAE5;
     --color-warning: #92400E;
@@ -24,8 +23,8 @@
     --color-danger: #B91C1C;
     --color-danger-light: #FEE2E2;
     --color-surface: #FFFFFF;
-    --color-background: #F9FAFB;
-    --color-text: #111827;
+    --color-background: #F8F9FA;
+    --color-text: #1A2E2C;
     --color-text-secondary: #4B5563;
     --color-border: #D1D5DB;
 }
@@ -60,9 +59,13 @@ body {
     flex-direction: column;
 }
 
+h1, h2, h3, h4, h5, h6, .site-logo {
+    font-family: var(--font-heading);
+}
+
 /* =============================================
    FOCO VISIVEL - NAVEGACAO POR TECLADO
-   Borda 3px azul royal, offset 2px
+   Borda 3px teal, offset 2px
    ============================================= */
 
 *:focus {
@@ -70,10 +73,10 @@ body {
 }
 
 *:focus-visible {
-    outline: 3px solid #1A56DB;
+    outline: 3px solid #009688;
     outline-offset: 2px;
     border-radius: 4px;
-    box-shadow: 0 0 0 6px rgba(26, 86, 219, 0.15);
+    box-shadow: 0 0 0 6px rgba(0, 150, 136, 0.15);
 }
 
 /* Elementos inline nao precisam de radius */
@@ -83,10 +86,10 @@ input:focus-visible,
 select:focus-visible,
 textarea:focus-visible,
 label:focus-visible {
-    outline: 3px solid #1A56DB;
+    outline: 3px solid #009688;
     outline-offset: 2px;
     border-radius: 4px;
-    box-shadow: 0 0 0 6px rgba(26, 86, 219, 0.15);
+    box-shadow: 0 0 0 6px rgba(0, 150, 136, 0.15);
 }
 
 /* =============================================
@@ -99,7 +102,7 @@ label:focus-visible {
     left: 50%;
     transform: translateX(-50%);
     z-index: 9999;
-    background: #1A56DB;
+    background: #009688;
     color: #FFFFFF;
     padding: 12px 24px;
     border-radius: 0 0 8px 8px;
@@ -111,7 +114,7 @@ label:focus-visible {
 
 .skip-link:focus {
     top: 0;
-    outline: 3px solid #1E40AF;
+    outline: 3px solid #00695C;
     outline-offset: 2px;
 }
 
@@ -155,15 +158,15 @@ label:focus-visible {
 }
 
 .acessibilidade-bar button:focus-visible {
-    outline: 3px solid #60A5FA;
+    outline: 3px solid #4DB6AC;
     outline-offset: 2px;
     box-shadow: 0 0 0 6px rgba(96, 165, 250, 0.25);
 }
 
 .acessibilidade-bar button[aria-pressed="true"] {
-    background: #1A56DB;
+    background: #009688;
     color: #FFFFFF;
-    border-color: #1E40AF;
+    border-color: #00695C;
 }
 
 /* =============================================
@@ -188,9 +191,9 @@ label:focus-visible {
 }
 
 .tema-seletor button.tema-ativo {
-    background: #1A56DB !important;
+    background: #009688 !important;
     color: #FFFFFF !important;
-    border-color: #1E40AF !important;
+    border-color: #00695C !important;
 }
 
 .tema-seletor button:hover:not(.tema-ativo) {
@@ -224,13 +227,13 @@ label:focus-visible {
 .site-logo {
     font-size: 1.5rem;
     font-weight: 800;
-    color: #1A56DB;
+    color: #009688;
     text-decoration: none;
     letter-spacing: -0.02em;
 }
 
 .site-logo:hover {
-    color: #1E40AF;
+    color: #00695C;
     text-decoration: underline;
     text-underline-offset: 4px;
 }
@@ -257,8 +260,8 @@ label:focus-visible {
 }
 
 .nav-link:hover {
-    color: #1A56DB;
-    background: #EFF6FF;
+    color: #009688;
+    background: #E0F2F1;
 }
 
 /* =============================================
@@ -288,14 +291,14 @@ label:focus-visible {
 }
 
 .btn-primary {
-    background: #1A56DB;
+    background: #009688;
     color: #FFFFFF;
-    border-color: #1A56DB;
+    border-color: #009688;
 }
 
 .btn-primary:hover {
-    background: #1E40AF;
-    border-color: #1E40AF;
+    background: #00695C;
+    border-color: #00695C;
 }
 
 .btn-secondary {
@@ -369,9 +372,9 @@ label:focus-visible {
 }
 
 .card-link:focus-visible {
-    outline: 3px solid #1A56DB;
+    outline: 3px solid #009688;
     outline-offset: 2px;
-    box-shadow: 0 0 0 6px rgba(26, 86, 219, 0.15);
+    box-shadow: 0 0 0 6px rgba(0, 150, 136, 0.15);
     border-radius: 16px;
 }
 
@@ -421,10 +424,10 @@ label:focus-visible {
 .form-input:focus,
 .form-select:focus,
 .form-textarea:focus {
-    border-color: #1A56DB;
-    outline: 3px solid rgba(26, 86, 219, 0.2);
+    border-color: #009688;
+    outline: 3px solid rgba(0, 150, 136, 0.2);
     outline-offset: 0;
-    box-shadow: 0 0 0 3px rgba(26, 86, 219, 0.1);
+    box-shadow: 0 0 0 3px rgba(0, 150, 136, 0.1);
 }
 
 .form-input::placeholder,
@@ -470,8 +473,8 @@ label:focus-visible {
 }
 
 .form-check:has(input:checked) {
-    border-color: #1A56DB;
-    background: #EFF6FF;
+    border-color: #009688;
+    background: #E0F2F1;
 }
 
 .form-check input[type="radio"],
@@ -479,7 +482,7 @@ label:focus-visible {
     width: 20px;
     height: 20px;
     margin-top: 2px;
-    accent-color: #1A56DB;
+    accent-color: #009688;
     flex-shrink: 0;
 }
 
@@ -504,14 +507,14 @@ label:focus-visible {
 }
 
 .checkbox-label:has(input:checked) {
-    border-color: #1A56DB;
-    background: #EFF6FF;
+    border-color: #009688;
+    background: #E0F2F1;
 }
 
 .checkbox-label input[type="checkbox"] {
     width: 20px;
     height: 20px;
-    accent-color: #1A56DB;
+    accent-color: #009688;
     flex-shrink: 0;
 }
 
@@ -536,8 +539,8 @@ label:focus-visible {
 }
 
 .badge-blue {
-    background: #DBEAFE;
-    color: #1E40AF;
+    background: #E0F2F1;
+    color: #00695C;
 }
 
 .badge-green {
@@ -640,9 +643,9 @@ label:focus-visible {
 }
 
 .alert-info {
-    background: #DBEAFE;
-    color: #1E40AF;
-    border: 2px solid #BFDBFE;
+    background: #E0F2F1;
+    color: #00695C;
+    border: 2px solid #80CBC4;
 }
 
 /* =============================================
@@ -730,15 +733,15 @@ label:focus-visible {
 }
 
 .pagination a:hover {
-    background: #EFF6FF;
-    color: #1A56DB;
-    border-color: #BFDBFE;
+    background: #E0F2F1;
+    color: #009688;
+    border-color: #80CBC4;
 }
 
 .pagination .active span {
-    background: #1A56DB;
+    background: #009688;
     color: #FFFFFF;
-    border-color: #1A56DB;
+    border-color: #009688;
 }
 
 /* =============================================
@@ -986,41 +989,41 @@ body.alto-contraste .site-footer a {
    ============================================= */
 
 body.dark-mode {
-    --color-primary: #60A5FA;
-    --color-primary-dark: #3B82F6;
-    --color-primary-light: #1E3A5F;
+    --color-primary: #4DB6AC;
+    --color-primary-dark: #00897B;
+    --color-primary-light: #1E3A3A;
     --color-success: #34D399;
     --color-success-light: #064E3B;
     --color-warning: #FBBF24;
     --color-warning-light: #451A03;
     --color-danger: #F87171;
     --color-danger-light: #450A0A;
-    --color-surface: #1F2937;
-    --color-background: #111827;
+    --color-surface: #20302E;
+    --color-background: #1A2E2C;
     --color-text: #F9FAFB;
     --color-text-secondary: #D1D5DB;
     --color-border: #374151;
 
-    background-color: #111827 !important;
+    background-color: #1A2E2C !important;
     color: #F9FAFB !important;
 }
 
 body.dark-mode a {
-    color: #60A5FA;
+    color: #4DB6AC;
 }
 
 body.dark-mode a:hover {
-    color: #93C5FD;
+    color: #80CBC4;
 }
 
 body.dark-mode .site-header {
-    background: #1F2937 !important;
+    background: #20302E !important;
     border-bottom-color: #374151 !important;
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
 }
 
 body.dark-mode .site-logo {
-    color: #60A5FA !important;
+    color: #4DB6AC !important;
 }
 
 body.dark-mode .nav-link {
@@ -1029,11 +1032,11 @@ body.dark-mode .nav-link {
 
 body.dark-mode .nav-link:hover {
     background: #374151 !important;
-    color: #60A5FA !important;
+    color: #4DB6AC !important;
 }
 
 body.dark-mode .card {
-    background: #1F2937 !important;
+    background: #20302E !important;
     border-color: #374151 !important;
 }
 
@@ -1043,13 +1046,13 @@ body.dark-mode .card:hover {
 }
 
 body.dark-mode .btn-primary {
-    background: #2563EB !important;
-    border-color: #2563EB !important;
+    background: #00897B !important;
+    border-color: #00897B !important;
 }
 
 body.dark-mode .btn-primary:hover {
-    background: #1D4ED8 !important;
-    border-color: #1D4ED8 !important;
+    background: #00695C !important;
+    border-color: #00695C !important;
 }
 
 body.dark-mode .btn-secondary {
@@ -1078,9 +1081,9 @@ body.dark-mode .form-textarea::placeholder {
 body.dark-mode .form-input:focus,
 body.dark-mode .form-select:focus,
 body.dark-mode .form-textarea:focus {
-    border-color: #60A5FA !important;
-    outline-color: rgba(96, 165, 250, 0.3) !important;
-    box-shadow: 0 0 0 3px rgba(96, 165, 250, 0.15) !important;
+    border-color: #4DB6AC !important;
+    outline-color: rgba(77, 182, 172, 0.3) !important;
+    box-shadow: 0 0 0 3px rgba(77, 182, 172, 0.15) !important;
 }
 
 body.dark-mode .form-label {
@@ -1089,7 +1092,7 @@ body.dark-mode .form-label {
 
 body.dark-mode .form-check {
     border-color: #374151 !important;
-    background: #1F2937 !important;
+    background: #20302E !important;
 }
 
 body.dark-mode .form-check:hover {
@@ -1098,13 +1101,13 @@ body.dark-mode .form-check:hover {
 }
 
 body.dark-mode .form-check:has(input:checked) {
-    border-color: #60A5FA !important;
-    background: #1E3A5F !important;
+    border-color: #4DB6AC !important;
+    background: #1E3A3A !important;
 }
 
 body.dark-mode .badge-blue {
-    background: #1E3A5F !important;
-    color: #93C5FD !important;
+    background: #1E3A3A !important;
+    color: #80CBC4 !important;
 }
 
 body.dark-mode .badge-green {
@@ -1146,9 +1149,9 @@ body.dark-mode .alert-warning {
 }
 
 body.dark-mode .alert-info {
-    background: #1E3A5F !important;
-    color: #93C5FD !important;
-    border-color: #2563EB !important;
+    background: #1E3A3A !important;
+    color: #80CBC4 !important;
+    border-color: #00897B !important;
 }
 
 body.dark-mode .table-container {
@@ -1179,13 +1182,13 @@ body.dark-mode .pagination a {
 
 body.dark-mode .pagination a:hover {
     background: #374151 !important;
-    color: #60A5FA !important;
+    color: #4DB6AC !important;
     border-color: #4B5563 !important;
 }
 
 body.dark-mode .pagination .active span {
-    background: #2563EB !important;
-    border-color: #2563EB !important;
+    background: #00897B !important;
+    border-color: #00897B !important;
 }
 
 body.dark-mode .star-rating .star {
@@ -1201,7 +1204,7 @@ body.dark-mode .star-rating-input label {
 }
 
 body.dark-mode *:focus-visible {
-    outline-color: #60A5FA !important;
+    outline-color: #4DB6AC !important;
     box-shadow: 0 0 0 6px rgba(96, 165, 250, 0.25) !important;
 }
 
@@ -1228,7 +1231,7 @@ body.dark-mode .tema-seletor button:not(.tema-ativo) {
 }
 
 body.dark-mode .tema-seletor button.tema-ativo {
-    background: #2563EB !important;
+    background: #00897B !important;
     color: #FFFFFF !important;
 }
 
@@ -1244,8 +1247,8 @@ body.dark-mode .checkbox-label:hover {
 }
 
 body.dark-mode .checkbox-label:has(input:checked) {
-    border-color: #60A5FA !important;
-    background: #1E3A5F !important;
+    border-color: #4DB6AC !important;
+    background: #1E3A3A !important;
 }
 
 body.dark-mode .site-footer {
@@ -1259,7 +1262,7 @@ body.dark-mode .site-footer p {
 }
 
 body.dark-mode .site-footer a {
-    color: #60A5FA !important;
+    color: #4DB6AC !important;
 }
 
 body.dark-mode .site-footer-bottom {
@@ -1290,7 +1293,7 @@ body.dark-mode .site-footer-bottom {
 }
 
 .site-footer a {
-    color: #93C5FD;
+    color: #80CBC4;
     text-decoration: none;
     font-size: 0.9375rem;
 }
@@ -1342,7 +1345,7 @@ body.dark-mode .site-footer-bottom {
     clip: auto;
     white-space: normal;
     z-index: 9999;
-    background: #1A56DB;
+    background: #009688;
     color: #FFFFFF;
     font-weight: 700;
     border-radius: 0 0 8px 8px;

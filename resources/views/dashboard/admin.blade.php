@@ -18,7 +18,7 @@
         <p style="color:#6B7280; font-weight:600;">Clinicas Aprovadas</p>
     </div>
     <div class="card" style="padding:24px;">
-        <p style="font-size:2.5rem; font-weight:800; color:#1A56DB;">{{ $totalAgendamentos }}</p>
+        <p style="font-size:2.5rem; font-weight:800; color:#009688;">{{ $totalAgendamentos }}</p>
         <p style="color:#6B7280; font-weight:600;">Total de Agendamentos</p>
     </div>
 </section>

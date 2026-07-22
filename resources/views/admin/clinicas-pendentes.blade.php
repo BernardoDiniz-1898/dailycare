@@ -3,7 +3,7 @@
 @section('titulo', 'Clinicas Pendentes')
 
 @section('conteudo')
-<a href="{{ route('dashboard') }}" style="display:inline-flex; align-items:center; gap:8px; color:#1A56DB; font-weight:600; margin-bottom:24px; text-decoration:none;">
+<a href="{{ route('dashboard') }}" style="display:inline-flex; align-items:center; gap:8px; color:#009688; font-weight:600; margin-bottom:24px; text-decoration:none;">
     <span aria-hidden="true">&#x2190;</span> Voltar ao Painel
 </a>
 

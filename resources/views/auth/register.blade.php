@@ -5,7 +5,7 @@
 @section('conteudo')
 <div style="max-width:520px; margin:0 auto; padding-top:48px;">
     <div style="text-align:center; margin-bottom:40px;">
-        <div style="width:64px; height:64px; background:#EFF6FF; border-radius:16px; display:inline-flex; align-items:center; justify-content:center; font-size:2rem; margin-bottom:16px;">
+        <div style="width:64px; height:64px; background:#E0F2F1; border-radius:16px; display:inline-flex; align-items:center; justify-content:center; font-size:2rem; margin-bottom:16px;">
             <span aria-hidden="true">&#x2795;</span>
         </div>
         <h1 style="font-size:1.75rem; font-weight:800; color:#111827;">Criar sua conta</h1>
@@ -19,19 +19,19 @@
         <fieldset style="border:none; padding:0; margin:0 0 24px 0;">
             <legend class="form-label" style="margin-bottom:12px; font-size:1rem;">Tipo de Conta</legend>
             <div style="display:grid; grid-template-columns:1fr 1fr; gap:12px;">
-                <label class="form-check" style="{{ old('role', 'paciente') === 'paciente' ? 'border-color:#1A56DB; background:#EFF6FF;' : '' }}">
+                <label class="form-check" style="{{ old('role', 'paciente') === 'paciente' ? 'border-color:#009688; background:#E0F2F1;' : '' }}">
                     <input type="radio" name="role" value="paciente"
                            {{ old('role', 'paciente') === 'paciente' ? 'checked' : '' }}
-                           style="width:20px; height:20px; accent-color:#1A56DB;">
+                           style="width:20px; height:20px; accent-color:#009688;">
                     <div>
                         <span style="font-weight:700; color:#111827; display:block;">Paciente</span>
                         <span style="font-size:0.8125rem; color:#6B7280;">Busco clinicas acessiveis</span>
                     </div>
                 </label>
-                <label class="form-check" style="{{ old('role') === 'clinica' ? 'border-color:#1A56DB; background:#EFF6FF;' : '' }}">
+                <label class="form-check" style="{{ old('role') === 'clinica' ? 'border-color:#009688; background:#E0F2F1;' : '' }}">
                     <input type="radio" name="role" value="clinica"
                            {{ old('role') === 'clinica' ? 'checked' : '' }}
-                           style="width:20px; height:20px; accent-color:#1A56DB;">
+                           style="width:20px; height:20px; accent-color:#009688;">
                     <div>
                         <span style="font-weight:700; color:#111827; display:block;">Clinica</span>
                         <span style="font-size:0.8125rem; color:#6B7280;">Sou uma clinica</span>
@@ -103,7 +103,7 @@
 
         <p style="text-align:center; margin-top:24px; font-size:0.9375rem; color:#6B7280;">
             Ja tem conta?
-            <a href="{{ route('login') }}" style="color:#1A56DB; font-weight:600; text-decoration:underline; text-underline-offset:4px;">
+            <a href="{{ route('login') }}" style="color:#009688; font-weight:600; text-decoration:underline; text-underline-offset:4px;">
                 Entrar
             </a>
         </p>

@@ -4,13 +4,13 @@
 
 @section('conteudo')
 <section aria-label="Apresentacao do Daily Care" style="text-align:center; padding:80px 0 60px;">
-    <div style="display:inline-flex; align-items:center; gap:12px; background:#EFF6FF; color:#1E40AF; padding:8px 20px; border-radius:9999px; font-size:0.875rem; font-weight:600; margin-bottom:24px;">
+    <div style="display:inline-flex; align-items:center; gap:12px; background:#E0F2F1; color:#00695C; padding:8px 20px; border-radius:9999px; font-size:0.875rem; font-weight:600; margin-bottom:24px;">
         <span aria-hidden="true">&#x1F3E5;</span> Marketplace de Fisioterapia Acessivel
     </div>
 
     <h1 style="font-size:clamp(2rem, 5vw, 3.5rem); font-weight:800; color:#111827; line-height:1.2; margin-bottom:20px; letter-spacing:-0.02em;">
         Encontre clinicas de fisioterapia<br>
-        <span style="color:#1A56DB;">100% acessiveis</span>
+        <span style="color:#009688;">100% acessiveis</span>
     </h1>
 
     <p style="font-size:1.25rem; color:#4B5563; max-width:640px; margin:0 auto 40px; line-height:1.6;">
@@ -55,8 +55,8 @@
     </div>
 </section>
 
-<section aria-label="Recursos de acessibilidade" style="background:#EFF6FF; border:2px solid #BFDBFE; border-radius:20px; padding:48px 40px; max-width:1000px; margin:0 auto;">
-    <h2 style="text-align:center; font-size:1.75rem; font-weight:800; color:#1E40AF; margin-bottom:12px;">
+<section aria-label="Recursos de acessibilidade" style="background:#E0F2F1; border:2px solid #80CBC4; border-radius:20px; padding:48px 40px; max-width:1000px; margin:0 auto;">
+    <h2 style="text-align:center; font-size:1.75rem; font-weight:800; color:#00695C; margin-bottom:12px;">
         <span aria-hidden="true">&#x2713;</span> Acessibilidade Total
     </h2>
     <p style="text-align:center; color:#4B5563; margin-bottom:32px; font-size:1.0625rem;">
@@ -64,27 +64,27 @@
     </p>
 
     <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(200px, 1fr)); gap:16px;">
-        <div style="display:flex; align-items:center; gap:12px; padding:12px 16px; background:#FFFFFF; border-radius:12px; border:1px solid #BFDBFE;">
+        <div style="display:flex; align-items:center; gap:12px; padding:12px 16px; background:#FFFFFF; border-radius:12px; border:1px solid #80CBC4;">
             <span style="color:#047857; font-size:1.25rem;" aria-hidden="true">&#x2713;</span>
             <span style="font-weight:600; color:#1F2937; font-size:0.9375rem;">Navegacao por Teclado</span>
         </div>
-        <div style="display:flex; align-items:center; gap:12px; padding:12px 16px; background:#FFFFFF; border-radius:12px; border:1px solid #BFDBFE;">
+        <div style="display:flex; align-items:center; gap:12px; padding:12px 16px; background:#FFFFFF; border-radius:12px; border:1px solid #80CBC4;">
             <span style="color:#047857; font-size:1.25rem;" aria-hidden="true">&#x2713;</span>
             <span style="font-weight:600; color:#1F2937; font-size:0.9375rem;">Alto Contraste</span>
         </div>
-        <div style="display:flex; align-items:center; gap:12px; padding:12px 16px; background:#FFFFFF; border-radius:12px; border:1px solid #BFDBFE;">
+        <div style="display:flex; align-items:center; gap:12px; padding:12px 16px; background:#FFFFFF; border-radius:12px; border:1px solid #80CBC4;">
             <span style="color:#047857; font-size:1.25rem;" aria-hidden="true">&#x2713;</span>
             <span style="font-weight:600; color:#1F2937; font-size:0.9375rem;">Redimensionamento de Fontes</span>
         </div>
-        <div style="display:flex; align-items:center; gap:12px; padding:12px 16px; background:#FFFFFF; border-radius:12px; border:1px solid #BFDBFE;">
+        <div style="display:flex; align-items:center; gap:12px; padding:12px 16px; background:#FFFFFF; border-radius:12px; border:1px solid #80CBC4;">
             <span style="color:#047857; font-size:1.25rem;" aria-hidden="true">&#x2713;</span>
             <span style="font-weight:600; color:#1F2937; font-size:0.9375rem;">Traducao em Libras</span>
         </div>
-        <div style="display:flex; align-items:center; gap:12px; padding:12px 16px; background:#FFFFFF; border-radius:12px; border:1px solid #BFDBFE;">
+        <div style="display:flex; align-items:center; gap:12px; padding:12px 16px; background:#FFFFFF; border-radius:12px; border:1px solid #80CBC4;">
             <span style="color:#047857; font-size:1.25rem;" aria-hidden="true">&#x2713;</span>
             <span style="font-weight:600; color:#1F2937; font-size:0.9375rem;">Foco Visivel</span>
         </div>
-        <div style="display:flex; align-items:center; gap:12px; padding:12px 16px; background:#FFFFFF; border-radius:12px; border:1px solid #BFDBFE;">
+        <div style="display:flex; align-items:center; gap:12px; padding:12px 16px; background:#FFFFFF; border-radius:12px; border:1px solid #80CBC4;">
             <span style="color:#047857; font-size:1.25rem;" aria-hidden="true">&#x2713;</span>
             <span style="font-weight:600; color:#1F2937; font-size:0.9375rem;">Contraste Dinamico</span>
         </div>
@@ -93,7 +93,7 @@
 
 <section aria-label="Estatisticas" style="display:grid; grid-template-columns:repeat(auto-fit, minmax(180px, 1fr)); gap:24px; max-width:800px; margin:64px auto 0; text-align:center;">
     <div>
-        <p style="font-size:2.5rem; font-weight:800; color:#1A56DB;">&lt;1%</p>
+        <p style="font-size:2.5rem; font-weight:800; color:#009688;">&lt;1%</p>
         <p style="color:#6B7280; font-size:0.9375rem;">dos sites brasileiros sao acessiveis</p>
     </div>
     <div>

@@ -3,7 +3,7 @@
 @section('titulo', $clinica->nome_fantasia)
 
 @section('conteudo')
-<a href="{{ route('clinicas.index') }}" style="display:inline-flex; align-items:center; gap:8px; color:#1A56DB; font-weight:600; margin-bottom:24px; text-decoration:none;">
+<a href="{{ route('clinicas.index') }}" style="display:inline-flex; align-items:center; gap:8px; color:#009688; font-weight:600; margin-bottom:24px; text-decoration:none;">
     <span aria-hidden="true">&#x2190;</span> Voltar para busca
 </a>
 
@@ -82,7 +82,7 @@
                     @foreach ($clinica->avaliacoes as $avaliacao)
                         <div style="padding-bottom:20px; border-bottom:1px solid #F3F4F6;">
                             <div style="display:flex; align-items:center; gap:12px; margin-bottom:8px;">
-                                <div style="width:40px; height:40px; background:#EFF6FF; border-radius:50%; display:flex; align-items:center; justify-content:center; font-weight:700; color:#1A56DB;">
+                                <div style="width:40px; height:40px; background:#E0F2F1; border-radius:50%; display:flex; align-items:center; justify-content:center; font-weight:700; color:#009688;">
                                     {{ substr($avaliacao->paciente->nome, 0, 1) }}
                                 </div>
                                 <div>
@@ -232,8 +232,8 @@
                 </section>
             @endif
         @else
-            <div class="card" style="padding:24px; text-align:center; background:#EFF6FF; border-color:#BFDBFE;">
-                <p style="color:#1E40AF; font-weight:600; margin-bottom:12px;">Faca login como paciente para agendar.</p>
+            <div class="card" style="padding:24px; text-align:center; background:#E0F2F1; border-color:#80CBC4;">
+                <p style="color:#00695C; font-weight:600; margin-bottom:12px;">Faca login como paciente para agendar.</p>
                 <a href="{{ route('login') }}" class="btn btn-primary" style="width:100%;">
                     Entrar
                 </a>

@@ -18,7 +18,7 @@
         <p style="color:#6B7280; font-weight:600;">Confirmados</p>
     </div>
     <div class="card" style="padding:24px; text-align:center;">
-        <p style="font-size:2.5rem; font-weight:800; color:#1A56DB;">{{ $agendamentos->count() }}</p>
+        <p style="font-size:2.5rem; font-weight:800; color:#009688;">{{ $agendamentos->count() }}</p>
         <p style="color:#6B7280; font-weight:600;">Total</p>
     </div>
 </section>

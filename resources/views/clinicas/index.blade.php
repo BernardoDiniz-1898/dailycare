@@ -58,11 +58,11 @@
     <div style="display:grid; grid-template-columns:repeat(auto-fill, minmax(340px, 1fr)); gap:24px;">
         @foreach ($clinicas as $clinica)
             <a href="{{ route('clinicas.show', $clinica) }}" class="card card-link" aria-label="Ver perfil da clinica {{ $clinica->nome_fantasia }}">
-                <div style="height:180px; background:linear-gradient(135deg, #DBEAFE, #EFF6FF); display:flex; align-items:center; justify-content:center;">
+                <div style="height:180px; background:linear-gradient(135deg, #E0F2F1, #E0F2F1); display:flex; align-items:center; justify-content:center;">
                     @if ($clinica->foto_capa)
                         <img src="{{ $clinica->foto_capa }}" alt="Foto da clinica {{ $clinica->nome_fantasia }}" style="width:100%; height:100%; object-fit:cover;">
                     @else
-                        <span style="font-size:4rem; color:#93C5FD;" aria-hidden="true">&#x1F3E5;</span>
+                        <span style="font-size:4rem; color:#80CBC4;" aria-hidden="true">&#x1F3E5;</span>
                     @endif
                 </div>
                 <div style="padding:20px;">
