@@ -38,7 +38,7 @@
         {{-- Especialidades --}}
         <section class="card" style="padding:32px;" aria-label="Especialidades oferecidas">
             <h2 style="font-size:1.25rem; font-weight:700; color:#111827; margin-bottom:16px;">
-                <span aria-hidden="true">&#x2695;</span> Especialidades
+                <span aria-hidden="true">&#x1F3E5;</span> Especialidades
             </h2>
             <div style="display:flex; flex-wrap:wrap; gap:8px;">
                 @foreach ($clinica->especialidades as $esp)

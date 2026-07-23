@@ -33,10 +33,19 @@
    BASE - TIPOGRAFIA E LAYOUT
    ============================================= */
 
+/* =============================================
+   RESET BASICO
+   ============================================= */
+
+*, *::before, *::after {
+    box-sizing: border-box;
+}
+
 html {
     font-size: 100%;
     line-height: 1.5;
     scroll-behavior: smooth;
+    overflow-x: hidden;
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -57,6 +66,7 @@ body {
     min-height: 100vh;
     display: flex;
     flex-direction: column;
+    overflow-x: hidden;
 }
 
 h1, h2, h3, h4, h5, h6, .site-logo {
@@ -301,6 +311,19 @@ label:focus-visible {
     border-color: #00695C;
 }
 
+.btn-accent {
+    background: #D4AF37;
+    color: #1E3A3A;
+    border-color: #D4AF37;
+    font-weight: 800;
+}
+
+.btn-accent:hover {
+    background: #C29B2E;
+    border-color: #C29B2E;
+    color: #1E3A3A;
+}
+
 .btn-secondary {
     background: #FFFFFF;
     color: #1F2937;
@@ -339,6 +362,25 @@ label:focus-visible {
     font-size: 0.875rem;
     min-height: 36px;
     border-radius: 8px;
+}
+
+.btn-pill {
+    width: 100%;
+    border-radius: 9999px;
+    min-height: 46px;
+    font-size: 0.9375rem;
+}
+
+.btn-pill-outline {
+    background: transparent;
+    color: #FFFFFF;
+    border-color: rgba(255, 255, 255, 0.4);
+}
+
+.btn-pill-outline:hover {
+    background: rgba(255, 255, 255, 0.08);
+    border-color: rgba(255, 255, 255, 0.6);
+    color: #FFFFFF;
 }
 
 .btn-lg {
@@ -1584,20 +1626,21 @@ body.dark-mode .site-footer-bottom {
 }
 
 .menu-lateral-fechar {
-    background: rgba(255, 255, 255, 0.08);
+    background: transparent;
     border: 2px solid transparent;
-    color: #FFFFFF;
+    color: rgba(255, 255, 255, 0.7);
     font-size: 1rem;
     padding: 8px;
-    border-radius: 8px;
+    border-radius: 10px;
     cursor: pointer;
     min-height: 40px;
     min-width: 40px;
-    transition: background 0.15s ease;
+    transition: background 0.15s ease, color 0.15s ease;
 }
 
 .menu-lateral-fechar:hover {
-    background: rgba(255, 255, 255, 0.18);
+    background: rgba(255, 255, 255, 0.12);
+    color: #FFFFFF;
 }
 
 .menu-lateral-links {
@@ -1618,8 +1661,8 @@ body.dark-mode .site-footer-bottom {
     text-decoration: none;
     font-weight: 700;
     font-size: 0.9375rem;
-    padding: 13px 14px;
-    border-radius: 10px;
+    padding: 13px 16px;
+    border-radius: 16px;
     min-height: 46px;
     transition: background 0.15s ease, color 0.15s ease;
 }
@@ -1660,6 +1703,8 @@ body.dark-mode .site-footer-bottom {
 }
 
 .menu-lateral-rodape-guest {
+    flex-direction: column;
+    align-items: stretch;
     gap: 12px;
 }
 

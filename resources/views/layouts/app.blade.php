@@ -12,6 +12,9 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
+    {{-- Bootstrap Icons: icones de linha (substituem os emojis) --}}
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 
     @stack('head')
@@ -102,50 +105,37 @@
                         aria-label="Abrir menu lateral"
                         aria-expanded="false"
                         aria-controls="menu-lateral">
-                    <span aria-hidden="true">&#9776;</span>
+                    <i class="bi bi-list" aria-hidden="true"></i>
                 </button>
 
                 <a href="{{ route('home') }}" class="site-logo" aria-label="Daily Care - Pagina inicial">
-                    <span aria-hidden="true">&#x2695;</span> Daily Care
+                    Daily Care
                 </a>
-
-                <ul class="nav-links" role="menubar">
-                    <li role="none">
-                        <a href="{{ route('clinicas.index') }}" class="nav-link" role="menuitem">
-                            <span aria-hidden="true">&#x1F50D;</span> Clinicas
-                        </a>
-                    </li>
-                </ul>
             </div>
 
             <ul class="nav-links" role="menubar">
                 @auth
-                    <li role="none">
-                        <a href="{{ route('dashboard') }}" class="nav-link" role="menuitem">
-                            <span aria-hidden="true">&#x1F4CA;</span> Dashboard
-                        </a>
-                    </li>
                     <li role="none" style="display:flex; align-items:center; gap:8px;">
-                        <span aria-hidden="true">&#x1F464;</span>
+                        <span class="menu-lateral-avatar" aria-hidden="true" style="width:32px; height:32px; font-size:0.875rem;">{{ strtoupper(substr(Auth::user()->nome, 0, 1)) }}</span>
                         <span style="font-weight:600;">{{ Auth::user()->nome }}</span>
                     </li>
                     <li role="none">
                         <form method="POST" action="{{ route('logout') }}" style="margin:0;">
                             @csrf
-                            <button type="submit" class="nav-link" role="menuitem" style="background:none; border:none; cursor:pointer;">
-                                <span aria-hidden="true">&#x1F6AA;</span> Sair
+                            <button type="submit" class="nav-link" role="menuitem" aria-label="Sair da conta" style="background:none; border:none; cursor:pointer;">
+                                <i class="bi bi-box-arrow-right" aria-hidden="true"></i>
                             </button>
                         </form>
                     </li>
                 @else
                     <li role="none">
                         <a href="{{ route('login') }}" class="nav-link" role="menuitem">
-                            <span aria-hidden="true">&#x1F511;</span> Entrar
+                            <i class="bi bi-box-arrow-in-right" aria-hidden="true"></i> Entrar
                         </a>
                     </li>
                     <li role="none">
-                        <a href="{{ route('register') }}" class="btn btn-primary btn-sm" role="menuitem">
-                            <span aria-hidden="true">&#x2795;</span> Cadastrar
+                        <a href="{{ route('register') }}" class="btn btn-accent btn-sm" role="menuitem">
+                            <i class="bi bi-person-plus" aria-hidden="true"></i> Cadastrar
                         </a>
                     </li>
                 @endauth
@@ -162,33 +152,40 @@
     <nav id="menu-lateral" class="menu-lateral" aria-label="Menu lateral" aria-hidden="true">
         <div class="menu-lateral-topo">
             <span class="site-logo" style="font-size:1.25rem;" aria-hidden="true">
-                <span aria-hidden="true">&#x2695;</span> Daily Care
+                Daily Care
             </span>
             <button type="button"
                     class="menu-lateral-fechar"
                     onclick="DailyCare.menu.fechar()"
                     aria-label="Fechar menu lateral">
-                <span aria-hidden="true">&#x2715;</span>
+                <i class="bi bi-x-lg" aria-hidden="true"></i>
             </button>
         </div>
 
         <ul class="menu-lateral-links">
             <li>
                 <a href="{{ route('home') }}" class="{{ request()->routeIs('home') ? 'ativo' : '' }}">
-                    <span><span aria-hidden="true">&#x1F3E0;</span> Inicio</span>
+                    <span><i class="bi bi-house-door" aria-hidden="true"></i> Inicio</span>
                 </a>
             </li>
             <li>
                 <a href="{{ route('clinicas.index') }}" class="{{ request()->routeIs('clinicas.*') ? 'ativo' : '' }}">
-                    <span><span aria-hidden="true">&#x1F50D;</span> Buscar Clinicas</span>
+                    <span><i class="bi bi-search" aria-hidden="true"></i> Buscar Clinicas</span>
                 </a>
             </li>
             @auth
                 <li>
                     <a href="{{ route('dashboard') }}" class="{{ request()->routeIs('dashboard') ? 'ativo' : '' }}">
-                        <span><span aria-hidden="true">&#x1F4CA;</span> Meu Painel</span>
+                        <span><i class="bi bi-calendar2-check" aria-hidden="true"></i> Meus Agendamentos</span>
                     </a>
                 </li>
+                @if (Auth::user()->isClinica())
+                    <li>
+                        <a href="{{ route('clinica.perfil.edit') }}" class="{{ request()->routeIs('clinica.perfil.*') ? 'ativo' : '' }}">
+                            <span><i class="bi bi-hospital" aria-hidden="true"></i> Meu Perfil</span>
+                        </a>
+                    </li>
+                @endif
             @endauth
         </ul>
 
@@ -201,17 +198,17 @@
                 <form method="POST" action="{{ route('logout') }}" style="margin:0;">
                     @csrf
                     <button type="submit" class="menu-lateral-sair" aria-label="Sair da conta" title="Sair">
-                        <span aria-hidden="true">&#x1F6AA;</span>
+                        <i class="bi bi-box-arrow-right" aria-hidden="true"></i>
                     </button>
                 </form>
             </div>
         @else
             <div class="menu-lateral-rodape menu-lateral-rodape-guest">
-                <a href="{{ route('login') }}" class="btn btn-secondary btn-sm" style="flex:1; justify-content:center;">
-                    <span aria-hidden="true">&#x1F511;</span> Entrar
+                <a href="{{ route('login') }}" class="btn btn-pill btn-pill-outline">
+                    <i class="bi bi-box-arrow-in-right" aria-hidden="true"></i> Entrar
                 </a>
-                <a href="{{ route('register') }}" class="btn btn-primary btn-sm" style="flex:1; justify-content:center;">
-                    <span aria-hidden="true">&#x2795;</span> Cadastrar
+                <a href="{{ route('register') }}" class="btn btn-pill btn-accent">
+                    <i class="bi bi-person-plus" aria-hidden="true"></i> Criar conta
                 </a>
             </div>
         @endauth
@@ -269,7 +266,7 @@
             <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(250px, 1fr)); gap:40px;">
                 <div>
                     <h2>
-                        <span aria-hidden="true">&#x2695;</span> Daily Care
+                        Daily Care
                     </h2>
                     <p>
                         Marketplace acessivel de fisioterapia que conecta clinicas independentes a pacientes com deficiencias motoras.
