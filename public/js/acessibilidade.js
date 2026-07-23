@@ -195,7 +195,11 @@ const DailyCare = {
 
             // Escape: Fechar menus modais
             if (e.key === 'Escape') {
-                document.activeElement.blur();
+                if (DailyCare.menu.estaAberto()) {
+                    DailyCare.menu.fechar();
+                } else {
+                    document.activeElement.blur();
+                }
             }
         }
     },
@@ -212,6 +216,59 @@ const DailyCare = {
         el.textContent = mensagem;
         document.body.appendChild(el);
         setTimeout(() => el.remove(), 3000);
+    },
+
+    // =============================================
+    // MENU LATERAL (GAVETA)
+    // =============================================
+    menu: {
+        _ultimoFoco: null,
+
+        abrir() {
+            const menu = document.getElementById('menu-lateral');
+            const backdrop = document.getElementById('menu-backdrop');
+            const botao = document.querySelector('.menu-hamburguer');
+            if (!menu || !backdrop) return;
+
+            this._ultimoFoco = document.activeElement;
+
+            backdrop.hidden = false;
+            menu.classList.add('aberto');
+            menu.setAttribute('aria-hidden', 'false');
+            if (botao) botao.setAttribute('aria-expanded', 'true');
+
+            document.body.style.overflow = 'hidden';
+
+            const primeiroLink = menu.querySelector('a, button');
+            if (primeiroLink) primeiroLink.focus();
+
+            DailyCare.anunciar('Menu lateral aberto');
+        },
+
+        fechar() {
+            const menu = document.getElementById('menu-lateral');
+            const backdrop = document.getElementById('menu-backdrop');
+            const botao = document.querySelector('.menu-hamburguer');
+            if (!menu || !backdrop) return;
+
+            menu.classList.remove('aberto');
+            menu.setAttribute('aria-hidden', 'true');
+            backdrop.hidden = true;
+            if (botao) botao.setAttribute('aria-expanded', 'false');
+
+            document.body.style.overflow = '';
+
+            if (this._ultimoFoco) {
+                this._ultimoFoco.focus();
+            } else if (botao) {
+                botao.focus();
+            }
+        },
+
+        estaAberto() {
+            const menu = document.getElementById('menu-lateral');
+            return menu && menu.classList.contains('aberto');
+        }
     },
 
     // =============================================

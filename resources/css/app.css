@@ -1510,3 +1510,192 @@ body.dark-mode .site-footer-bottom {
     text-align: center;
     padding: 56px 32px;
 }
+
+/* =============================================
+   MENU LATERAL (GAVETA)
+   ============================================= */
+
+.menu-hamburguer {
+    background: transparent;
+    border: 2px solid transparent;
+    color: #1F2937;
+    font-size: 1.375rem;
+    padding: 8px 10px;
+    border-radius: 8px;
+    cursor: pointer;
+    min-height: 44px;
+    min-width: 44px;
+    line-height: 1;
+}
+
+.menu-hamburguer:hover {
+    background: #E0F2F1;
+}
+
+.menu-backdrop {
+    position: fixed;
+    inset: 0;
+    background: rgba(10, 20, 19, 0.78);
+    backdrop-filter: blur(3px);
+    -webkit-backdrop-filter: blur(3px);
+    z-index: 200;
+    animation: menu-backdrop-fade 0.2s ease;
+}
+
+@keyframes menu-backdrop-fade {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+.menu-lateral {
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    width: min(320px, 85vw);
+    background: #1E3A3A;
+    color: #FFFFFF;
+    z-index: 201;
+    transform: translateX(-100%);
+    transition: transform 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+    display: flex;
+    flex-direction: column;
+    padding: 24px;
+    overflow-y: auto;
+    box-shadow: 8px 0 32px rgba(0, 0, 0, 0.35);
+}
+
+.menu-lateral.aberto {
+    transform: translateX(0);
+}
+
+.menu-lateral-topo {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 28px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+.menu-lateral-topo .site-logo {
+    color: #FFFFFF;
+    font-size: 1.375rem;
+}
+
+.menu-lateral-fechar {
+    background: rgba(255, 255, 255, 0.08);
+    border: 2px solid transparent;
+    color: #FFFFFF;
+    font-size: 1rem;
+    padding: 8px;
+    border-radius: 8px;
+    cursor: pointer;
+    min-height: 40px;
+    min-width: 40px;
+    transition: background 0.15s ease;
+}
+
+.menu-lateral-fechar:hover {
+    background: rgba(255, 255, 255, 0.18);
+}
+
+.menu-lateral-links {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.menu-lateral-links a {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    color: #C7D6D4;
+    text-decoration: none;
+    font-weight: 700;
+    font-size: 0.9375rem;
+    padding: 13px 14px;
+    border-radius: 10px;
+    min-height: 46px;
+    transition: background 0.15s ease, color 0.15s ease;
+}
+
+.menu-lateral-links a > span {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.menu-lateral-links a:hover {
+    background: rgba(255, 255, 255, 0.08);
+    color: #FFFFFF;
+}
+
+.menu-lateral-links a.ativo {
+    background: #009688;
+    color: #FFFFFF;
+}
+
+.menu-lateral-links a.ativo::after {
+    content: '';
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: #E8C766;
+    flex-shrink: 0;
+}
+
+.menu-lateral-rodape {
+    margin-top: auto;
+    padding-top: 18px;
+    border-top: 1px solid rgba(255, 255, 255, 0.12);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+}
+
+.menu-lateral-rodape-guest {
+    gap: 12px;
+}
+
+.menu-lateral-avatar {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: #009688;
+    color: #FFFFFF;
+    font-weight: 800;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    border: 2px solid #E8C766;
+}
+
+.menu-lateral-rodape > div span:last-child {
+    font-weight: 600;
+    color: #E5E7EB;
+    font-size: 0.9375rem;
+}
+
+.menu-lateral-sair {
+    background: rgba(255, 255, 255, 0.08);
+    border: 2px solid transparent;
+    color: #F87171;
+    font-size: 1.0625rem;
+    padding: 8px;
+    border-radius: 8px;
+    cursor: pointer;
+    min-height: 40px;
+    min-width: 40px;
+    transition: background 0.15s ease;
+}
+
+.menu-lateral-sair:hover {
+    background: rgba(248, 113, 113, 0.15);
+}

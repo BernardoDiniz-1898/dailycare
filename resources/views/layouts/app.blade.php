@@ -95,7 +95,16 @@
          ============================================= --}}
     <header class="site-header" role="banner">
         <nav role="navigation" aria-label="Navegacao principal">
-            <div style="display:flex; align-items:center; gap:32px;">
+            <div style="display:flex; align-items:center; gap:16px;">
+                <button type="button"
+                        class="menu-hamburguer"
+                        onclick="DailyCare.menu.abrir()"
+                        aria-label="Abrir menu lateral"
+                        aria-expanded="false"
+                        aria-controls="menu-lateral">
+                    <span aria-hidden="true">&#9776;</span>
+                </button>
+
                 <a href="{{ route('home') }}" class="site-logo" aria-label="Daily Care - Pagina inicial">
                     <span aria-hidden="true">&#x2695;</span> Daily Care
                 </a>
@@ -143,6 +152,70 @@
             </ul>
         </nav>
     </header>
+
+    {{-- =============================================
+         MENU LATERAL (GAVETA)
+         Navegacao alternativa, estilo prototipo Figma
+         ============================================= --}}
+    <div id="menu-backdrop" class="menu-backdrop" onclick="DailyCare.menu.fechar()" hidden></div>
+
+    <nav id="menu-lateral" class="menu-lateral" aria-label="Menu lateral" aria-hidden="true">
+        <div class="menu-lateral-topo">
+            <span class="site-logo" style="font-size:1.25rem;" aria-hidden="true">
+                <span aria-hidden="true">&#x2695;</span> Daily Care
+            </span>
+            <button type="button"
+                    class="menu-lateral-fechar"
+                    onclick="DailyCare.menu.fechar()"
+                    aria-label="Fechar menu lateral">
+                <span aria-hidden="true">&#x2715;</span>
+            </button>
+        </div>
+
+        <ul class="menu-lateral-links">
+            <li>
+                <a href="{{ route('home') }}" class="{{ request()->routeIs('home') ? 'ativo' : '' }}">
+                    <span><span aria-hidden="true">&#x1F3E0;</span> Inicio</span>
+                </a>
+            </li>
+            <li>
+                <a href="{{ route('clinicas.index') }}" class="{{ request()->routeIs('clinicas.*') ? 'ativo' : '' }}">
+                    <span><span aria-hidden="true">&#x1F50D;</span> Buscar Clinicas</span>
+                </a>
+            </li>
+            @auth
+                <li>
+                    <a href="{{ route('dashboard') }}" class="{{ request()->routeIs('dashboard') ? 'ativo' : '' }}">
+                        <span><span aria-hidden="true">&#x1F4CA;</span> Meu Painel</span>
+                    </a>
+                </li>
+            @endauth
+        </ul>
+
+        @auth
+            <div class="menu-lateral-rodape">
+                <div style="display:flex; align-items:center; gap:10px;">
+                    <span class="menu-lateral-avatar" aria-hidden="true">{{ strtoupper(substr(Auth::user()->nome, 0, 1)) }}</span>
+                    <span>{{ Auth::user()->nome }}</span>
+                </div>
+                <form method="POST" action="{{ route('logout') }}" style="margin:0;">
+                    @csrf
+                    <button type="submit" class="menu-lateral-sair" aria-label="Sair da conta" title="Sair">
+                        <span aria-hidden="true">&#x1F6AA;</span>
+                    </button>
+                </form>
+            </div>
+        @else
+            <div class="menu-lateral-rodape menu-lateral-rodape-guest">
+                <a href="{{ route('login') }}" class="btn btn-secondary btn-sm" style="flex:1; justify-content:center;">
+                    <span aria-hidden="true">&#x1F511;</span> Entrar
+                </a>
+                <a href="{{ route('register') }}" class="btn btn-primary btn-sm" style="flex:1; justify-content:center;">
+                    <span aria-hidden="true">&#x2795;</span> Cadastrar
+                </a>
+            </div>
+        @endauth
+    </nav>
 
     {{-- =============================================
          MENSAGENS DE FEEDBACK (Flash)
