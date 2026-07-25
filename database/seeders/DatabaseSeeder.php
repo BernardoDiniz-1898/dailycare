@@ -98,5 +98,78 @@ class DatabaseSeeder extends Seeder
 
         $clinica->especialidades()->sync([1, 2, 6]);
         $clinica->servicosAcessibilidade()->attach([1, 2, 3, 4, 5, 8, 9, 10, 11]);
+
+        // Clinica de teste #2
+        $usuarioClinica2 = Usuario::create([
+            'nome' => 'Dra. Camila Ferreira',
+            'email' => 'clinica2@email.com',
+            'senha' => Hash::make('password'),
+            'cpf' => '333.333.333-33',
+            'telefone' => '(11) 97777-1234',
+            'role' => 'clinica',
+        ]);
+
+        $clinica2 = Clinica::create([
+            'usuario_id' => $usuarioClinica2->id,
+            'razao_social' => 'Reabilita Neuro Clinica LTDA',
+            'nome_fantasia' => 'Reabilita Neuro',
+            'cnpj' => '23.456.789/0001-11',
+            'telefone' => '(11) 4444-5555',
+            'email_contato' => 'contato@reabilitaneuro.com.br',
+            'logradouro' => 'Avenida da Inclusao',
+            'numero' => '480',
+            'bairro' => 'Vila Mariana',
+            'cidade' => 'Sao Paulo',
+            'estado' => 'SP',
+            'cep' => '04101-000',
+            'descricao' => 'Especializada em reabilitacao neurologica e ortopedica, com equipe multidisciplinar e equipamentos de ultima geracao para pacientes com deficiencia motora.',
+            'status' => 'aprovada',
+        ]);
+
+        $clinica2->especialidades()->sync([1, 3, 5]);
+        $clinica2->servicosAcessibilidade()->attach([1, 2, 3, 4, 6, 7, 8]);
+
+        // Clinica de teste #3
+        $usuarioClinica3 = Usuario::create([
+            'nome' => 'Dr. Rafael Santos',
+            'email' => 'clinica3@email.com',
+            'senha' => Hash::make('password'),
+            'cpf' => '444.444.444-44',
+            'telefone' => '(31) 96666-4321',
+            'role' => 'clinica',
+        ]);
+
+        $clinica3 = Clinica::create([
+            'usuario_id' => $usuarioClinica3->id,
+            'razao_social' => 'Pilates e Fisioterapia Curvelo LTDA',
+            'nome_fantasia' => 'Movimenta Pilates & Fisio',
+            'cnpj' => '34.567.890/0001-22',
+            'telefone' => '(31) 3222-1010',
+            'email_contato' => 'contato@movimenta.com.br',
+            'logradouro' => 'Rua das Palmeiras',
+            'numero' => '90',
+            'bairro' => 'Centro',
+            'cidade' => 'Curvelo',
+            'estado' => 'MG',
+            'cep' => '35790-000',
+            'descricao' => 'Clinica focada em pilates terapeutico e fisioterapia esportiva, com estrutura acessivel e atendimento personalizado para reabilitacao de deficiencias motoras.',
+            'status' => 'aprovada',
+        ]);
+
+        $clinica3->especialidades()->sync([2, 6, 7]);
+        $clinica3->servicosAcessibilidade()->attach([1, 4, 5, 8, 12]);
+
+        // Horarios de funcionamento (exemplo)
+        foreach ([$clinica, $clinica2, $clinica3] as $c) {
+            foreach (['segunda', 'quarta', 'sexta'] as $dia) {
+                \App\Models\HorarioDisponivel::create([
+                    'clinica_id' => $c->id,
+                    'dia_semana' => $dia,
+                    'hora_inicio' => '08:00',
+                    'hora_fim' => '18:00',
+                    'ativo' => true,
+                ]);
+            }
+        }
     }
 }

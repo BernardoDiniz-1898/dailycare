@@ -254,7 +254,7 @@
     {{-- =============================================
          CONTEUDO PRINCIPAL
          ============================================= --}}
-    <main id="conteudo-principal" class="max-w-7xl mx-auto px-6 py-10 w-full flex-1" role="main" tabindex="-1" aria-label="Conteudo principal">
+    <main id="conteudo-principal" class="site-main" role="main" tabindex="-1" aria-label="Conteudo principal">
         @yield('conteudo')
     </main>
 

@@ -3,16 +3,21 @@
 @section('titulo', 'Cadastrar')
 
 @section('conteudo')
-<div style="max-width:520px; margin:0 auto; padding-top:48px;">
-    <div style="text-align:center; margin-bottom:40px;">
-        <div style="width:64px; height:64px; background:#E0F2F1; border-radius:16px; display:inline-flex; align-items:center; justify-content:center; font-size:2rem; margin-bottom:16px;">
-            <span aria-hidden="true">&#x2795;</span>
+<div style="max-width:520px; margin:0 auto; padding:56px 0;">
+    <div style="text-align:center; margin-bottom:32px;">
+        <div style="width:72px; height:72px; background:#E0F2F1; border-radius:20px; display:inline-flex; align-items:center; justify-content:center; margin-bottom:16px;">
+            <i class="bi bi-person-plus-fill" style="font-size:1.75rem; color:#009688;" aria-hidden="true"></i>
         </div>
         <h1 style="font-size:1.75rem; font-weight:800; color:#111827;">Criar sua conta</h1>
         <p style="color:#6B7280; margin-top:8px;">Escolha o tipo de conta para comecar</p>
     </div>
 
-    <form method="POST" action="{{ route('register') }}" class="card" style="padding:32px;" aria-label="Formulario de cadastro">
+    <div class="auth-tabs" role="tablist" aria-label="Alternar entre entrar e cadastrar">
+        <a href="{{ route('login') }}" class="auth-tab" role="tab" aria-selected="false">Entrar</a>
+        <a href="{{ route('register') }}" class="auth-tab auth-tab-ativo" role="tab" aria-selected="true">Criar conta</a>
+    </div>
+
+    <form method="POST" action="{{ route('register') }}" class="card" style="padding:32px; box-shadow:0 8px 24px rgba(0,0,0,0.06);" aria-label="Formulario de cadastro">
         @csrf
 
         {{-- Tipo de Conta --}}

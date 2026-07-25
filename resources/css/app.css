@@ -179,6 +179,20 @@ label:focus-visible {
     border-color: #00695C;
 }
 
+.site-main {
+    max-width: 1440px;
+    width: 100%;
+    margin: 0 auto;
+    padding: 40px 32px;
+    flex: 1;
+}
+
+@media (max-width: 640px) {
+    .site-main {
+        padding: 24px 16px;
+    }
+}
+
 /* =============================================
    SELETOR DE TEMA
    ============================================= */
@@ -1743,4 +1757,304 @@ body.dark-mode .site-footer-bottom {
 
 .menu-lateral-sair:hover {
     background: rgba(248, 113, 113, 0.15);
+}
+
+/* =============================================
+   HOME - HERO COM FOTO, PASSOS, DESTAQUE
+   ============================================= */
+
+.hero-com-foto {
+    background-image: linear-gradient(135deg, rgba(15, 33, 31, 0.92) 0%, rgba(30, 58, 58, 0.88) 100%), url('https://picsum.photos/seed/dailycare-hero/1600/900');
+    background-size: cover;
+    background-position: center;
+    padding: 0;
+}
+
+.hero-overlay {
+    padding: 64px 32px;
+}
+
+.hero-trust-row {
+    display: flex;
+    justify-content: center;
+    gap: 28px;
+    flex-wrap: wrap;
+    margin-top: 28px;
+    font-size: 0.875rem;
+    color: #C7D6D4;
+    font-weight: 600;
+}
+
+.hero-trust-row i {
+    color: #4DB6AC;
+    margin-right: 6px;
+}
+
+.secao-eyebrow {
+    text-align: center;
+    color: #009688;
+    font-weight: 800;
+    font-size: 0.8125rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    margin-bottom: 8px;
+}
+
+.secao-titulo {
+    text-align: center;
+    font-size: 1.875rem;
+    font-weight: 800;
+    color: #111827;
+    margin-bottom: 40px;
+}
+
+.passo-lista {
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+    max-width: 1100px;
+    margin: 0 auto;
+}
+
+.passo-item {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 32px;
+    align-items: center;
+    background: #FFFFFF;
+    border: 2px solid #E5E7EB;
+    border-radius: 20px;
+    overflow: hidden;
+}
+
+.passo-invertido {
+    direction: rtl;
+}
+
+.passo-invertido .passo-texto {
+    direction: ltr;
+}
+
+.passo-foto {
+    height: 220px;
+}
+
+.passo-foto img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+.passo-texto {
+    padding: 8px 32px 8px 0;
+}
+
+.passo-invertido .passo-texto {
+    padding: 8px 0 8px 32px;
+}
+
+.passo-numero {
+    font-size: 2rem;
+    font-weight: 800;
+    color: #B2DFDB;
+}
+
+.passo-texto h3 {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: #111827;
+    margin: 4px 0 10px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.passo-texto h3 i {
+    color: #009688;
+}
+
+.passo-texto p {
+    color: #4B5563;
+    line-height: 1.6;
+}
+
+.clinica-destaque-card {
+    display: flex;
+    flex-direction: column;
+}
+
+@media (max-width: 768px) {
+    .passo-item,
+    .passo-invertido {
+        grid-template-columns: 1fr;
+        direction: ltr;
+    }
+
+    .passo-texto,
+    .passo-invertido .passo-texto {
+        padding: 0 20px 20px;
+    }
+
+    .hero-trust-row {
+        gap: 16px;
+        flex-direction: column;
+        align-items: center;
+    }
+}
+
+/* =============================================
+   BUSCA DE CLINICAS - PILLS E CARD HORIZONTAL
+   ============================================= */
+
+.pill-filtro {
+    background: #FFFFFF;
+    border: 2px solid #E5E7EB;
+    color: #4B5563;
+    font-weight: 600;
+    font-size: 0.875rem;
+    padding: 9px 18px;
+    border-radius: 9999px;
+    cursor: pointer;
+    min-height: 40px;
+    transition: all 0.15s ease;
+}
+
+.pill-filtro:hover {
+    border-color: #009688;
+    color: #009688;
+}
+
+.pill-ativo,
+.pill-ativo:hover {
+    background: #009688;
+    border-color: #009688;
+    color: #FFFFFF;
+}
+
+.clinica-lista-card {
+    display: flex;
+    gap: 20px;
+    background: #FFFFFF;
+    border: 2px solid #E5E7EB;
+    border-radius: 16px;
+    padding: 20px;
+    transition: box-shadow 0.2s ease, border-color 0.2s ease;
+}
+
+.clinica-lista-card:hover {
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+    border-color: #80CBC4;
+}
+
+.clinica-lista-avatar {
+    width: 88px;
+    height: 88px;
+    border-radius: 50%;
+    overflow: hidden;
+    flex-shrink: 0;
+    background: #E0F2F1;
+    border: 3px solid #E0F2F1;
+}
+
+.clinica-lista-avatar img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+.clinica-lista-conteudo {
+    flex: 1;
+    min-width: 0;
+}
+
+@media (max-width: 640px) {
+    .clinica-lista-card {
+        flex-direction: column;
+    }
+
+    .clinica-lista-avatar {
+        width: 64px;
+        height: 64px;
+    }
+}
+
+/* =============================================
+   LOGIN / CADASTRO - ABAS ENTRAR/CRIAR CONTA
+   ============================================= */
+
+.auth-tabs {
+    display: flex;
+    background: #E5E7EB;
+    border-radius: 12px;
+    padding: 4px;
+    margin-bottom: 20px;
+    gap: 4px;
+}
+
+.auth-tab {
+    flex: 1;
+    text-align: center;
+    padding: 10px 16px;
+    border-radius: 9px;
+    font-weight: 700;
+    font-size: 0.9375rem;
+    color: #4B5563;
+    text-decoration: none;
+    transition: all 0.15s ease;
+}
+
+.auth-tab:hover {
+    color: #111827;
+}
+
+.auth-tab-ativo,
+.auth-tab-ativo:hover {
+    background: #FFFFFF;
+    color: #009688;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+/* =============================================
+   HORARIOS CLICAVEIS (BUSCA DE CLINICAS)
+   ============================================= */
+
+.clinica-horarios-grid {
+    display: flex;
+    gap: 24px;
+    flex-wrap: wrap;
+    margin-bottom: 14px;
+}
+
+.clinica-horarios-dia {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.clinica-horarios-dia-label {
+    font-size: 0.75rem;
+    font-weight: 800;
+    color: #6B7280;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+}
+
+.horario-slot {
+    background: #E0F2F1;
+    color: #00695C;
+    border: 1px solid #80CBC4;
+    font-weight: 700;
+    font-size: 0.8125rem;
+    padding: 6px 12px;
+    border-radius: 8px;
+    text-decoration: none;
+    transition: all 0.15s ease;
+}
+
+.horario-slot:hover {
+    background: #009688;
+    color: #FFFFFF;
+    border-color: #009688;
 }
