@@ -97,7 +97,16 @@
     <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(280px, 1fr)); gap:24px; max-width:1100px; margin:0 auto;">
         @foreach($clinicasDestaque as $index => $clinica)
             <article class="card clinica-destaque-card">
-                <img src="https://picsum.photos/seed/dailycare-clinica{{ $index }}/500/280" alt="Fachada da clinica {{ $clinica->nome_fantasia }}" loading="lazy" style="width:100%; height:160px; object-fit:cover;">
+                @php
+                    $fotosClinica = [
+                        'https://images.unsplash.com/photo-1519494140681-8b17d830a3e9?w=500&q=80',
+                        'https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?w=600&q=80',
+                        'https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?w=500&q=80',
+                        'https://images.unsplash.com/photo-1586773860418-d37222d8fce3?w=500&q=80',
+                    ];
+                    $fotoClinica = $clinica->foto_capa ?: $fotosClinica[$clinica->id % count($fotosClinica)];
+                @endphp
+                <img src="{{ $fotoClinica }}" alt="Estrutura da clinica {{ $clinica->nome_fantasia }}" loading="lazy" style="width:100%; height:160px; object-fit:cover;">
                 <div style="padding:20px;">
                     <h3 style="font-size:1.125rem; font-weight:700; color:#111827; margin-bottom:4px;">
                         {{ $clinica->nome_fantasia }} <i class="bi bi-patch-check-fill" style="color:#009688; font-size:0.9rem;" aria-hidden="true"></i>

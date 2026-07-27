@@ -43,7 +43,25 @@ class ClinicaController extends Controller
             });
         }
 
-        $clinicas = $query->latest()->paginate(12)->withQueryString();
+        $query->withCount('avaliacoes')
+            ->withAvg('avaliacoes', 'nota')
+            ->withCount(['agendamentos as atendimentos_concluidos_count' => function ($q) {
+                $q->where('status', 'concluido');
+            }]);
+
+        switch ($request->input('ordenar')) {
+            case 'avaliacao':
+                $query->orderByDesc('avaliacoes_avg_nota');
+                break;
+            case 'avaliacoes_count':
+                $query->orderByDesc('avaliacoes_count');
+                break;
+            default:
+                $query->latest();
+                break;
+        }
+
+        $clinicas = $query->paginate(12)->withQueryString();
         $especialidades = Especialidade::where('ativa', true)->get();
         $servicos = ServicoAcessibilidade::where('ativa', true)->get();
 
