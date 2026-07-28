@@ -73,7 +73,7 @@
 
     <div class="resultados-controles">
         <label for="ordenar" class="sr-only">Ordenar por</label>
-        <select id="ordenar" class="form-select resultados-ordenar" onchange="DailyCare.buscaClinicas.ordenar(this.value)">
+        <select id="ordenar" class="form-select resultados-ordenar" onchange="window.DailyCare.buscaClinicas.ordenar(this.value)">
             <option value="recentes" {{ request('ordenar', 'recentes') == 'recentes' ? 'selected' : '' }}>Mais recentes</option>
             <option value="avaliacao" {{ request('ordenar') == 'avaliacao' ? 'selected' : '' }}>Melhor avaliacao</option>
             <option value="avaliacoes_count" {{ request('ordenar') == 'avaliacoes_count' ? 'selected' : '' }}>Mais avaliadas</option>
@@ -81,11 +81,11 @@
 
         <div class="visualizacao-toggle" role="group" aria-label="Modo de visualizacao">
             <button type="button" id="btn-visualizacao-lista" class="visualizacao-btn ativo"
-                    onclick="DailyCare.buscaClinicas.setVisualizacao('lista')" aria-label="Ver em lista" aria-pressed="true">
+                    onclick="window.DailyCare.buscaClinicas.setVisualizacao('lista')" aria-label="Ver em lista" aria-pressed="true">
                 <i class="bi bi-list-ul" aria-hidden="true"></i>
             </button>
             <button type="button" id="btn-visualizacao-grade" class="visualizacao-btn"
-                    onclick="DailyCare.buscaClinicas.setVisualizacao('grade')" aria-label="Ver em grade" aria-pressed="false">
+                    onclick="window.DailyCare.buscaClinicas.setVisualizacao('grade')" aria-label="Ver em grade" aria-pressed="false">
                 <i class="bi bi-grid-3x3-gap" aria-hidden="true"></i>
             </button>
         </div>
@@ -251,7 +251,7 @@
 
 <script>
     window.DailyCare = window.DailyCare || {};
-    DailyCare.buscaClinicas = {
+    window.DailyCare.buscaClinicas = {
         ordenar(valor) {
             const form = document.getElementById('form-busca-clinicas');
             form.querySelector('input[name="ordenar"]').value = valor;
@@ -285,8 +285,9 @@
     document.addEventListener('DOMContentLoaded', function () {
         const salvo = sessionStorage.getItem('dc-visualizacao-clinicas');
         if (salvo === 'grade') {
-            DailyCare.buscaClinicas.setVisualizacao('grade');
+            window.DailyCare.buscaClinicas.setVisualizacao('grade');
         }
     });
 </script>
 @endsection
+

@@ -1,3 +1,4 @@
+{{-- inicio do cadastro (form de criar conta, paciente ou clinica) --}}
 @extends('layouts.app')
 
 @section('titulo', 'Cadastrar')
@@ -20,7 +21,7 @@
     <form method="POST" action="{{ route('register') }}" class="card" style="padding:32px; box-shadow:0 8px 24px rgba(0,0,0,0.06);" aria-label="Formulario de cadastro">
         @csrf
 
-        {{-- Tipo de Conta --}}
+        {{-- tipo de conta: paciente ou clinica --}}
         <fieldset style="border:none; padding:0; margin:0 0 24px 0;">
             <legend class="form-label" style="margin-bottom:12px; font-size:1rem;">Tipo de Conta</legend>
             <div style="display:grid; grid-template-columns:1fr 1fr; gap:12px;">
@@ -52,6 +53,7 @@
 
         <hr style="border:none; border-top:1px solid #E5E7EB; margin:0 0 24px 0;">
 
+        {{-- dados pessoais --}}
         <div class="form-group" style="margin-bottom:20px;">
             <label for="nome" class="form-label">
                 Nome Completo <span class="required" aria-label="obrigatorio">*</span>
@@ -85,6 +87,7 @@
                    class="form-input" autocomplete="tel" placeholder="(00) 00000-0000">
         </div>
 
+        {{-- Senha --}}
         <div class="form-group" style="margin-bottom:20px;">
             <label for="senha" class="form-label">
                 Senha <span class="required" aria-label="obrigatorio">*</span>
@@ -115,3 +118,5 @@
     </form>
 </div>
 @endsection
+{{-- fim do cadastro --}}
+

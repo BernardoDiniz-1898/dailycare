@@ -39,6 +39,7 @@ class AuthController extends Controller
         return redirect()->intended(route('dashboard'));
     }
 
+    // inicio do cadastro (cria usuario novo, paciente ou clinica)
     public function showRegister()
     {
         return view('auth.register');
@@ -68,6 +69,7 @@ class AuthController extends Controller
 
         return redirect()->route('dashboard');
     }
+    // fim do cadastro
 
     public function logout(Request $request)
     {
