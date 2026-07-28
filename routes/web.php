@@ -21,7 +21,13 @@ use Illuminate\Support\Facades\Route;
  * Retorna a view welcome para a página inicial.
  */
 Route::get('/', function () {
-    return view('welcome');
+    $clinicasDestaque = \App\Models\Clinica::aprovadas()
+        ->with('especialidades')
+        ->latest()
+        ->take(3)
+        ->get();
+
+    return view('welcome', compact('clinicasDestaque'));
 })->name('home');
 
 /**
