@@ -87,6 +87,7 @@ class AuthController extends Controller
 
         return redirect()->route('dashboard');
     }
+    // fim do cadastro
 
     /**
      * Finaliza a sessão do usuário autenticado.

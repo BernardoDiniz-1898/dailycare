@@ -2247,6 +2247,7 @@ body.dark-mode .site-footer-bottom {
     padding: 6px 12px;
     border-radius: 8px;
     text-decoration: none;
+    cursor: pointer;
     transition: all 0.15s ease;
 }
 
@@ -2254,5 +2255,225 @@ body.dark-mode .site-footer-bottom {
     background: #009688;
     color: #FFFFFF;
     border-color: #009688;
+}
+
+.horario-slot.selecionado,
+.horario-slot.selecionado:hover {
+    background: #00695C;
+    color: #FFFFFF;
+    border-color: #00695C;
+    box-shadow: 0 0 0 2px rgba(0, 105, 92, 0.25);
+}
+
+.horario-slot.ocupado {
+    background: #F3F4F6;
+    color: #C4CBD2;
+    border-color: #E5E7EB;
+    cursor: not-allowed;
+    text-decoration: line-through;
+}
+
+.horario-slot.ocupado:hover {
+    background: #F3F4F6;
+    color: #C4CBD2;
+    border-color: #E5E7EB;
+}
+
+/* =============================================
+   PERFIL DA CLINICA - CABECALHO
+   ============================================= */
+
+.perfil-clinica-avatar {
+    width: 96px;
+    height: 96px;
+    border-radius: 20px;
+    overflow: hidden;
+    flex-shrink: 0;
+    background: #E0F2F1;
+}
+
+.perfil-clinica-avatar img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+/* =============================================
+   PERFIL DA CLINICA - ABAS
+   ============================================= */
+
+.perfil-tabs {
+    display: flex;
+    gap: 4px;
+    border-bottom: 2px solid #F3F4F6;
+    margin-bottom: 24px;
+}
+
+.perfil-tab {
+    background: transparent;
+    border: none;
+    border-bottom: 2px solid transparent;
+    color: #6B7280;
+    font-weight: 700;
+    font-size: 0.9375rem;
+    padding: 12px 4px;
+    margin-bottom: -2px;
+    cursor: pointer;
+    transition: color 0.15s ease, border-color 0.15s ease;
+}
+
+.perfil-tab + .perfil-tab {
+    margin-left: 24px;
+}
+
+.perfil-tab:hover {
+    color: #111827;
+}
+
+.perfil-tab.ativo {
+    color: #009688;
+    border-bottom-color: #009688;
+}
+
+.perfil-tab-painel {
+    display: none;
+}
+
+.perfil-tab-painel.ativo {
+    display: block;
+}
+
+/* =============================================
+   PERFIL DA CLINICA - PAINEL DE AGENDAMENTO
+   ============================================= */
+
+.agenda-card {
+    background: #FFFFFF;
+    border: 2px solid #E5E7EB;
+    border-radius: 16px;
+    overflow: hidden;
+}
+
+.agenda-card-header {
+    background: linear-gradient(135deg, #1E3A3A 0%, #2D5050 100%);
+    color: #FFFFFF;
+    padding: 20px 24px;
+}
+
+.agenda-card-header h2 {
+    font-size: 1.0625rem;
+    font-weight: 800;
+    margin: 0 0 2px;
+}
+
+.agenda-card-header p {
+    color: #99E6DC;
+    font-size: 0.8125rem;
+    margin: 0;
+}
+
+.agenda-card-corpo {
+    padding: 20px 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+}
+
+.agenda-dia-bloco {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.agenda-dia-label {
+    font-size: 0.75rem;
+    font-weight: 800;
+    color: #6B7280;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+}
+
+.agenda-slots-wrap {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.agenda-observacao {
+    margin-top: 4px;
+}
+
+.agenda-confirmar-btn {
+    display: none;
+    width: 100%;
+    text-align: center;
+    justify-content: center;
+}
+
+.agenda-confirmar-btn.visivel {
+    display: inline-flex;
+}
+
+/* =============================================
+   PERFIL DA CLINICA - CARROSSEL DE FOTOS
+   ============================================= */
+
+.fotos-carrossel {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.fotos-carrossel-viewport {
+    flex: 1;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scrollbar-width: none;
+    border-radius: 12px;
+}
+
+.fotos-carrossel-viewport::-webkit-scrollbar {
+    display: none;
+}
+
+.fotos-carrossel-trilho {
+    display: flex;
+}
+
+.fotos-carrossel-item {
+    flex: 0 0 100%;
+    scroll-snap-align: start;
+    aspect-ratio: 16 / 9;
+    background: #F3F4F6;
+}
+
+.fotos-carrossel-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+.fotos-carrossel-seta {
+    flex-shrink: 0;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: #FFFFFF;
+    border: 2px solid #E5E7EB;
+    color: #111827;
+    font-size: 1.125rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: background 0.15s ease, border-color 0.15s ease;
+}
+
+.fotos-carrossel-seta:hover {
+    background: #009688;
+    border-color: #009688;
+    color: #FFFFFF;
 }
 

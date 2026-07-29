@@ -5,10 +5,10 @@
 @section('conteudo')
 <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:16px; margin-bottom:32px;">
     <h1 style="font-size:1.75rem; font-weight:800; color:#111827;">
-        <span aria-hidden="true">&#x1F4CA;</span> Meus Agendamentos
+        <i class="bi bi-calendar2-check" aria-hidden="true"></i> Meus Agendamentos
     </h1>
     <a href="{{ route('clinicas.index') }}" class="btn btn-primary">
-        <span aria-hidden="true">&#x1F50D;</span> Buscar Clinicas
+        <i class="bi bi-search" aria-hidden="true"></i> Buscar Clinicas
     </a>
 </div>
 
@@ -24,9 +24,9 @@
                             </a>
                         </h2>
                         <p style="color:#4B5563; font-size:0.9375rem;">
-                            <span aria-hidden="true">&#x1F4C5;</span>
+                            <i class="bi bi-calendar3" aria-hidden="true"></i>
                             {{ \Carbon\Carbon::parse($agendamento->data)->format('d/m/Y') }}
-                            <span aria-hidden="true">&#x1F552;</span>
+                            <i class="bi bi-clock" aria-hidden="true"></i>
                             {{ substr($agendamento->hora, 0, 5) }}
                         </p>
                         @if ($agendamento->observacao_paciente)
@@ -56,10 +56,10 @@
     </div>
 @else
     <div class="card" style="padding:64px 32px; text-align:center;">
-        <div style="font-size:4rem; margin-bottom:16px; color:#D1D5DB;" aria-hidden="true">&#x1F4C5;</div>
+        <i class="bi bi-calendar2-x" style="font-size:3.5rem; margin-bottom:16px; color:#D1D5DB; display:block;" aria-hidden="true"></i>
         <p style="color:#6B7280; font-size:1.125rem; margin-bottom:16px;">Voce ainda nao tem agendamentos.</p>
         <a href="{{ route('clinicas.index') }}" class="btn btn-primary">
-            <span aria-hidden="true">&#x1F50D;</span> Buscar clinicas de fisioterapia
+            <i class="bi bi-search" aria-hidden="true"></i> Buscar clinicas de fisioterapia
         </a>
     </div>
 @endif
