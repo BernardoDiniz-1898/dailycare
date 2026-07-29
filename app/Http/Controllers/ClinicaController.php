@@ -46,9 +46,9 @@ class ClinicaController extends Controller
             $busca = $request->busca;
             $query->where(function ($q) use ($busca) {
                 $q->where('nome_fantasia', 'like', "%{$busca}%")
-                  ->orWhere('descricao', 'like', "%{$busca}%")
-                  ->orWhere('bairro', 'like', "%{$busca}%")
-                  ->orWhere('cidade', 'like', "%{$busca}%");
+                ->orWhere('descricao', 'like', "%{$busca}%")
+                ->orWhere('bairro', 'like', "%{$busca}%")
+                ->orWhere('cidade', 'like', "%{$busca}%");
             });
         }
 

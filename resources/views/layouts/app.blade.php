@@ -61,11 +61,11 @@
         <div class="tema-seletor" role="radiogroup" aria-label="Selecionar tema">
             <button type="button" data-tema="claro" onclick="DailyCare.tema.trocar('claro')" role="radio"
                 aria-checked="true" aria-pressed="true" aria-label="Tema claro" title="Tema claro">
-                <span aria-hidden="true">&#x2600;</span> Claro
+                <span aria-hidden="true"></span> Claro
             </button>
             <button type="button" data-tema="escuro" onclick="DailyCare.tema.trocar('escuro')" role="radio"
                 aria-checked="false" aria-pressed="false" aria-label="Tema escuro" title="Tema escuro (Alt + T)">
-                <span aria-hidden="true">&#x1F319;</span> Escuro
+                <span aria-hidden="true"></span> Escuro
             </button>
             <button type="button" data-tema="alto-contraste" onclick="DailyCare.tema.trocar('alto-contraste')"
                 role="radio" aria-checked="false" aria-pressed="false" aria-label="Alto contraste"
@@ -91,7 +91,7 @@
                 <ul class="nav-links" role="menubar">
                     <li role="none">
                         <a href="{{ route('clinicas.index') }}" class="nav-link" role="menuitem">
-                            <span aria-hidden="true">&#x1F50D;</span> Clinicas
+                            <span aria-hidden="true"></span> Clinicas
                         </a>
                     </li>
                 </ul>
@@ -101,11 +101,11 @@
                 @auth
                     <li role="none">
                         <a href="{{ route('dashboard') }}" class="nav-link" role="menuitem">
-                            <span aria-hidden="true">&#x1F4CA;</span> Dashboard
+                            <span aria-hidden="true"></span> Dashboard
                         </a>
                     </li>
                     <li role="none" style="display:flex; align-items:center; gap:8px;">
-                        <span aria-hidden="true">&#x1F464;</span>
+                        <span aria-hidden="true"></span>
                         <span style="font-weight:600;">{{ Auth::user()->nome }}</span>
                     </li>
                     <li role="none">
@@ -113,14 +113,14 @@
                             @csrf
                             <button type="submit" class="nav-link" role="menuitem"
                                 style="background:none; border:none; cursor:pointer;">
-                                <span aria-hidden="true">&#x1F6AA;</span> Sair
+                                <span aria-hidden="true"></span> Sair
                             </button>
                         </form>
                     </li>
                 @else
                     <li role="none">
                         <a href="{{ route('login') }}" class="nav-link" role="menuitem">
-                            <span aria-hidden="true">&#x1F511;</span> Entrar
+                            <span aria-hidden="true"></span> Entrar
                         </a>
                     </li>
                     <li role="none">
