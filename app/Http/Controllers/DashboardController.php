@@ -7,10 +7,19 @@ use App\Models\Clinica;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
+/**
+ * Controlador do dashboard.
+ * Centraliza a lógica para exibir conteúdo diferente de acordo com o tipo de usuário.
+ * A semântica é baseada em roteamento interno e em consultas específicas para cada perfil.
+ */
 class DashboardController extends Controller
 {
+    /**
+     * Direciona o usuário para o painel correto conforme seu papel.
+     */
     public function index()
     {
+        /** @var \App\Models\Usuario $user */
         $user = Auth::user();
 
         if ($user->isAdmin()) {
@@ -24,6 +33,9 @@ class DashboardController extends Controller
         return $this->paciente();
     }
 
+    /**
+     * Monta o dashboard do paciente com seus agendamentos.
+     */
     private function paciente()
     {
         $agendamentos = Agendamento::where('paciente_id', Auth::id())
@@ -35,6 +47,9 @@ class DashboardController extends Controller
         return view('dashboard.paciente', compact('agendamentos'));
     }
 
+    /**
+     * Monta o dashboard da clínica com os agendamentos recebidos.
+     */
     private function clinica()
     {
         $clinica = Auth::user()->clinica;
@@ -55,6 +70,9 @@ class DashboardController extends Controller
         return view('dashboard.clinica', compact('clinica', 'agendamentos', 'pendentes', 'confirmados'));
     }
 
+    /**
+     * Monta o painel administrativo com estatísticas e últimos agendamentos.
+     */
     private function admin()
     {
         $clinicasPendentes = Clinica::where('status', 'pendente')->count();
