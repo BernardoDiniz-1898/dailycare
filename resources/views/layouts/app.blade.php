@@ -20,6 +20,14 @@
     @stack('head')
 </head>
 <body>
+
+    <div vw class="enabled">
+        <div vw-access-button class="active"></div>
+        <div vw-plugin-wrapper>
+            <div class="vw-plugin-top-wrapper"></div>
+        </div>
+    </div>
+
     {{-- =============================================
          SKIP LINK - Pular para conteudo principal
          Acessibilidade: WCAG 2.4.1 (Bypass Blocks)
@@ -129,14 +137,17 @@
                     </li>
                 @else
                     <li role="none">
-                        <a href="{{ route('login') }}" class="nav-link" role="menuitem">
+                        <button type="button" class="nav-link" role="menuitem"
+                                style="background:none; border:none; cursor:pointer;"
+                                onclick="window.DailyCare.authModal.abrir('login')">
                             <i class="bi bi-box-arrow-in-right" aria-hidden="true"></i> Entrar
-                        </a>
+                        </button>
                     </li>
                     <li role="none">
-                        <a href="{{ route('register') }}" class="btn btn-accent btn-sm" role="menuitem">
+                        <button type="button" class="btn btn-accent btn-sm" role="menuitem"
+                                onclick="window.DailyCare.authModal.abrir('registro')">
                             <i class="bi bi-person-plus" aria-hidden="true"></i> Cadastrar
-                        </a>
+                        </button>
                     </li>
                 @endauth
             </ul>
@@ -204,12 +215,12 @@
             </div>
         @else
             <div class="menu-lateral-rodape menu-lateral-rodape-guest">
-                <a href="{{ route('login') }}" class="btn btn-pill btn-pill-outline">
+                <button type="button" class="btn btn-pill btn-pill-outline" onclick="window.DailyCare.authModal.abrir('login')">
                     <i class="bi bi-box-arrow-in-right" aria-hidden="true"></i> Entrar
-                </a>
-                <a href="{{ route('register') }}" class="btn btn-pill btn-accent">
+                </button>
+                <button type="button" class="btn btn-pill btn-accent" onclick="window.DailyCare.authModal.abrir('registro')">
                     <i class="bi bi-person-plus" aria-hidden="true"></i> Criar conta
-                </a>
+                </button>
             </div>
         @endauth
     </nav>
@@ -281,8 +292,8 @@
                             @auth
                                 <li><a href="{{ route('dashboard') }}">Meu Painel</a></li>
                             @else
-                                <li><a href="{{ route('login') }}">Entrar</a></li>
-                                <li><a href="{{ route('register') }}">Cadastrar</a></li>
+                                <li><button type="button" onclick="window.DailyCare.authModal.abrir('login')" style="background:none; border:none; padding:0; color:inherit; cursor:pointer; text-decoration:underline;">Entrar</button></li>
+                                <li><button type="button" onclick="window.DailyCare.authModal.abrir('registro')" style="background:none; border:none; padding:0; color:inherit; cursor:pointer; text-decoration:underline;">Cadastrar</button></li>
                             @endauth
                         </ul>
                     </nav>
@@ -322,5 +333,9 @@
     <script src="{{ asset('js/acessibilidade.js') }}"></script>
 
     @stack('scripts')
+    @unless (request()->routeIs('login') || request()->routeIs('register'))
+        @include('partials.auth-modal')
+    @endunless
+
 </body>
 </html>
