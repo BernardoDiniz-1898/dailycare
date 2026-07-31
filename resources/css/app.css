@@ -2477,3 +2477,101 @@ body.dark-mode .site-footer-bottom {
     color: #FFFFFF;
 }
 
+
+/* =============================================
+   AUTH - ABAS ENTRAR / CRIAR CONTA
+   ============================================= */
+
+.auth-tabs {
+    display: flex;
+    background: #F3F4F6;
+    border-radius: 12px;
+    padding: 4px;
+    gap: 4px;
+    margin-bottom: 24px;
+}
+
+.auth-tab {
+    flex: 1;
+    text-align: center;
+    padding: 10px;
+    border-radius: 9px;
+    font-weight: 700;
+    font-size: 0.9375rem;
+    color: #6B7280;
+    text-decoration: none;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    transition: background 0.15s ease, color 0.15s ease;
+}
+
+.auth-tab:hover {
+    color: #111827;
+}
+
+.auth-tab-ativo,
+.auth-tab-ativo:hover {
+    background: #FFFFFF;
+    color: #009688;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12);
+}
+
+/* =============================================
+   AUTH - MODAL DE ENTRAR / CRIAR CONTA
+   ============================================= */
+
+.auth-modal-backdrop {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(17, 24, 39, 0.55);
+    z-index: 300;
+    align-items: flex-start;
+    justify-content: center;
+    overflow-y: auto;
+    padding: 40px 16px;
+}
+
+.auth-modal-backdrop.aberto {
+    display: flex;
+}
+
+.auth-modal {
+    background: #FFFFFF;
+    border-radius: 20px;
+    max-width: 520px;
+    width: 100%;
+    padding: 32px;
+    position: relative;
+    box-shadow: 0 24px 64px rgba(0, 0, 0, 0.25);
+}
+
+.auth-modal-fechar {
+    position: absolute;
+    top: 16px;
+    right: 16px;
+    width: 36px;
+    height: 36px;
+    border-radius: 10px;
+    background: transparent;
+    border: none;
+    color: #9CA3AF;
+    font-size: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: background 0.15s ease, color 0.15s ease;
+}
+
+.auth-modal-fechar:hover {
+    background: #F3F4F6;
+    color: #111827;
+}
+
+@media (max-width: 560px) {
+    .auth-modal {
+        padding: 24px 20px;
+    }
+}
