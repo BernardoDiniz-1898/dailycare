@@ -51,7 +51,7 @@ Route::middleware('auth')->group(function () {
 });
 
 // Perfil Clinica
-Route::middleware(['auth', 'role:clinica'])->prefix('clinica-perfil')->name('clinica.perfil.')->group(function () {
+Route::middleware(['auth', 'role:clinica,fisioterapeuta'])->prefix('clinica-perfil')->name('clinica.perfil.')->group(function () {
     Route::get('/criar', [ClinicaPerfilController::class, 'create'])->name('create');
     Route::post('/criar', [ClinicaPerfilController::class, 'store'])->name('store');
     Route::get('/editar', [ClinicaPerfilController::class, 'edit'])->name('edit');
