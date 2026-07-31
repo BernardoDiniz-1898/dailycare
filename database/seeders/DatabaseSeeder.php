@@ -76,7 +76,7 @@ class DatabaseSeeder extends Seeder
             'senha' => Hash::make('password'),
             'cpf' => '222.222.222-22',
             'telefone' => '(11) 88888-0000',
-            'role' => 'clinica',
+            'role' => 'fisioterapeuta',
         ]);
 
         $clinica = Clinica::create([
@@ -106,7 +106,7 @@ class DatabaseSeeder extends Seeder
             'senha' => Hash::make('password'),
             'cpf' => '333.333.333-33',
             'telefone' => '(11) 97777-1234',
-            'role' => 'clinica',
+            'role' => 'fisioterapeuta',
         ]);
 
         $clinica2 = Clinica::create([
@@ -136,7 +136,7 @@ class DatabaseSeeder extends Seeder
             'senha' => Hash::make('password'),
             'cpf' => '444.444.444-44',
             'telefone' => '(31) 96666-4321',
-            'role' => 'clinica',
+            'role' => 'fisioterapeuta',
         ]);
 
         $clinica3 = Clinica::create([
