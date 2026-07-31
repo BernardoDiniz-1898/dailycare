@@ -82,7 +82,7 @@ Route::middleware('auth')->group(function () {
 
 /**
  * Rotas do perfil da clínica.
- * O middleware role:clinica restringe o acesso a usuários com papel de clínica.
+ * O middleware role:clinica,fisioterapeuta restringe o acesso a usuários com papel de clínica ou fisioterapeuta.
  * O prefixo e o nome ajudam a organizar as URLs e os helpers de rota.
  */
 Route::middleware(['auth', 'role:clinica,fisioterapeuta'])->prefix('clinica-perfil')->name('clinica.perfil.')->group(function () {
