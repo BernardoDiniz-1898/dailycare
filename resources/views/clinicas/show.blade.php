@@ -136,13 +136,6 @@
                         onclick="window.DailyCare.perfilClinica.mudarAba('sobre', this)">Sobre</button>
                 <button type="button" class="perfil-tab" role="tab" aria-selected="false" aria-controls="painel-acessibilidade"
                         onclick="window.DailyCare.perfilClinica.mudarAba('acessibilidade', this)">Acessibilidade</button>
-                <button type="button" class="perfil-tab" role="tab" aria-selected="false" aria-controls="painel-novidades"
-                        onclick="window.DailyCare.perfilClinica.mudarAba('novidades', this)">
-                    Novidades
-                    @if ($clinica->posts->count() > 0)
-                        <span class="badge badge-blue" style="margin-left:4px;">{{ $clinica->posts->count() }}</span>
-                    @endif
-                </button>
                 <button type="button" class="perfil-tab" role="tab" aria-selected="false" aria-controls="painel-avaliacoes"
                         onclick="window.DailyCare.perfilClinica.mudarAba('avaliacoes', this)">Avaliacoes</button>
             </div>
@@ -217,32 +210,6 @@
                 <p style="color:#9CA3AF; font-size:0.8125rem; margin-top:8px;">
                     Fotos ilustrativas. A estrutura real pode variar - fale com a clinica para confirmar detalhes especificos.
                 </p>
-            </div>
-
-            {{-- Aba: Novidades (posts da clinica) --}}
-            <div id="painel-novidades" class="perfil-tab-painel" role="tabpanel">
-                @if ($clinica->posts->count() > 0)
-                    <div style="display:flex; flex-direction:column; gap:20px;">
-                        @foreach ($clinica->posts->sortByDesc('created_at') as $post)
-                            <article style="border:1px solid #E5E7EB; border-radius:12px; padding:18px; display:flex; gap:16px; flex-wrap:wrap;">
-                                @if ($post->imagem_url)
-                                    <img src="{{ $post->imagem_url }}" alt="" style="width:120px; height:90px; object-fit:cover; border-radius:10px; flex-shrink:0;" loading="lazy">
-                                @endif
-                                <div style="flex:1; min-width:200px;">
-                                    <h4 style="font-weight:700; color:#111827; margin-bottom:4px;">{{ $post->titulo }}</h4>
-                                    <p style="color:#4B5563; font-size:0.9375rem; line-height:1.5; margin-bottom:8px;">{{ $post->conteudo }}</p>
-                                    <p style="color:#9CA3AF; font-size:0.75rem;">
-                                        <i class="bi bi-clock-history" aria-hidden="true"></i> {{ $post->created_at->format('d/m/Y \à\s H:i') }}
-                                    </p>
-                                </div>
-                            </article>
-                        @endforeach
-                    </div>
-                @else
-                    <p style="color:#6B7280; padding:24px; text-align:center; border:1px dashed #D1D5DB; border-radius:12px;">
-                        Esta clinica ainda nao publicou novidades.
-                    </p>
-                @endif
             </div>
 
             {{-- Aba: Avaliacoes --}}
@@ -459,3 +426,4 @@
 </style>
 @endpush
 @endsection
+
