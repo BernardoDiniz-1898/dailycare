@@ -190,6 +190,11 @@
                         <span><i class="bi bi-calendar2-check" aria-hidden="true"></i> Meus Agendamentos</span>
                     </a>
                 </li>
+                <li>
+                    <a href="{{ route('chat.index') }}" class="{{ request()->routeIs('chat.*') ? 'ativo' : '' }}">
+                        <span><i class="bi bi-chat-dots" aria-hidden="true"></i> Mensagens</span>
+                    </a>
+                </li>
                 @if (Auth::user()->isClinica())
                     <li>
                         <a href="{{ route('clinica.perfil.edit') }}" class="{{ request()->routeIs('clinica.perfil.*') ? 'ativo' : '' }}">

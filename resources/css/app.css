@@ -2575,3 +2575,259 @@ body.dark-mode .site-footer-bottom {
         padding: 24px 20px;
     }
 }
+
+/* =============================================
+   CHAT - MENSAGENS ENTRE PACIENTE E CLINICA
+   ============================================= */
+
+.chat-container {
+    display: grid;
+    grid-template-columns: 320px 1fr;
+    height: calc(100vh - 160px);
+    min-height: 500px;
+    background: #FFFFFF;
+    border: 2px solid #E5E7EB;
+    border-radius: 16px;
+    overflow: hidden;
+}
+
+.chat-lista {
+    border-right: 1px solid #E5E7EB;
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto;
+}
+
+.chat-lista-topo {
+    padding: 20px;
+    border-bottom: 1px solid #F3F4F6;
+}
+
+.chat-lista-topo h1 {
+    font-size: 1.25rem;
+    font-weight: 800;
+    color: #111827;
+    margin: 0;
+}
+
+.chat-lista-itens {
+    display: flex;
+    flex-direction: column;
+}
+
+.chat-item {
+    display: flex;
+    gap: 12px;
+    padding: 14px 20px;
+    text-decoration: none;
+    border-bottom: 1px solid #F9FAFB;
+    transition: background 0.15s ease;
+}
+
+.chat-item:hover {
+    background: #F9FAFB;
+}
+
+.chat-item.ativo {
+    background: #E0F2F1;
+}
+
+.chat-item-avatar {
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    background: #009688;
+    color: #FFFFFF;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.chat-item-info {
+    flex: 1;
+    min-width: 0;
+}
+
+.chat-item-linha-topo {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 8px;
+}
+
+.chat-item-nome {
+    font-weight: 700;
+    color: #111827;
+    font-size: 0.9375rem;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.chat-item-horario {
+    font-size: 0.75rem;
+    color: #9CA3AF;
+    flex-shrink: 0;
+}
+
+.chat-item-linha-baixo {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 8px;
+    margin-top: 2px;
+}
+
+.chat-item-preview {
+    font-size: 0.8125rem;
+    color: #6B7280;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.chat-badge-nao-lida {
+    background: #009688;
+    color: #FFFFFF;
+    font-size: 0.6875rem;
+    font-weight: 800;
+    min-width: 18px;
+    height: 18px;
+    border-radius: 9999px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 5px;
+    flex-shrink: 0;
+}
+
+.chat-lista-vazia,
+.chat-thread-vazia {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    color: #9CA3AF;
+    padding: 32px;
+    gap: 6px;
+}
+
+.chat-lista-vazia i,
+.chat-thread-vazia i {
+    font-size: 2.5rem;
+    margin-bottom: 8px;
+}
+
+.chat-thread {
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+}
+
+.chat-thread-topo {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 16px 20px;
+    border-bottom: 1px solid #E5E7EB;
+}
+
+.chat-thread-topo h2 {
+    font-size: 1rem;
+    font-weight: 700;
+    color: #111827;
+    margin: 0;
+}
+
+.chat-thread-link {
+    font-size: 0.8125rem;
+    color: #009688;
+    text-decoration: none;
+}
+
+.chat-thread-link:hover {
+    text-decoration: underline;
+}
+
+.chat-thread-mensagens {
+    flex: 1;
+    overflow-y: auto;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    background: #F9FAFB;
+}
+
+.chat-bolha-wrap {
+    display: flex;
+}
+
+.chat-bolha-wrap.minha {
+    justify-content: flex-end;
+}
+
+.chat-bolha-wrap.outro {
+    justify-content: flex-start;
+}
+
+.chat-bolha {
+    max-width: 70%;
+    padding: 10px 14px;
+    border-radius: 16px;
+    position: relative;
+}
+
+.chat-bolha-wrap.minha .chat-bolha {
+    background: #009688;
+    color: #FFFFFF;
+    border-bottom-right-radius: 4px;
+}
+
+.chat-bolha-wrap.outro .chat-bolha {
+    background: #FFFFFF;
+    color: #111827;
+    border: 1px solid #E5E7EB;
+    border-bottom-left-radius: 4px;
+}
+
+.chat-bolha p {
+    margin: 0;
+    font-size: 0.9375rem;
+    line-height: 1.4;
+    word-wrap: break-word;
+}
+
+.chat-bolha-horario {
+    display: block;
+    font-size: 0.6875rem;
+    opacity: 0.75;
+    margin-top: 4px;
+    text-align: right;
+}
+
+.chat-thread-form {
+    display: flex;
+    gap: 10px;
+    padding: 16px 20px;
+    border-top: 1px solid #E5E7EB;
+}
+
+.chat-thread-form .form-input {
+    flex: 1;
+}
+
+@media (max-width: 768px) {
+    .chat-container {
+        grid-template-columns: 1fr;
+        height: calc(100vh - 120px);
+    }
+
+    .chat-lista {
+        display: none;
+    }
+}

@@ -9,17 +9,6 @@ use App\Http\Controllers\ClinicaPerfilController;
 use App\Http\Controllers\DashboardController;
 use Illuminate\Support\Facades\Route;
 
-/**
- * Arquivo principal de rotas do Laravel.
- * Aqui são definidas as URLs do sistema e o que cada uma executa.
- * A sintaxe Route::get(), Route::post(), Route::patch() e Route::delete()
- * descreve o método HTTP, o caminho e o controller/método responsável.
- */
-
-/**
- * Rota inicial da aplicação.
- * Retorna a view welcome para a página inicial.
- */
 Route::get('/', function () {
     $clinicasDestaque = \App\Models\Clinica::aprovadas()
         ->with('especialidades')
@@ -30,10 +19,7 @@ Route::get('/', function () {
     return view('welcome', compact('clinicasDestaque'));
 })->name('home');
 
-/**
- * Rotas de autenticação para visitantes.
- * O middleware guest permite que apenas usuários não autenticados acessem login e cadastro.
- */
+// Auth
 Route::middleware('guest')->group(function () {
     Route::get('/login', [AuthController::class, 'showLogin'])->name('login');
     Route::post('/login', [AuthController::class, 'login']);
@@ -41,50 +27,41 @@ Route::middleware('guest')->group(function () {
     Route::post('/registro', [AuthController::class, 'register']);
 });
 
-/**
- * Rota de logout para usuários autenticados.
- * O middleware auth garante que somente quem estiver logado possa encerrar a sessão.
- */
 Route::post('/logout', [AuthController::class, 'logout'])->name('logout')->middleware('auth');
 
-/**
- * Rotas públicas de clínicas.
- * Ambas são acessíveis sem autenticação e exibem listagem e detalhes das clínicas aprovadas.
- */
+// Clinicas publicas
 Route::get('/clinicas', [ClinicaController::class, 'index'])->name('clinicas.index');
 Route::get('/clinicas/{clinica}', [ClinicaController::class, 'show'])->name('clinicas.show');
 
-/**
- * Dashboard protegido por autenticação.
- * O usuário logado é direcionado para a página principal do seu perfil.
- */
+// Dashboard
 Route::middleware('auth')->group(function () {
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 });
 
-/**
- * Rotas de agendamentos acessadas somente por usuários autenticados.
- * Cada método HTTP representa uma ação específica: criar, atualizar e cancelar.
- */
+// Agendamentos
 Route::middleware('auth')->group(function () {
     Route::post('/agendamentos', [AgendamentoController::class, 'store'])->name('agendamentos.store');
     Route::patch('/agendamentos/{agendamento}', [AgendamentoController::class, 'update'])->name('agendamentos.update');
     Route::delete('/agendamentos/{agendamento}', [AgendamentoController::class, 'destroy'])->name('agendamentos.destroy');
 });
 
-/**
- * Rota para criar avaliações.
- * Também exige autenticação, pois a avaliação pertence a um paciente logado.
- */
+// Avaliacoes
 Route::middleware('auth')->group(function () {
     Route::post('/avaliacoes', [AvaliacaoController::class, 'store'])->name('avaliacoes.store');
 });
 
 /**
- * Rotas do perfil da clínica.
- * O middleware role:clinica,fisioterapeuta restringe o acesso a usuários com papel de clínica ou fisioterapeuta.
- * O prefixo e o nome ajudam a organizar as URLs e os helpers de rota.
+ * Rotas do chat entre paciente e clinica.
+ * Todas exigem autenticacao, ja que so participantes da conversa podem ve-la.
  */
+Route::middleware('auth')->group(function () {
+    Route::get('/mensagens', [\App\Http\Controllers\ChatController::class, 'index'])->name('chat.index');
+    Route::get('/mensagens/nova/{clinica}', [\App\Http\Controllers\ChatController::class, 'iniciar'])->name('chat.iniciar');
+    Route::get('/mensagens/{conversa}', [\App\Http\Controllers\ChatController::class, 'show'])->name('chat.show');
+    Route::post('/mensagens/{conversa}', [\App\Http\Controllers\ChatController::class, 'store'])->name('chat.store');
+});
+
+// Perfil Clinica
 Route::middleware(['auth', 'role:clinica,fisioterapeuta'])->prefix('clinica-perfil')->name('clinica.perfil.')->group(function () {
     Route::get('/criar', [ClinicaPerfilController::class, 'create'])->name('create');
     Route::post('/criar', [ClinicaPerfilController::class, 'store'])->name('store');
@@ -92,11 +69,7 @@ Route::middleware(['auth', 'role:clinica,fisioterapeuta'])->prefix('clinica-perf
     Route::put('/editar', [ClinicaPerfilController::class, 'update'])->name('update');
 });
 
-/**
- * Rotas administrativas.
- * O middleware role:admin restringe o acesso ao painel de gestão.
- * O prefixo admin organiza todas as URLs do módulo administrativo.
- */
+// Admin
 Route::middleware(['auth', 'role:admin'])->prefix('admin')->name('admin.')->group(function () {
     Route::get('/clinicas-pendentes', [AdminController::class, 'clinicasPendentes'])->name('clinicas-pendentes');
     Route::patch('/clinicas/{clinica}/aprovar', [AdminController::class, 'aprovarClinica'])->name('clinicas.aprovar');

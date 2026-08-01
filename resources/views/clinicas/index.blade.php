@@ -205,7 +205,7 @@
                                 @endforeach
                             </div>
                             <div style="display:flex; gap:10px; flex-shrink:0;">
-                                <a href="mailto:{{ $clinica->email_contato }}" class="btn btn-secondary btn-sm">
+                                <a href="{{ auth()->check() && auth()->user()->isPaciente() ? route('chat.iniciar', $clinica) : route('login') }}" class="btn btn-secondary btn-sm">
                                     <i class="bi bi-chat-dots" aria-hidden="true"></i> Enviar mensagem
                                 </a>
                                 <a href="{{ route('clinicas.show', $clinica) }}" class="btn btn-primary btn-sm">
@@ -290,4 +290,3 @@
     });
 </script>
 @endsection
-
