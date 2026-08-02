@@ -54,6 +54,19 @@ const DailyCare = {
             DailyCare.anunciar('Fonte resetada para 100%');
         },
 
+        definir(valor) {
+            valor = parseInt(valor, 10);
+            if (valor < this._min) valor = this._min;
+            if (valor > this._max) valor = this._max;
+            this._escala = valor;
+            this._aplicar();
+            this._salvar();
+        },
+
+        atual() {
+            return this._escala;
+        },
+
         _aplicar() {
             document.documentElement.style.fontSize = this._escala + '%';
         },

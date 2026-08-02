@@ -29,6 +29,7 @@ class Clinica extends Model
         'latitude',
         'longitude',
         'descricao',
+        'preco_sessao',
         'foto_capa',
         'status',
         'ativa',

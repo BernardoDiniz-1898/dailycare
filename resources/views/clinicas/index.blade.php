@@ -197,12 +197,17 @@
                         </p>
 
                         <div class="clinica-lista-rodape">
-                            <div style="display:flex; flex-wrap:wrap; gap:6px;">
-                                @foreach ($clinica->servicosAcessibilidade->take(3) as $acesso)
-                                    <span class="badge badge-green">
-                                        <i class="bi bi-check-lg" aria-hidden="true"></i> {{ $acesso->nome }}
-                                    </span>
-                                @endforeach
+                            <div style="display:flex; align-items:center; gap:14px; flex-wrap:wrap;">
+                                <div style="display:flex; flex-wrap:wrap; gap:6px;">
+                                    @foreach ($clinica->servicosAcessibilidade->take(3) as $acesso)
+                                        <span class="badge badge-green">
+                                            <i class="bi bi-check-lg" aria-hidden="true"></i> {{ $acesso->nome }}
+                                        </span>
+                                    @endforeach
+                                </div>
+                                @if ($clinica->preco_sessao)
+                                    <span class="clinica-lista-preco">R$ {{ number_format($clinica->preco_sessao, 2, ',', '.') }}<small>/sessao</small></span>
+                                @endif
                             </div>
                             <div style="display:flex; gap:10px; flex-shrink:0;">
                                 <a href="{{ auth()->check() && auth()->user()->isPaciente() ? route('chat.iniciar', $clinica) : route('login') }}" class="btn btn-secondary btn-sm">

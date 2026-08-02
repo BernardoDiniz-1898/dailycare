@@ -2400,19 +2400,166 @@ body.dark-mode .site-footer-bottom {
     gap: 8px;
 }
 
-.agenda-observacao {
-    margin-top: 4px;
+.agenda-preco-linha {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: #F0FDFA;
+    border: 1px solid #A7F3D0;
+    border-radius: 10px;
+    padding: 12px 16px;
+    margin-bottom: 4px;
 }
 
-.agenda-confirmar-btn {
+.agenda-preco-linha span {
+    font-size: 0.8125rem;
+    color: #065F46;
+    font-weight: 600;
+}
+
+.agenda-preco-linha strong {
+    font-size: 1.0625rem;
+    color: #047857;
+    font-weight: 800;
+}
+
+/* ---------- Modal de confirmacao de agendamento ---------- */
+
+.agenda-modal-backdrop {
     display: none;
-    width: 100%;
-    text-align: center;
+    position: fixed;
+    inset: 0;
+    background: rgba(17, 24, 39, 0.55);
+    z-index: 300;
+    align-items: flex-start;
     justify-content: center;
+    overflow-y: auto;
+    padding: 60px 16px;
 }
 
-.agenda-confirmar-btn.visivel {
-    display: inline-flex;
+.agenda-modal-backdrop.aberto {
+    display: flex;
+    animation: agenda-modal-fade 0.15s ease;
+}
+
+@keyframes agenda-modal-fade {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+.agenda-modal {
+    background: #FFFFFF;
+    border-radius: 20px;
+    max-width: 440px;
+    width: 100%;
+    overflow: hidden;
+    box-shadow: 0 24px 64px rgba(0, 0, 0, 0.3);
+    animation: agenda-modal-subir 0.2s ease;
+}
+
+@keyframes agenda-modal-subir {
+    from { opacity: 0; transform: translateY(12px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.agenda-modal-header {
+    background: linear-gradient(135deg, #1E3A3A 0%, #2D5050 100%);
+    padding: 20px 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.agenda-modal-header h2 {
+    color: #FFFFFF;
+    font-size: 1.125rem;
+    font-weight: 800;
+    margin: 0;
+}
+
+.agenda-modal-header button {
+    background: rgba(255, 255, 255, 0.1);
+    border: none;
+    color: #FFFFFF;
+    width: 32px;
+    height: 32px;
+    border-radius: 8px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.15s ease;
+}
+
+.agenda-modal-header button:hover {
+    background: rgba(255, 255, 255, 0.2);
+}
+
+.agenda-modal-corpo {
+    padding: 24px;
+}
+
+.agenda-modal-clinica {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 20px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid #F3F4F6;
+}
+
+.agenda-modal-clinica img {
+    width: 48px;
+    height: 48px;
+    border-radius: 12px;
+    object-fit: cover;
+    flex-shrink: 0;
+}
+
+.agenda-modal-clinica strong {
+    display: block;
+    color: #111827;
+    font-weight: 700;
+    font-size: 0.9375rem;
+}
+
+.agenda-modal-clinica span {
+    color: #009688;
+    font-size: 0.8125rem;
+    font-weight: 600;
+}
+
+.agenda-modal-info-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+}
+
+.agenda-modal-info-grid.sem-preco {
+    grid-template-columns: repeat(2, 1fr);
+}
+
+.agenda-modal-info-grid > div {
+    background: #F9FAFB;
+    border-radius: 10px;
+    padding: 10px 12px;
+    text-align: center;
+}
+
+.agenda-modal-info-grid span {
+    display: block;
+    font-size: 0.6875rem;
+    color: #9CA3AF;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+    margin-bottom: 3px;
+}
+
+.agenda-modal-info-grid strong {
+    font-size: 0.9375rem;
+    color: #111827;
+    font-weight: 700;
 }
 
 /* =============================================
@@ -2830,4 +2977,18 @@ body.dark-mode .site-footer-bottom {
     .chat-lista {
         display: none;
     }
+}
+
+.clinica-lista-preco {
+    font-size: 0.9375rem;
+    font-weight: 800;
+    color: #047857;
+    white-space: nowrap;
+}
+
+.clinica-lista-preco small {
+    font-size: 0.6875rem;
+    font-weight: 600;
+    color: #6B7280;
+    margin-left: 2px;
 }

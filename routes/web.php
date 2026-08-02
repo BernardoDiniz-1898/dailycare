@@ -61,6 +61,15 @@ Route::middleware('auth')->group(function () {
     Route::post('/mensagens/{conversa}', [\App\Http\Controllers\ChatController::class, 'store'])->name('chat.store');
 });
 
+/**
+ * Rota de configuracoes da conta (fonte, contraste, senha).
+ * Disponivel para qualquer usuario autenticado.
+ */
+Route::middleware('auth')->group(function () {
+    Route::get('/configuracoes', [\App\Http\Controllers\ConfiguracoesController::class, 'index'])->name('configuracoes.index');
+    Route::put('/configuracoes/senha', [\App\Http\Controllers\ConfiguracoesController::class, 'atualizarSenha'])->name('configuracoes.senha');
+});
+
 // Perfil Clinica
 Route::middleware(['auth', 'role:clinica,fisioterapeuta'])->prefix('clinica-perfil')->name('clinica.perfil.')->group(function () {
     Route::get('/criar', [ClinicaPerfilController::class, 'create'])->name('create');

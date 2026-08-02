@@ -43,27 +43,6 @@
     <div id="acessibilidade-toolbar" class="acessibilidade-bar" role="toolbar" aria-label="Ferramentas de acessibilidade">
         <span class="sr-only" id="acessibilidade-info">Use Alt+1 para pular ao conteudo, Alt+2 para a navegacao</span>
 
-        <button type="button"
-                onclick="DailyCare.fonte.maior()"
-                aria-label="Aumentar tamanho da fonte"
-                title="Aumentar fonte (Alt + +)">
-            <span aria-hidden="true">A</span><span aria-hidden="true" style="font-size:0.7em">+</span>
-        </button>
-
-        <button type="button"
-                onclick="DailyCare.fonte.menor()"
-                aria-label="Diminuir tamanho da fonte"
-                title="Diminuir fonte (Alt + -)">
-            <span aria-hidden="true">A</span><span aria-hidden="true" style="font-size:0.7em">-</span>
-        </button>
-
-        <button type="button"
-                onclick="DailyCare.fonte.resetar()"
-                aria-label="Resetar tamanho da fonte para o padrao"
-                title="Resetar fonte">
-            <span aria-hidden="true">100%</span>
-        </button>
-
         <div class="tema-seletor" role="radiogroup" aria-label="Selecionar tema">
             <button type="button"
                     data-tema="claro"
@@ -193,6 +172,11 @@
                 <li>
                     <a href="{{ route('chat.index') }}" class="{{ request()->routeIs('chat.*') ? 'ativo' : '' }}">
                         <span><i class="bi bi-chat-dots" aria-hidden="true"></i> Mensagens</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="{{ route('configuracoes.index') }}" class="{{ request()->routeIs('configuracoes.*') ? 'ativo' : '' }}">
+                        <span><i class="bi bi-gear" aria-hidden="true"></i> Configuracoes</span>
                     </a>
                 </li>
                 @if (Auth::user()->isClinica())

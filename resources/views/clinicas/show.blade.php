@@ -304,49 +304,97 @@
                         <p>Selecione um horario disponivel</p>
                     </div>
 
-                    <form method="POST" action="{{ route('agendamentos.store') }}" id="form-agendamento">
-                        @csrf
-                        <input type="hidden" name="clinica_id" value="{{ $clinica->id }}">
-                        <input type="hidden" name="data" id="agendamento-data" value="">
-                        <input type="hidden" name="hora" id="agendamento-hora" value="">
+                    <div class="agenda-card-corpo">
+                        @if ($clinica->preco_sessao)
+                            <div class="agenda-preco-linha">
+                                <span>Valor da sessao</span>
+                                <strong>R$ {{ number_format($clinica->preco_sessao, 2, ',', '.') }}</strong>
+                            </div>
+                        @endif
 
-                        <div class="agenda-card-corpo">
-                            @if ($agendaDias->count() > 0)
-                                @foreach ($agendaDias as $dia)
-                                    <div class="agenda-dia-bloco">
-                                        <span class="agenda-dia-label">{{ $dia['label'] }}</span>
-                                        <div class="agenda-slots-wrap">
-                                            @foreach ($dia['slots'] as $slot)
-                                                <button type="button"
-                                                        class="horario-slot {{ $slot['ocupado'] ? 'ocupado' : '' }}"
-                                                        {{ $slot['ocupado'] ? 'disabled' : '' }}
-                                                        data-data="{{ $dia['data'] }}"
-                                                        data-hora="{{ $slot['hora'] }}"
-                                                        data-label="{{ $dia['label'] }}"
-                                                        onclick="window.DailyCare.perfilClinica.selecionarHorario(this)">
-                                                    {{ $slot['hora'] }}
-                                                </button>
-                                            @endforeach
-                                        </div>
+                        @if ($agendaDias->count() > 0)
+                            @foreach ($agendaDias as $dia)
+                                <div class="agenda-dia-bloco">
+                                    <span class="agenda-dia-label">{{ $dia['label'] }}</span>
+                                    <div class="agenda-slots-wrap">
+                                        @foreach ($dia['slots'] as $slot)
+                                            <button type="button"
+                                                    class="horario-slot {{ $slot['ocupado'] ? 'ocupado' : '' }}"
+                                                    {{ $slot['ocupado'] ? 'disabled' : '' }}
+                                                    data-data="{{ $dia['data'] }}"
+                                                    data-hora="{{ $slot['hora'] }}"
+                                                    data-label="{{ $dia['label'] }}"
+                                                    onclick="window.DailyCare.perfilClinica.abrirModalAgendamento(this)">
+                                                {{ $slot['hora'] }}
+                                            </button>
+                                        @endforeach
                                     </div>
-                                @endforeach
+                                </div>
+                            @endforeach
+                        @else
+                            <p style="color:#6B7280; text-align:center; padding:12px 0;">
+                                Esta clinica ainda nao cadastrou horarios disponiveis.
+                            </p>
+                        @endif
+                    </div>
+                </div>
 
-                                <div class="form-group agenda-observacao" style="margin-bottom:0;">
-                                    <label for="observacao_paciente" class="form-label">Observacao (opcional)</label>
-                                    <textarea id="observacao_paciente" name="observacao_paciente" rows="2" class="form-textarea"
-                                              placeholder="Descreva sua necessidade..."></textarea>
+                {{-- Modal de confirmacao de agendamento --}}
+                <div id="modal-agendamento-backdrop" class="agenda-modal-backdrop">
+                    <div class="agenda-modal" role="dialog" aria-modal="true" aria-labelledby="agenda-modal-titulo">
+                        <div class="agenda-modal-header">
+                            <h2 id="agenda-modal-titulo">Confirmar agendamento</h2>
+                            <button type="button" onclick="window.DailyCare.perfilClinica.fecharModalAgendamento()" aria-label="Fechar">
+                                <i class="bi bi-x-lg" aria-hidden="true"></i>
+                            </button>
+                        </div>
+
+                        <div class="agenda-modal-corpo">
+                            <div class="agenda-modal-clinica">
+                                <img src="{{ $fotoClinicaCapa }}" alt="" loading="lazy">
+                                <div>
+                                    <strong>{{ $clinica->nome_fantasia }}</strong>
+                                    @if ($especialidadePrincipal)
+                                        <span>{{ $especialidadePrincipal->nome }}</span>
+                                    @endif
+                                </div>
+                            </div>
+
+                            <form method="POST" action="{{ route('agendamentos.store') }}" id="form-agendamento">
+                                @csrf
+                                <input type="hidden" name="clinica_id" value="{{ $clinica->id }}">
+                                <input type="hidden" name="data" id="agendamento-data" value="">
+                                <input type="hidden" name="hora" id="agendamento-hora" value="">
+
+                                <div class="agenda-modal-info-grid {{ $clinica->preco_sessao ? '' : 'sem-preco' }}">
+                                    <div>
+                                        <span>Dia</span>
+                                        <strong id="agenda-modal-dia">-</strong>
+                                    </div>
+                                    <div>
+                                        <span>Horario</span>
+                                        <strong id="agenda-modal-hora">-</strong>
+                                    </div>
+                                    @if ($clinica->preco_sessao)
+                                        <div>
+                                            <span>Valor</span>
+                                            <strong>R$ {{ number_format($clinica->preco_sessao, 2, ',', '.') }}</strong>
+                                        </div>
+                                    @endif
                                 </div>
 
-                                <button type="submit" class="btn btn-accent agenda-confirmar-btn" id="btn-confirmar-agendamento">
-                                    Selecione um horario acima
+                                <div class="form-group" style="margin:16px 0 0;">
+                                    <label for="observacao_paciente" class="form-label">Observacoes (opcional)</label>
+                                    <textarea id="observacao_paciente" name="observacao_paciente" rows="2" class="form-textarea"
+                                              placeholder="Descreva sua condicao ou necessidade..."></textarea>
+                                </div>
+
+                                <button type="submit" class="btn btn-primary" style="width:100%; justify-content:center; margin-top:16px;">
+                                    <i class="bi bi-calendar-check" aria-hidden="true"></i> Solicitar agendamento
                                 </button>
-                            @else
-                                <p style="color:#6B7280; text-align:center; padding:12px 0;">
-                                    Esta clinica ainda nao cadastrou horarios disponiveis.
-                                </p>
-                            @endif
+                            </form>
                         </div>
-                    </form>
+                    </div>
                 </div>
             @endif
         @else
@@ -379,7 +427,7 @@
             botao.setAttribute('aria-selected', 'true');
             document.getElementById('painel-' + nome).classList.add('ativo');
         },
-        selecionarHorario(botao) {
+        abrirModalAgendamento(botao) {
             if (botao.disabled) return;
 
             document.querySelectorAll('.horario-slot').forEach(function (b) {
@@ -389,13 +437,15 @@
 
             document.getElementById('agendamento-data').value = botao.dataset.data;
             document.getElementById('agendamento-hora').value = botao.dataset.hora;
+            document.getElementById('agenda-modal-hora').textContent = botao.dataset.hora;
+            document.getElementById('agenda-modal-dia').textContent = botao.dataset.label;
 
-            const btnConfirmar = document.getElementById('btn-confirmar-agendamento');
-            if (btnConfirmar) {
-                const dataFormatada = botao.dataset.data.split('-').reverse().slice(0, 2).join('/');
-                btnConfirmar.textContent = 'Confirmar - ' + botao.dataset.hora + ', ' + dataFormatada;
-                btnConfirmar.classList.add('visivel');
-            }
+            document.getElementById('modal-agendamento-backdrop').classList.add('aberto');
+            document.body.style.overflow = 'hidden';
+        },
+        fecharModalAgendamento() {
+            document.getElementById('modal-agendamento-backdrop').classList.remove('aberto');
+            document.body.style.overflow = '';
         },
         moverCarrossel(botao, direcao) {
             const carrossel = botao.closest('.fotos-carrossel');
@@ -403,6 +453,12 @@
             viewport.scrollBy({ left: viewport.clientWidth * direcao, behavior: 'smooth' });
         }
     };
+
+    document.getElementById('modal-agendamento-backdrop')?.addEventListener('click', function (evento) {
+        if (evento.target === this) {
+            window.DailyCare.perfilClinica.fecharModalAgendamento();
+        }
+    });
 </script>
 
 @push('head')

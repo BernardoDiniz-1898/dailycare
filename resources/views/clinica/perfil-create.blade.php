@@ -43,6 +43,12 @@
                 <label for="descricao" class="form-label">Descricao</label>
                 <textarea id="descricao" name="descricao" rows="3" class="form-input">{{ old('descricao') }}</textarea>
             </div>
+            <div class="form-group">
+                <label for="preco_sessao" class="form-label">Valor da sessao (R$)</label>
+                <input type="number" id="preco_sessao" name="preco_sessao" step="0.01" min="0"
+                       value="{{ old('preco_sessao') }}" class="form-input" placeholder="Ex: 180.00">
+                @error('preco_sessao') <p class="form-error" role="alert"><span aria-hidden="true">&#x26A0;</span> {{ $message }}</p> @enderror
+            </div>
         </div>
     </fieldset>
 

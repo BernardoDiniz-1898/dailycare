@@ -63,6 +63,7 @@ class ClinicaPerfilController extends Controller
             'estado' => 'required|string|size:2',
             'cep' => 'required|string|size:9',
             'descricao' => 'nullable|string|max:2000',
+            'preco_sessao' => 'nullable|numeric|min:0|max:99999.99',
             'especialidades' => 'required|array|min:1',
             'especialidades.*' => 'exists:especialidades,id',
             'servicos_acessibilidade' => 'nullable|array',
@@ -85,6 +86,7 @@ class ClinicaPerfilController extends Controller
             'estado' => $validated['estado'],
             'cep' => $validated['cep'],
             'descricao' => $validated['descricao'] ?? null,
+            'preco_sessao' => $validated['preco_sessao'] ?? null,
         ]);
 
         $clinica->especialidades()->sync($validated['especialidades']);
@@ -118,6 +120,7 @@ class ClinicaPerfilController extends Controller
             'estado' => 'required|string|size:2',
             'cep' => 'required|string|size:9',
             'descricao' => 'nullable|string|max:2000',
+            'preco_sessao' => 'nullable|numeric|min:0|max:99999.99',
             'especialidades' => 'required|array|min:1',
             'especialidades.*' => 'exists:especialidades,id',
             'servicos_acessibilidade' => 'nullable|array',
@@ -137,6 +140,7 @@ class ClinicaPerfilController extends Controller
             'estado' => $validated['estado'],
             'cep' => $validated['cep'],
             'descricao' => $validated['descricao'] ?? null,
+            'preco_sessao' => $validated['preco_sessao'] ?? null,
         ]);
 
         $clinica->especialidades()->sync($validated['especialidades']);
