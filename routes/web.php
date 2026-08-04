@@ -7,16 +7,15 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ClinicaController;
 use App\Http\Controllers\ClinicaPerfilController;
 use App\Http\Controllers\DashboardController;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
-    $clinicasDestaque = \App\Models\Clinica::aprovadas()
-        ->with('especialidades')
-        ->latest()
-        ->take(3)
-        ->get();
+    if (Auth::check()) {
+        return redirect()->route('dashboard');
+    }
 
-    return view('welcome', compact('clinicasDestaque'));
+    return redirect()->route('login');
 })->name('home');
 
 // Auth

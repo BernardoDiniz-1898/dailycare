@@ -4,13 +4,13 @@
 
 @section('conteudo')
 <div style="max-width:640px; margin:0 auto;">
-    <h1 style="font-size:1.75rem; font-weight:800; color:#111827; margin-bottom:24px;">
+    <h1 style="font-size:1.75rem; font-weight:800; color:var(--color-text); margin-bottom:24px;">
         <i class="bi bi-gear-fill" aria-hidden="true"></i> Configuracoes
     </h1>
 
     {{-- Acessibilidade --}}
     <section class="card" style="padding:28px; margin-bottom:20px;" aria-labelledby="titulo-acessibilidade">
-        <h2 id="titulo-acessibilidade" style="font-size:1.125rem; font-weight:700; color:#111827; margin-bottom:20px;">
+        <h2 id="titulo-acessibilidade" style="font-size:1.125rem; font-weight:700; color:var(--color-text); margin-bottom:20px;">
             <i class="bi bi-universal-access" aria-hidden="true"></i> Acessibilidade
         </h2>
 
@@ -27,8 +27,8 @@
 
         <div style="display:flex; align-items:center; justify-content:space-between; padding-top:20px; border-top:1px solid #F3F4F6;">
             <div>
-                <p style="font-weight:600; color:#111827; margin:0;">Alto contraste</p>
-                <p style="font-size:0.8125rem; color:#6B7280; margin:2px 0 0;">Aumenta o contraste de cores para melhor legibilidade</p>
+                <p style="font-weight:600; color:var(--color-text); margin:0;">Alto contraste</p>
+                <p style="font-size:0.875rem; color:var(--color-text-secondary); margin:2px 0 0;">Aumenta o contraste de cores para melhor legibilidade</p>
             </div>
             <label class="config-toggle">
                 <input type="checkbox" id="toggle-alto-contraste"
@@ -41,7 +41,7 @@
 
     {{-- Alterar senha --}}
     <section class="card" style="padding:28px; margin-bottom:20px;" aria-labelledby="titulo-senha">
-        <h2 id="titulo-senha" style="font-size:1.125rem; font-weight:700; color:#111827; margin-bottom:20px;">
+        <h2 id="titulo-senha" style="font-size:1.125rem; font-weight:700; color:var(--color-text); margin-bottom:20px;">
             <i class="bi bi-shield-lock-fill" aria-hidden="true"></i> Alterar senha
         </h2>
 
@@ -52,13 +52,13 @@
             <div class="form-group" style="margin-bottom:18px;">
                 <label for="senha_atual" class="form-label">Senha atual</label>
                 <input type="password" id="senha_atual" name="senha_atual" required class="form-input" autocomplete="current-password">
-                @error('senha_atual') <p class="form-error" role="alert"><span aria-hidden="true">&#x26A0;</span> {{ $message }}</p> @enderror
+                @error('senha_atual') <p class="form-error" role="alert"><i class="bi bi-exclamation-triangle-fill" aria-hidden="true"></i> {{ $message }}</p> @enderror
             </div>
 
             <div class="form-group" style="margin-bottom:18px;">
                 <label for="nova_senha" class="form-label">Nova senha</label>
                 <input type="password" id="nova_senha" name="nova_senha" required class="form-input" autocomplete="new-password" placeholder="Minimo 8 caracteres">
-                @error('nova_senha') <p class="form-error" role="alert"><span aria-hidden="true">&#x26A0;</span> {{ $message }}</p> @enderror
+                @error('nova_senha') <p class="form-error" role="alert"><i class="bi bi-exclamation-triangle-fill" aria-hidden="true"></i> {{ $message }}</p> @enderror
             </div>
 
             <div class="form-group" style="margin-bottom:20px;">
@@ -72,22 +72,22 @@
 
     {{-- Conta --}}
     <section class="card" style="padding:28px;" aria-labelledby="titulo-conta">
-        <h2 id="titulo-conta" style="font-size:1.125rem; font-weight:700; color:#111827; margin-bottom:20px;">
+        <h2 id="titulo-conta" style="font-size:1.125rem; font-weight:700; color:var(--color-text); margin-bottom:20px;">
             <i class="bi bi-person-fill" aria-hidden="true"></i> Conta
         </h2>
 
         <div style="display:flex; flex-direction:column; gap:12px; font-size:0.9375rem;">
             <div style="display:flex; justify-content:space-between;">
-                <span style="color:#6B7280;">Nome</span>
-                <span style="font-weight:600; color:#111827;">{{ Auth::user()->nome }}</span>
+                <span style="color:var(--color-text-secondary);">Nome</span>
+                <span style="font-weight:600; color:var(--color-text);">{{ Auth::user()->nome }}</span>
             </div>
             <div style="display:flex; justify-content:space-between;">
-                <span style="color:#6B7280;">E-mail</span>
-                <span style="font-weight:600; color:#111827;">{{ Auth::user()->email }}</span>
+                <span style="color:var(--color-text-secondary);">E-mail</span>
+                <span style="font-weight:600; color:var(--color-text);">{{ Auth::user()->email }}</span>
             </div>
             <div style="display:flex; justify-content:space-between;">
-                <span style="color:#6B7280;">Tipo de conta</span>
-                <span style="font-weight:600; color:#111827; text-transform:capitalize;">{{ Auth::user()->role }}</span>
+                <span style="color:var(--color-text-secondary);">Tipo de conta</span>
+                <span style="font-weight:600; color:var(--color-text); text-transform:capitalize;">{{ Auth::user()->role }}</span>
             </div>
         </div>
 

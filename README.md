@@ -321,11 +321,21 @@ Acesse: [http://localhost:8000](http://localhost:8000)
 
 ## Credenciais de Teste
 
-| Perfil | E-mail | Senha |
-|--------|--------|-------|
-| **Administrador** | `admin@dailycare.com` | `password` |
-| **Paciente** | `maria@email.com` | `password` |
-| **Clínica** | `clinica@email.com` | `password` |
+Todos os usuários pré-setados usam a senha `password`:
+
+| Perfil | E-mail | Observação |
+|--------|--------|------------|
+| **Administrador** | `admin@dailycare.com` | Painel administrativo |
+| **Paciente** | `maria@email.com` | Lesão medular incompleta |
+| **Paciente** | `joao.paciente@email.com` | Sequelas de AVC |
+| **Paciente** | `beatriz.paciente@email.com` | Paralisia cerebral |
+| **Paciente** | `carlos.paciente@email.com` | Lesão medular incompleta |
+| **Paciente** | `marina.paciente@email.com` | Parkinson |
+| **Clínica** | `clinica@email.com` | Fisio Acessível (aprovada) |
+| **Clínica** | `clinica2@email.com` | Reabilita Neuro (aprovada) |
+| **Clínica** | `clinica3@email.com` | Movimenta Pilates & Fisio (aprovada) |
+| **Clínica** | `clinica4@email.com` | Reabilitar Almeida (pendente) |
+| **Fisioterapeuta** | `pedro.fisio@email.com` | Sem clínica vinculada |
 
 ---
 

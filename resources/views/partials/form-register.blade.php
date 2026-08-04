@@ -16,8 +16,8 @@
                     style="width:20px; height:20px; accent-color:#009688;"
                     onchange="alternarCampos('paciente')">
                 <div>
-                    <span style="font-weight:700; color:#111827; display:block;">Paciente</span>
-                    <span style="font-size:0.8125rem; color:#6B7280;">Busco clinicas acessiveis</span>
+                    <span style="font-weight:700; color:var(--color-text); display:block;">Paciente</span>
+                    <span style="font-size:0.875rem; color:var(--color-text-secondary);">Busco clinicas acessiveis</span>
                 </div>
             </label>
 
@@ -27,8 +27,8 @@
                     style="width:20px; height:20px; accent-color:#009688;"
                     onchange="alternarCampos('fisioterapeuta')">
                 <div>
-                    <span style="font-weight:700; color:#111827; display:block;">Fisioterapeuta</span>
-                    <span style="font-size:0.8125rem; color:#6B7280;">Quero cadastrar minha clinica</span>
+                    <span style="font-weight:700; color:var(--color-text); display:block;">Fisioterapeuta</span>
+                    <span style="font-size:0.875rem; color:var(--color-text-secondary);">Quero cadastrar minha clinica</span>
                 </div>
             </label>
 
@@ -36,7 +36,7 @@
 
         @error('role')
             <p class="form-error" style="margin-top:8px;" role="alert">
-                <span aria-hidden="true">&#x26A0;</span> {{ $message }}
+                <i class="bi bi-exclamation-triangle-fill" aria-hidden="true"></i> {{ $message }}
             </p>
         @enderror
 
@@ -55,7 +55,7 @@
             </label>
             <input type="text" id="nome" name="nome" value="{{ old('nome') }}" required
                 class="form-input input-paciente" autocomplete="name" placeholder="Seu nome completo">
-            @error('nome') <p class="form-error" role="alert"><span aria-hidden="true">&#x26A0;</span> {{ $message }}</p> @enderror
+            @error('nome') <p class="form-error" role="alert"><i class="bi bi-exclamation-triangle-fill" aria-hidden="true"></i> {{ $message }}</p> @enderror
         </div>
 
         <div class="form-group" style="margin-bottom:20px;">
@@ -64,7 +64,7 @@
             </label>
             <input type="text" id="cpf" name="cpf" value="{{ old('cpf') }}" required
                 class="form-input input-paciente" placeholder="000.000.000-00" maxlength="14">
-            @error('cpf') <p class="form-error" role="alert"><span aria-hidden="true">&#x26A0;</span> {{ $message }}</p> @enderror
+            @error('cpf') <p class="form-error" role="alert"><i class="bi bi-exclamation-triangle-fill" aria-hidden="true"></i> {{ $message }}</p> @enderror
         </div>
 
         <div class="form-group" style="margin-bottom:20px;">
@@ -73,7 +73,7 @@
             </label>
             <input type="text" id="endereco" name="endereco" value="{{ old('endereco') }}"
                 class="form-input" placeholder="Sua rua, número e bairro">
-            @error('endereco') <p class="form-error" role="alert"><span aria-hidden="true">&#x26A0;</span> {{ $message }}</p> @enderror
+            @error('endereco') <p class="form-error" role="alert"><i class="bi bi-exclamation-triangle-fill" aria-hidden="true"></i> {{ $message }}</p> @enderror
         </div>
 
     </div>
@@ -89,7 +89,7 @@
             </label>
             <input type="text" id="nome_responsavel" name="nome_responsavel" value="{{ old('nome_responsavel') }}"
                 class="form-input input-clinica" placeholder="Nome do representante legal">
-            @error('nome_responsavel') <p class="form-error" role="alert"><span aria-hidden="true">&#x26A0;</span> {{ $message }}</p> @enderror
+            @error('nome_responsavel') <p class="form-error" role="alert"><i class="bi bi-exclamation-triangle-fill" aria-hidden="true"></i> {{ $message }}</p> @enderror
         </div>
 
         <div class="form-group" style="margin-bottom:20px;">
@@ -98,7 +98,7 @@
             </label>
             <input type="text" id="razao_social" name="razao_social" value="{{ old('razao_social') }}"
                 class="form-input input-clinica" placeholder="Razão social da empresa">
-            @error('razao_social') <p class="form-error" role="alert"><span aria-hidden="true">&#x26A0;</span> {{ $message }}</p> @enderror
+            @error('razao_social') <p class="form-error" role="alert"><i class="bi bi-exclamation-triangle-fill" aria-hidden="true"></i> {{ $message }}</p> @enderror
         </div>
 
         <div class="form-group" style="margin-bottom:20px;">
@@ -107,7 +107,7 @@
             </label>
             <input type="text" id="nome_fantasia" name="nome_fantasia" value="{{ old('nome_fantasia') }}"
                 class="form-input input-clinica" placeholder="Nome comercial da clínica">
-            @error('nome_fantasia') <p class="form-error" role="alert"><span aria-hidden="true">&#x26A0;</span> {{ $message }}</p> @enderror
+            @error('nome_fantasia') <p class="form-error" role="alert"><i class="bi bi-exclamation-triangle-fill" aria-hidden="true"></i> {{ $message }}</p> @enderror
         </div>
 
         <div class="form-group" style="margin-bottom:20px;">
@@ -116,7 +116,7 @@
             </label>
             <input type="text" id="cnpj" name="cnpj" value="{{ old('cnpj') }}"
                 class="form-input input-clinica" placeholder="00.000.000/0001-00" maxlength="18">
-            @error('cnpj') <p class="form-error" role="alert"><span aria-hidden="true">&#x26A0;</span> {{ $message }}</p> @enderror
+            @error('cnpj') <p class="form-error" role="alert"><i class="bi bi-exclamation-triangle-fill" aria-hidden="true"></i> {{ $message }}</p> @enderror
         </div>
 
         {{-- Endereço Comercial Completo da Clínica --}}
@@ -124,36 +124,36 @@
             <div>
                 <label for="cep" class="form-label">CEP *</label>
                 <input type="text" id="cep" name="cep" value="{{ old('cep') }}" class="form-input input-clinica" placeholder="00000-000">
-                @error('cep') <p class="form-error" role="alert"><span aria-hidden="true">&#x26A0;</span> {{ $message }}</p> @enderror
+                @error('cep') <p class="form-error" role="alert"><i class="bi bi-exclamation-triangle-fill" aria-hidden="true"></i> {{ $message }}</p> @enderror
             </div>
             <div>
                 <label for="numero" class="form-label">Número *</label>
                 <input type="text" id="numero" name="numero" value="{{ old('numero') }}" class="form-input input-clinica" placeholder="Ex: 123">
-                @error('numero') <p class="form-error" role="alert"><span aria-hidden="true">&#x26A0;</span> {{ $message }}</p> @enderror
+                @error('numero') <p class="form-error" role="alert"><i class="bi bi-exclamation-triangle-fill" aria-hidden="true"></i> {{ $message }}</p> @enderror
             </div>
         </div>
 
         <div class="form-group" style="margin-bottom:20px;">
             <label for="logradouro" class="form-label">Logradouro / Rua *</label>
             <input type="text" id="logradouro" name="logradouro" value="{{ old('logradouro') }}" class="form-input input-clinica" placeholder="Av. Principal, Rua...">
-            @error('logradouro') <p class="form-error" role="alert"><span aria-hidden="true">&#x26A0;</span> {{ $message }}</p> @enderror
+            @error('logradouro') <p class="form-error" role="alert"><i class="bi bi-exclamation-triangle-fill" aria-hidden="true"></i> {{ $message }}</p> @enderror
         </div>
 
         <div style="display:grid; grid-template-columns:1fr 1fr 1fr; gap:12px; margin-bottom:20px;">
             <div>
                 <label for="bairro" class="form-label">Bairro *</label>
                 <input type="text" id="bairro" name="bairro" value="{{ old('bairro') }}" class="form-input input-clinica" placeholder="Bairro">
-                @error('bairro') <p class="form-error" role="alert"><span aria-hidden="true">&#x26A0;</span> {{ $message }}</p> @enderror
+                @error('bairro') <p class="form-error" role="alert"><i class="bi bi-exclamation-triangle-fill" aria-hidden="true"></i> {{ $message }}</p> @enderror
             </div>
             <div>
                 <label for="cidade" class="form-label">Cidade *</label>
                 <input type="text" id="cidade" name="cidade" value="{{ old('cidade') }}" class="form-input input-clinica" placeholder="Cidade">
-                @error('cidade') <p class="form-error" role="alert"><span aria-hidden="true">&#x26A0;</span> {{ $message }}</p> @enderror
+                @error('cidade') <p class="form-error" role="alert"><i class="bi bi-exclamation-triangle-fill" aria-hidden="true"></i> {{ $message }}</p> @enderror
             </div>
             <div>
                 <label for="estado" class="form-label">UF *</label>
                 <input type="text" id="estado" name="estado" value="{{ old('estado') }}" class="form-input input-clinica" placeholder="Ex: SP" maxlength="2">
-                @error('estado') <p class="form-error" role="alert"><span aria-hidden="true">&#x26A0;</span> {{ $message }}</p> @enderror
+                @error('estado') <p class="form-error" role="alert"><i class="bi bi-exclamation-triangle-fill" aria-hidden="true"></i> {{ $message }}</p> @enderror
             </div>
         </div>
 
@@ -168,14 +168,14 @@
         </label>
         <input type="email" id="email" name="email" value="{{ old('email') }}" required
             class="form-input" autocomplete="email" placeholder="seu@email.com">
-        @error('email') <p class="form-error" role="alert"><span aria-hidden="true">&#x26A0;</span> {{ $message }}</p> @enderror
+        @error('email') <p class="form-error" role="alert"><i class="bi bi-exclamation-triangle-fill" aria-hidden="true"></i> {{ $message }}</p> @enderror
     </div>
 
     <div class="form-group" style="margin-bottom:20px;">
         <label for="telefone" class="form-label">Telefone (opcional)</label>
         <input type="text" id="telefone" name="telefone" value="{{ old('telefone') }}"
             class="form-input" autocomplete="tel" placeholder="(00) 00000-0000">
-        @error('telefone') <p class="form-error" role="alert"><span aria-hidden="true">&#x26A0;</span> {{ $message }}</p> @enderror
+        @error('telefone') <p class="form-error" role="alert"><i class="bi bi-exclamation-triangle-fill" aria-hidden="true"></i> {{ $message }}</p> @enderror
     </div>
 
     <div class="form-group" style="margin-bottom:20px;">
@@ -184,7 +184,7 @@
         </label>
         <input type="password" id="senha" name="senha" required
             class="form-input" autocomplete="new-password" placeholder="Minimo 8 caracteres">
-        @error('senha') <p class="form-error" role="alert"><span aria-hidden="true">&#x26A0;</span> {{ $message }}</p> @enderror
+        @error('senha') <p class="form-error" role="alert"><i class="bi bi-exclamation-triangle-fill" aria-hidden="true"></i> {{ $message }}</p> @enderror
     </div>
 
     <div class="form-group" style="margin-bottom:24px;">

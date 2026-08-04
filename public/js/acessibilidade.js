@@ -108,7 +108,7 @@ const DailyCare = {
             if (!this._opcoes.includes(tema) || tema === this._atual) return;
 
             this._atual = tema;
-            this._aplicar();
+            this._aplicarComTransicao();
             this._salvar();
             this._atualizarBotoes();
 
@@ -119,6 +119,17 @@ const DailyCare = {
             const idx = this._opcoes.indexOf(this._atual);
             const proximo = this._opcoes[(idx + 1) % this._opcoes.length];
             this.trocar(proximo);
+        },
+
+        _aplicarComTransicao() {
+            const body = document.body;
+            body.classList.add('tema-transition');
+            this._aplicar();
+
+            clearTimeout(this._timerTransicao);
+            this._timerTransicao = setTimeout(() => {
+                body.classList.remove('tema-transition');
+            }, 400);
         },
 
         _aplicar() {
@@ -246,6 +257,7 @@ const DailyCare = {
             this._ultimoFoco = document.activeElement;
 
             backdrop.hidden = false;
+            requestAnimationFrame(() => backdrop.classList.add('aberto'));
             menu.classList.add('aberto');
             menu.setAttribute('aria-hidden', 'false');
             if (botao) botao.setAttribute('aria-expanded', 'true');
@@ -266,7 +278,8 @@ const DailyCare = {
 
             menu.classList.remove('aberto');
             menu.setAttribute('aria-hidden', 'true');
-            backdrop.hidden = true;
+            backdrop.classList.remove('aberto');
+            setTimeout(() => { backdrop.hidden = true; }, 300);
             if (botao) botao.setAttribute('aria-expanded', 'false');
 
             document.body.style.overflow = '';

@@ -9,8 +9,8 @@
         <div style="width:72px; height:72px; background:#E0F2F1; border-radius:20px; display:inline-flex; align-items:center; justify-content:center; margin-bottom:16px;">
             <i class="bi bi-person-plus-fill" style="font-size:1.75rem; color:#009688;" aria-hidden="true"></i>
         </div>
-        <h1 style="font-size:1.75rem; font-weight:800; color:#111827;">Criar sua conta</h1>
-        <p style="color:#6B7280; margin-top:8px;">Escolha o tipo de conta para comecar</p>
+        <h1 style="font-size:1.75rem; font-weight:800; color:var(--color-text);">Criar sua conta</h1>
+        <p style="color:var(--color-text-secondary); margin-top:8px;">Escolha o tipo de conta para comecar</p>
     </div>
 
     <div class="auth-tabs" role="tablist" aria-label="Alternar entre entrar e cadastrar">
@@ -20,7 +20,7 @@
 
     @include('partials.form-register')
 
-    <p style="text-align:center; margin-top:24px; font-size:0.9375rem; color:#6B7280;">
+    <p style="text-align:center; margin-top:24px; font-size:0.9375rem; color:var(--color-text-secondary);">
         Ja tem conta?
         <a href="{{ route('login') }}" style="color:#009688; font-weight:600; text-decoration:underline; text-underline-offset:4px;">
             Entrar

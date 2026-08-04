@@ -1,0 +1,8 @@
+node_modules/
+.phpunit.result.cache
+public/hot
+storage/*.key
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/

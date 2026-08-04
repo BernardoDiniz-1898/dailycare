@@ -44,7 +44,7 @@
             <div class="chat-lista-vazia">
                 <i class="bi bi-chat-dots" aria-hidden="true"></i>
                 <p>Nenhuma conversa ainda.</p>
-                <p style="font-size:0.8125rem;">Envie uma mensagem a partir do perfil de uma clinica pra comecar.</p>
+                <p style="font-size:0.875rem;">Envie uma mensagem a partir do perfil de uma clinica pra comecar.</p>
             </div>
         @endif
     </aside>
@@ -75,7 +75,7 @@
                         </div>
                     </div>
                 @empty
-                    <p style="text-align:center; color:#9CA3AF; margin-top:40px;">
+                    <p style="text-align:center; color:var(--color-text-secondary); margin-top:40px;">
                         Essa e o inicio da sua conversa com {{ $nomeOutro }}.
                     </p>
                 @endforelse

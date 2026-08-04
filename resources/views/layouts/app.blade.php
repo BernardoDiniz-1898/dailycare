@@ -7,10 +7,7 @@
     <meta name="theme-color" content="#009688">
     <title>@yield('titulo', 'Daily Care') - Marketplace de Fisioterapia</title>
 
-    {{-- Google Fonts: Roboto --}}
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    {{-- Tipografia: Poppins (titulos) + Nunito (corpo) carregadas via app.css --}}
 
     {{-- Bootstrap Icons: icones de linha (substituem os emojis) --}}
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
@@ -52,7 +49,7 @@
                     aria-pressed="true"
                     aria-label="Tema claro"
                     title="Tema claro">
-                <span aria-hidden="true">&#x2600;</span> Claro
+                <i class="bi bi-sun-fill" aria-hidden="true"></i> Claro
             </button>
             <button type="button"
                     data-tema="escuro"
@@ -62,7 +59,7 @@
                     aria-pressed="false"
                     aria-label="Tema escuro"
                     title="Tema escuro (Alt + T)">
-                <span aria-hidden="true">&#x1F319;</span> Escuro
+                <i class="bi bi-moon-fill" aria-hidden="true"></i> Escuro
             </button>
             <button type="button"
                     data-tema="alto-contraste"
@@ -72,7 +69,7 @@
                     aria-pressed="false"
                     aria-label="Alto contraste"
                     title="Alto contraste">
-                <span aria-hidden="true">&#x25CF;</span> Alto Contraste
+                <i class="bi bi-brightness-high-fill" aria-hidden="true"></i> Alto Contraste
             </button>
         </div>
 
@@ -219,25 +216,25 @@
          aria-live para leitores de tela
          ============================================= --}}
     @if (session('success'))
-        <div class="max-w-7xl mx-auto px-6 mt-6" role="status" aria-live="polite" aria-atomic="true">
+        <div style="max-width:1280px; margin:24px auto 0; padding:0 24px;" role="status" aria-live="polite" aria-atomic="true">
             <div class="alert alert-success">
-                <span aria-hidden="true">&#x2705;</span>
+                <i class="bi bi-check-circle-fill" aria-hidden="true"></i>
                 {{ session('success') }}
             </div>
         </div>
     @endif
 
     @if (session('error'))
-        <div class="max-w-7xl mx-auto px-6 mt-6" role="alert" aria-live="assertive" aria-atomic="true">
+        <div style="max-width:1280px; margin:24px auto 0; padding:0 24px;" role="alert" aria-live="assertive" aria-atomic="true">
             <div class="alert alert-error">
-                <span aria-hidden="true">&#x274C;</span>
+                <i class="bi bi-x-circle-fill" aria-hidden="true"></i>
                 {{ session('error') }}
             </div>
         </div>
     @endif
 
     @if ($errors->any())
-        <div class="max-w-7xl mx-auto px-6 mt-6" role="alert" aria-live="assertive" aria-atomic="true">
+        <div style="max-width:1280px; margin:24px auto 0; padding:0 24px;" role="alert" aria-live="assertive" aria-atomic="true">
             <div class="alert alert-error">
                 <div>
                     <strong>Erros encontrados:</strong>
@@ -262,7 +259,7 @@
          RODAPE
          ============================================= --}}
     <footer role="contentinfo" class="site-footer">
-        <div class="max-w-7xl mx-auto">
+        <div style="max-width:1280px; margin:0 auto;">
             <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(250px, 1fr)); gap:40px;">
                 <div>
                     <h2>
@@ -296,7 +293,7 @@
                     <p style="margin-top:8px;">
                         Integracao com <strong>V-Libras</strong> para traducao em Libras.
                     </p>
-                    <p style="margin-top:12px; font-size:0.8125rem; color:#9CA3AF;">
+                    <p style="margin-top:12px; font-size:0.875rem; color:var(--color-text-secondary);">
                         Atalhos: Alt+1 (conteudo), Alt+2 (nav), Alt+T (tema), Alt+/Alt- (fonte)
                     </p>
                 </div>

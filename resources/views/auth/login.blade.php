@@ -8,8 +8,8 @@
         <div style="width:72px; height:72px; background:#E0F2F1; border-radius:20px; display:inline-flex; align-items:center; justify-content:center; margin-bottom:16px;">
             <i class="bi bi-key-fill" style="font-size:1.75rem; color:#009688;" aria-hidden="true"></i>
         </div>
-        <h1 style="font-size:1.75rem; font-weight:800; color:#111827;">Entrar na sua conta</h1>
-        <p style="color:#6B7280; margin-top:8px;">Acesse o marketplace de fisioterapia acessivel</p>
+        <h1 style="font-size:1.75rem; font-weight:800; color:var(--color-text);">Entrar na sua conta</h1>
+        <p style="color:var(--color-text-secondary); margin-top:8px;">Acesse o marketplace de fisioterapia acessivel</p>
     </div>
 
     <div class="auth-tabs" role="tablist" aria-label="Alternar entre entrar e cadastrar">
@@ -19,7 +19,7 @@
 
     @include('partials.form-login')
 
-    <p style="text-align:center; margin-top:24px; font-size:0.9375rem; color:#6B7280;">
+    <p style="text-align:center; margin-top:24px; font-size:0.9375rem; color:var(--color-text-secondary);">
         Nao tem conta?
         <a href="{{ route('register') }}" style="color:#009688; font-weight:600; text-decoration:underline; text-underline-offset:4px;">
             Cadastre-se

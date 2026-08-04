@@ -4,16 +4,16 @@
 
 @section('conteudo')
 <a href="{{ route('dashboard') }}" style="display:inline-flex; align-items:center; gap:8px; color:#009688; font-weight:600; margin-bottom:24px; text-decoration:none;">
-    <span aria-hidden="true">&#x2190;</span> Voltar ao Painel
+    <i class="bi bi-arrow-left" aria-hidden="true"></i> Voltar ao Painel
 </a>
 
-<h1 style="font-size:1.75rem; font-weight:800; color:#111827; margin-bottom:32px;">
-    <span aria-hidden="true">&#x1F4CB;</span> Gerenciar Especialidades
+<h1 style="font-size:1.75rem; font-weight:800; color:var(--color-text); margin-bottom:32px;">
+    <i class="bi bi-clipboard-data" aria-hidden="true"></i> Gerenciar Especialidades
 </h1>
 
 {{-- Formulario de adicao --}}
 <section class="card" style="padding:28px; margin-bottom:32px;" aria-label="Adicionar nova especialidade">
-    <h2 style="font-size:1.125rem; font-weight:700; color:#111827; margin-bottom:16px;">Adicionar Especialidade</h2>
+    <h2 style="font-size:1.125rem; font-weight:700; color:var(--color-text); margin-bottom:16px;">Adicionar Especialidade</h2>
     <form method="POST" action="{{ route('admin.especialidades.store') }}" style="display:flex; gap:12px; flex-wrap:wrap; align-items:flex-end;">
         @csrf
         <div class="form-group" style="flex:1; min-width:200px;">
@@ -26,7 +26,7 @@
             <input type="text" id="descricao" name="descricao" placeholder="Descricao opcional" class="form-input">
         </div>
         <button type="submit" class="btn btn-primary">
-            <span aria-hidden="true">&#x2795;</span> Adicionar
+            <i class="bi bi-plus-lg" aria-hidden="true"></i> Adicionar
         </button>
     </form>
 </section>
@@ -46,7 +46,7 @@
                 @forelse ($especialidades as $especialidade)
                     <tr>
                         <td style="font-weight:600;">{{ $especialidade->nome }}</td>
-                        <td style="color:#6B7280;">{{ $especialidade->descricao ?: '-' }}</td>
+                        <td style="color:var(--color-text-secondary);">{{ $especialidade->descricao ?: '-' }}</td>
                         <td style="text-align:right;">
                             <form method="POST" action="{{ route('admin.especialidades.destroy', $especialidade) }}" style="display:inline;">
                                 @csrf @method('DELETE')
@@ -59,7 +59,7 @@
                     </tr>
                 @empty
                     <tr>
-                        <td colspan="3" style="text-align:center; color:#6B7280; padding:40px;">
+                        <td colspan="3" style="text-align:center; color:var(--color-text-secondary); padding:40px;">
                             Nenhuma especialidade cadastrada.
                         </td>
                     </tr>
