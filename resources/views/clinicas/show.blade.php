@@ -92,7 +92,7 @@
 
                 <div style="flex:1; min-width:220px;">
                     <div style="display:flex; align-items:center; gap:8px; flex-wrap:wrap;">
-                        <h1 style="font-size:1.5rem; font-weight:800; color:#111827; margin:0;">{{ $clinica->nome_fantasia }}</h1>
+                        <h1 style="font-size:1.5rem; font-weight:800; color:var(--color-text); margin:0;">{{ $clinica->nome_fantasia }}</h1>
                         <i class="bi bi-patch-check-fill" style="color:#009688; font-size:1.125rem;" aria-hidden="true" title="CNPJ verificado"></i>
                     </div>
 
@@ -100,18 +100,18 @@
                         <p style="color:#009688; font-weight:600; font-size:0.9375rem; margin:2px 0 0;">{{ $especialidadePrincipal->nome }}</p>
                     @endif
 
-                    <p style="color:#9CA3AF; font-size:0.8125rem; margin:2px 0 10px;">
+                    <p style="color:var(--color-text-secondary); font-size:0.875rem; margin:2px 0 10px;">
                         <i class="bi bi-geo-alt-fill" aria-hidden="true"></i> {{ $clinica->cidade }} - {{ $clinica->estado }}
                     </p>
 
                     <div style="display:flex; align-items:center; gap:8px; margin-bottom:12px;">
                         <div class="star-rating" aria-label="Nota {{ $clinica->mediaAvaliacoes() }} de 5 estrelas">
                             @for ($i = 1; $i <= 5; $i++)
-                                <span class="star {{ $i <= round($clinica->mediaAvaliacoes()) ? 'filled' : '' }}" aria-hidden="true">&#x2605;</span>
+                                <span class="star {{ $i <= round($clinica->mediaAvaliacoes()) ? 'filled' : '' }}" aria-hidden="true"><i class="bi bi-star-fill"></i></span>
                             @endfor
                         </div>
-                        <span style="font-weight:700; color:#111827;">{{ number_format($clinica->mediaAvaliacoes(), 1) }}</span>
-                        <span style="color:#9CA3AF; font-size:0.875rem;">({{ $clinica->totalAvaliacoes() }} avaliacoes)</span>
+                        <span style="font-weight:700; color:var(--color-text);">{{ number_format($clinica->mediaAvaliacoes(), 1) }}</span>
+                        <span style="color:var(--color-text-secondary); font-size:0.875rem;">({{ $clinica->totalAvaliacoes() }} avaliacoes)</span>
                     </div>
 
                     @if ($especialidadesBadges->count() > 0)
@@ -143,30 +143,30 @@
             {{-- Aba: Sobre --}}
             <div id="painel-sobre" class="perfil-tab-painel ativo" role="tabpanel">
                 @if ($clinica->descricao)
-                    <h3 style="font-weight:700; color:#111827; margin-bottom:8px;">Sobre</h3>
-                    <p style="color:#374151; line-height:1.7; margin-bottom:20px;">{{ $clinica->descricao }}</p>
+                    <h3 style="font-weight:700; color:var(--color-text); margin-bottom:8px;">Sobre</h3>
+                    <p style="color:var(--color-text); line-height:1.7; margin-bottom:20px;">{{ $clinica->descricao }}</p>
                 @endif
 
-                <h3 style="font-weight:700; color:#111827; margin-bottom:12px;">Contato</h3>
+                <h3 style="font-weight:700; color:var(--color-text); margin-bottom:12px;">Contato</h3>
                 <div style="display:flex; flex-direction:column; gap:10px; font-size:0.9375rem;">
                     <div style="display:flex; align-items:flex-start; gap:10px;">
-                        <i class="bi bi-telephone-fill" style="color:#6B7280; margin-top:2px;" aria-hidden="true"></i>
-                        <span style="color:#111827;">{{ $clinica->telefone ?: 'Nao informado' }}</span>
+                        <i class="bi bi-telephone-fill" style="color:var(--color-text-secondary); margin-top:2px;" aria-hidden="true"></i>
+                        <span style="color:var(--color-text);">{{ $clinica->telefone ?: 'Nao informado' }}</span>
                     </div>
                     <div style="display:flex; align-items:flex-start; gap:10px;">
-                        <i class="bi bi-envelope-fill" style="color:#6B7280; margin-top:2px;" aria-hidden="true"></i>
-                        <span style="color:#111827;">{{ $clinica->email_contato ?: 'Nao informado' }}</span>
+                        <i class="bi bi-envelope-fill" style="color:var(--color-text-secondary); margin-top:2px;" aria-hidden="true"></i>
+                        <span style="color:var(--color-text);">{{ $clinica->email_contato ?: 'Nao informado' }}</span>
                     </div>
                     <div style="display:flex; align-items:flex-start; gap:10px;">
-                        <i class="bi bi-geo-alt-fill" style="color:#6B7280; margin-top:2px;" aria-hidden="true"></i>
-                        <span style="color:#111827;">{{ $clinica->enderecoCompleto() }}</span>
+                        <i class="bi bi-geo-alt-fill" style="color:var(--color-text-secondary); margin-top:2px;" aria-hidden="true"></i>
+                        <span style="color:var(--color-text);">{{ $clinica->enderecoCompleto() }}</span>
                     </div>
                 </div>
             </div>
 
             {{-- Aba: Acessibilidade --}}
             <div id="painel-acessibilidade" class="perfil-tab-painel" role="tabpanel">
-                <h3 style="font-weight:700; color:#111827; margin-bottom:12px;">Recursos de acessibilidade</h3>
+                <h3 style="font-weight:700; color:var(--color-text); margin-bottom:12px;">Recursos de acessibilidade</h3>
                 @if ($clinica->servicosAcessibilidade->count() > 0)
                     <div style="display:grid; grid-template-columns:repeat(auto-fill, minmax(200px, 1fr)); gap:10px; margin-bottom:24px;">
                         @foreach ($clinica->servicosAcessibilidade as $servico)
@@ -177,10 +177,10 @@
                         @endforeach
                     </div>
                 @else
-                    <p style="color:#6B7280; padding:20px; text-align:center; margin-bottom:24px;">Nenhum recurso de acessibilidade cadastrado.</p>
+                    <p style="color:var(--color-text-secondary); padding:20px; text-align:center; margin-bottom:24px;">Nenhum recurso de acessibilidade cadastrado.</p>
                 @endif
 
-                <h3 style="font-weight:700; color:#111827; margin-bottom:12px;">Fotos do espaco</h3>
+                <h3 style="font-weight:700; color:var(--color-text); margin-bottom:12px;">Fotos do espaco</h3>
                 @php
                     $fotosParaExibir = $clinica->fotos->count() > 0
                         ? $clinica->fotos->map(fn ($f) => ['src' => $f->caminho, 'legenda' => $f->legenda ?: 'Foto da clinica'])
@@ -207,7 +207,7 @@
                         <i class="bi bi-chevron-right" aria-hidden="true"></i>
                     </button>
                 </div>
-                <p style="color:#9CA3AF; font-size:0.8125rem; margin-top:8px;">
+                <p style="color:var(--color-text-secondary); font-size:0.875rem; margin-top:8px;">
                     Fotos ilustrativas. A estrutura real pode variar - fale com a clinica para confirmar detalhes especificos.
                 </p>
             </div>
@@ -223,22 +223,22 @@
                                         {{ substr($avaliacao->paciente->nome, 0, 1) }}
                                     </div>
                                     <div>
-                                        <span style="font-weight:600; color:#111827;">{{ $avaliacao->paciente->nome }}</span>
+                                        <span style="font-weight:600; color:var(--color-text);">{{ $avaliacao->paciente->nome }}</span>
                                         <div class="star-rating" aria-label="Nota {{ $avaliacao->nota }} de 5" style="margin-top:2px;">
                                             @for ($i = 1; $i <= 5; $i++)
-                                                <span class="star {{ $i <= $avaliacao->nota ? 'filled' : '' }}" aria-hidden="true" style="font-size:0.875rem;">&#x2605;</span>
+                                                <span class="star {{ $i <= $avaliacao->nota ? 'filled' : '' }}" aria-hidden="true" style="font-size:0.875rem;"><i class="bi bi-star-fill"></i></span>
                                             @endfor
                                         </div>
                                     </div>
                                 </div>
                                 @if ($avaliacao->comentario)
-                                    <p style="color:#374151; line-height:1.6;">{{ $avaliacao->comentario }}</p>
+                                    <p style="color:var(--color-text); line-height:1.6;">{{ $avaliacao->comentario }}</p>
                                 @endif
                             </div>
                         @endforeach
                     </div>
                 @else
-                    <p style="color:#6B7280; padding:24px; text-align:center; border:1px dashed #D1D5DB; border-radius:12px; margin-bottom:24px;">
+                    <p style="color:var(--color-text-secondary); padding:24px; text-align:center; border:1px dashed #D1D5DB; border-radius:12px; margin-bottom:24px;">
                         Ainda nao ha avaliacoes com comentarios.
                     </p>
                 @endif
@@ -247,12 +247,12 @@
                     @if (Auth::user()->isPaciente())
                         <div style="padding-top:20px; border-top:2px solid #E5E7EB;">
                             @if ($jaAvaliou)
-                                <p style="color:#6B7280; padding:16px; background:#F9FAFB; border-radius:10px;">
+                                <p style="color:var(--color-text-secondary); padding:16px; background:#F9FAFB; border-radius:10px;">
                                     <i class="bi bi-check-circle-fill" style="color:#009688;" aria-hidden="true"></i>
                                     Voce ja avaliou esta clinica. Obrigado pelo feedback!
                                 </p>
                             @elseif ($podeAvaliar)
-                                <h3 style="font-weight:700; color:#111827; margin-bottom:16px;">Deixe sua avaliacao</h3>
+                                <h3 style="font-weight:700; color:var(--color-text); margin-bottom:16px;">Deixe sua avaliacao</h3>
                                 <form method="POST" action="{{ route('avaliacoes.store') }}" aria-label="Formulario de avaliacao">
                                     @csrf
                                     <input type="hidden" name="clinica_id" value="{{ $clinica->id }}">
@@ -265,7 +265,7 @@
                                                 @for ($i = 5; $i >= 1; $i--)
                                                     <label title="{{ $i }} estrela{{ $i > 1 ? 's' : '' }}">
                                                         <input type="radio" name="nota" value="{{ $i }}" required>
-                                                        <span aria-hidden="true">&#x2605;</span>
+                                                        <i class="bi bi-star-fill" aria-hidden="true"></i>
                                                         <span class="sr-only">{{ $i }} estrela{{ $i > 1 ? 's' : '' }}</span>
                                                     </label>
                                                 @endfor
@@ -282,7 +282,7 @@
                                     <button type="submit" class="btn btn-primary">Enviar avaliacao</button>
                                 </form>
                             @else
-                                <p style="color:#6B7280; padding:16px; background:#F9FAFB; border-radius:10px;">
+                                <p style="color:var(--color-text-secondary); padding:16px; background:#F9FAFB; border-radius:10px;">
                                     <i class="bi bi-info-circle" aria-hidden="true"></i>
                                     Voce podera avaliar esta clinica apos ter um atendimento concluido por aqui.
                                 </p>
@@ -332,7 +332,7 @@
                                 </div>
                             @endforeach
                         @else
-                            <p style="color:#6B7280; text-align:center; padding:12px 0;">
+                            <p style="color:var(--color-text-secondary); text-align:center; padding:12px 0;">
                                 Esta clinica ainda nao cadastrou horarios disponiveis.
                             </p>
                         @endif
@@ -404,7 +404,7 @@
                     <p>Entre para solicitar um horario</p>
                 </div>
                 <div style="padding:24px; text-align:center;">
-                    <p style="color:#4B5563; margin-bottom:14px;">Faca login como paciente para agendar com esta clinica.</p>
+                    <p style="color:var(--color-text-secondary); margin-bottom:14px;">Faca login como paciente para agendar com esta clinica.</p>
                     <a href="{{ route('login') }}" class="btn btn-primary" style="width:100%; justify-content:center;">Entrar</a>
                 </div>
             </div>

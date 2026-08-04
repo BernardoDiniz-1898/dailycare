@@ -3,15 +3,15 @@
 @section('titulo', 'Buscar Clinicas')
 
 @section('conteudo')
-<h1 style="font-size:1.875rem; font-weight:800; color:#111827; margin-bottom:6px;">
+<h1 style="font-size:1.875rem; font-weight:800; color:var(--color-text); margin-bottom:6px;">
     <i class="bi bi-search" aria-hidden="true"></i> Buscar Clinicas
 </h1>
-<p style="color:#6B7280; margin-bottom:24px;">Encontre clinicas de fisioterapia acessiveis perto de voce</p>
+<p style="color:var(--color-text-secondary); margin-bottom:24px;">Encontre clinicas de fisioterapia acessiveis perto de voce</p>
 
 {{-- Busca principal --}}
 <form method="GET" action="{{ route('clinicas.index') }}" aria-label="Filtros de busca de clinicas" id="form-busca-clinicas">
     <div style="position:relative; margin-bottom:16px;">
-        <i class="bi bi-search" style="position:absolute; left:18px; top:50%; transform:translateY(-50%); color:#9CA3AF; font-size:1.125rem;" aria-hidden="true"></i>
+        <i class="bi bi-search" style="position:absolute; left:18px; top:50%; transform:translateY(-50%); color:var(--color-text-secondary); font-size:1.125rem;" aria-hidden="true"></i>
         <input type="text" id="busca" name="busca" value="{{ request('busca') }}"
                placeholder="Buscar por nome, bairro ou cidade..." class="form-input"
                style="padding-left:48px; height:52px; font-size:1rem;">
@@ -150,7 +150,7 @@
                     <div class="clinica-lista-conteudo">
                         <div style="display:flex; align-items:start; justify-content:space-between; gap:12px; flex-wrap:wrap;">
                             <div>
-                                <h2 style="font-size:1.1875rem; font-weight:700; color:#111827; margin-bottom:2px;">
+                                <h2 style="font-size:1.1875rem; font-weight:700; color:var(--color-text); margin-bottom:2px;">
                                     {{ $clinica->nome_fantasia }}
                                     <i class="bi bi-patch-check-fill" style="color:#009688; font-size:0.9rem;" aria-hidden="true" title="CNPJ verificado"></i>
                                 </h2>
@@ -159,7 +159,7 @@
                                         {{ $especialidadePrincipal->nome }}
                                     </p>
                                 @endif
-                                <p style="color:#9CA3AF; font-size:0.8125rem;">
+                                <p style="color:var(--color-text-secondary); font-size:0.875rem;">
                                     <i class="bi bi-geo-alt-fill" aria-hidden="true"></i> {{ $clinica->cidade }} - {{ $clinica->estado }}
                                     @if ($clinica->atendimentos_concluidos_count > 0)
                                         &nbsp;&middot;&nbsp;{{ $clinica->atendimentos_concluidos_count }} atendimentos concluidos
@@ -169,10 +169,10 @@
                             <div style="text-align:right; flex-shrink:0;">
                                 <div class="star-rating" aria-label="Nota {{ $clinica->mediaAvaliacoes() }} de 5 estrelas">
                                     @for ($i = 1; $i <= 5; $i++)
-                                        <span class="star {{ $i <= round($clinica->mediaAvaliacoes()) ? 'filled' : '' }}" aria-hidden="true">&#x2605;</span>
+                                        <span class="star {{ $i <= round($clinica->mediaAvaliacoes()) ? 'filled' : '' }}" aria-hidden="true"><i class="bi bi-star-fill"></i></span>
                                     @endfor
                                 </div>
-                                <span style="font-size:0.8125rem; color:#6B7280;">
+                                <span style="font-size:0.875rem; color:var(--color-text-secondary);">
                                     {{ number_format($clinica->mediaAvaliacoes(), 1) }} ({{ $clinica->totalAvaliacoes() }} avaliacoes)
                                 </span>
                             </div>
@@ -247,7 +247,7 @@
 @else
     <div class="card" style="padding:64px 32px; text-align:center;">
         <i class="bi bi-search" style="font-size:3.5rem; margin-bottom:16px; color:#D1D5DB; display:block;" aria-hidden="true"></i>
-        <p style="color:#6B7280; font-size:1.125rem; margin-bottom:16px;">Nenhuma clinica encontrada com os filtros selecionados.</p>
+        <p style="color:var(--color-text-secondary); font-size:1.125rem; margin-bottom:16px;">Nenhuma clinica encontrada com os filtros selecionados.</p>
         <a href="{{ route('clinicas.index') }}" class="btn btn-primary">
             Limpar filtros e buscar novamente
         </a>

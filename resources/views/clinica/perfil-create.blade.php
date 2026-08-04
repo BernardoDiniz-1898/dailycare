@@ -3,7 +3,7 @@
 @section('titulo', 'Cadastrar Clinica')
 
 @section('conteudo')
-<h1 style="font-size:1.75rem; font-weight:800; color:#111827; margin-bottom:32px;">
+<h1 style="font-size:1.75rem; font-weight:800; color:var(--color-text); margin-bottom:32px;">
     <i class="bi bi-hospital" aria-hidden="true"></i> Cadastrar Clinica
 </h1>
 
@@ -12,7 +12,7 @@
 
     {{-- Dados da Clinica --}}
     <fieldset>
-        <legend style="font-size:1.25rem; font-weight:700; color:#111827; margin-bottom:20px; padding-bottom:8px; border-bottom:2px solid #E5E7EB;">
+        <legend style="font-size:1.25rem; font-weight:700; color:var(--color-text); margin-bottom:20px; padding-bottom:8px; border-bottom:2px solid #E5E7EB;">
             <i class="bi bi-clipboard-data" aria-hidden="true"></i> Dados da Clinica
         </legend>
         <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(220px, 1fr)); gap:20px;">
@@ -47,14 +47,14 @@
                 <label for="preco_sessao" class="form-label">Valor da sessao (R$)</label>
                 <input type="number" id="preco_sessao" name="preco_sessao" step="0.01" min="0"
                        value="{{ old('preco_sessao') }}" class="form-input" placeholder="Ex: 180.00">
-                @error('preco_sessao') <p class="form-error" role="alert"><span aria-hidden="true">&#x26A0;</span> {{ $message }}</p> @enderror
+                @error('preco_sessao') <p class="form-error" role="alert"><i class="bi bi-exclamation-triangle-fill" aria-hidden="true"></i> {{ $message }}</p> @enderror
             </div>
         </div>
     </fieldset>
 
     {{-- Endereco --}}
     <fieldset style="margin-top:32px;">
-        <legend style="font-size:1.25rem; font-weight:700; color:#111827; margin-bottom:20px; padding-bottom:8px; border-bottom:2px solid #E5E7EB;">
+        <legend style="font-size:1.25rem; font-weight:700; color:var(--color-text); margin-bottom:20px; padding-bottom:8px; border-bottom:2px solid #E5E7EB;">
             <i class="bi bi-geo-alt-fill" aria-hidden="true"></i> Endereco
         </legend>
         <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(220px, 1fr)); gap:20px;">
@@ -97,7 +97,7 @@
 
     {{-- Especialidades --}}
     <fieldset style="margin-top:32px;">
-        <legend style="font-size:1.25rem; font-weight:700; color:#111827; margin-bottom:20px; padding-bottom:8px; border-bottom:2px solid #E5E7EB;">
+        <legend style="font-size:1.25rem; font-weight:700; color:var(--color-text); margin-bottom:20px; padding-bottom:8px; border-bottom:2px solid #E5E7EB;">
             <i class="bi bi-heart-pulse" aria-hidden="true"></i> Especialidades Oferecidas <span class="required" aria-label="obrigatorio">*</span>
         </legend>
         <div style="display:grid; grid-template-columns:repeat(auto-fill, minmax(200px, 1fr)); gap:12px;">
@@ -114,7 +114,7 @@
 
     {{-- Acessibilidade --}}
     <fieldset style="margin-top:32px;">
-        <legend style="font-size:1.25rem; font-weight:700; color:#111827; margin-bottom:20px; padding-bottom:8px; border-bottom:2px solid #E5E7EB;">
+        <legend style="font-size:1.25rem; font-weight:700; color:var(--color-text); margin-bottom:20px; padding-bottom:8px; border-bottom:2px solid #E5E7EB;">
             <i class="bi bi-universal-access" aria-hidden="true"></i> Recursos de Acessibilidade
         </legend>
         <div style="display:grid; grid-template-columns:repeat(auto-fill, minmax(200px, 1fr)); gap:12px;">

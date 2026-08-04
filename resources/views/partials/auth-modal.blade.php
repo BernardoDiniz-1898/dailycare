@@ -1,4 +1,4 @@
-{{-- Modal de Entrar/Criar conta. Reaproveita os mesmos forms/rotas das paginass --}}
+{{-- Modal de Entrar/Criar conta. Reaproveita os mesmos forms/rotas das paginas --}}
 <div id="auth-modal-backdrop" class="auth-modal-backdrop" aria-hidden="true">
     <div class="auth-modal" role="dialog" aria-modal="true" aria-labelledby="auth-modal-titulo">
         <button type="button" class="auth-modal-fechar" onclick="window.DailyCare.authModal.fechar()" aria-label="Fechar">
@@ -9,7 +9,7 @@
             <div style="width:64px; height:64px; background:#E0F2F1; border-radius:18px; display:inline-flex; align-items:center; justify-content:center; margin-bottom:12px;">
                 <i id="auth-modal-icone" class="bi bi-key-fill" style="font-size:1.5rem; color:#009688;" aria-hidden="true"></i>
             </div>
-            <h2 id="auth-modal-titulo" style="font-size:1.375rem; font-weight:800; color:#111827;">Entrar na sua conta</h2>
+            <h2 id="auth-modal-titulo" style="font-size:1.375rem; font-weight:800; color:var(--color-text);">Entrar na sua conta</h2>
         </div>
 
         <div class="auth-tabs" role="tablist" aria-label="Alternar entre entrar e cadastrar">
@@ -21,7 +21,7 @@
 
         <div id="auth-modal-painel-login">
             @include('partials.form-login')
-            <p style="text-align:center; margin-top:20px; font-size:0.9375rem; color:#6B7280;">
+            <p style="text-align:center; margin-top:20px; font-size:0.9375rem; color:var(--color-text-secondary);">
                 Nao tem conta?
                 <button type="button" onclick="window.DailyCare.authModal.mudarAba('registro')"
                         style="background:none; border:none; padding:0; color:#009688; font-weight:600; text-decoration:underline; text-underline-offset:4px; cursor:pointer;">
@@ -32,7 +32,7 @@
 
         <div id="auth-modal-painel-registro" style="display:none;">
             @include('partials.form-register')
-            <p style="text-align:center; margin-top:20px; font-size:0.9375rem; color:#6B7280;">
+            <p style="text-align:center; margin-top:20px; font-size:0.9375rem; color:var(--color-text-secondary);">
                 Ja tem conta?
                 <button type="button" onclick="window.DailyCare.authModal.mudarAba('login')"
                         style="background:none; border:none; padding:0; color:#009688; font-weight:600; text-decoration:underline; text-underline-offset:4px; cursor:pointer;">

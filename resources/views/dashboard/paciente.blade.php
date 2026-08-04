@@ -4,7 +4,7 @@
 
 @section('conteudo')
 <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:16px; margin-bottom:32px;">
-    <h1 style="font-size:1.75rem; font-weight:800; color:#111827;">
+    <h1 style="font-size:1.75rem; font-weight:800; color:var(--color-text);">
         <i class="bi bi-calendar2-check" aria-hidden="true"></i> Meus Agendamentos
     </h1>
     <a href="{{ route('clinicas.index') }}" class="btn btn-primary">
@@ -23,14 +23,14 @@
                                 {{ $agendamento->clinica->nome_fantasia }}
                             </a>
                         </h2>
-                        <p style="color:#4B5563; font-size:0.9375rem;">
+                        <p style="color:var(--color-text-secondary); font-size:0.9375rem;">
                             <i class="bi bi-calendar3" aria-hidden="true"></i>
                             {{ \Carbon\Carbon::parse($agendamento->data)->format('d/m/Y') }}
                             <i class="bi bi-clock" aria-hidden="true"></i>
                             {{ substr($agendamento->hora, 0, 5) }}
                         </p>
                         @if ($agendamento->observacao_paciente)
-                            <p style="color:#6B7280; font-size:0.875rem; margin-top:8px;">{{ $agendamento->observacao_paciente }}</p>
+                            <p style="color:var(--color-text-secondary); font-size:0.875rem; margin-top:8px;">{{ $agendamento->observacao_paciente }}</p>
                         @endif
                         @if ($agendamento->observacao_clinica)
                             <p style="color:#009688; font-size:0.875rem; margin-top:8px; padding:8px 12px; background:#E0F2F1; border-radius:8px;">
@@ -57,7 +57,7 @@
 @else
     <div class="card" style="padding:64px 32px; text-align:center;">
         <i class="bi bi-calendar2-x" style="font-size:3.5rem; margin-bottom:16px; color:#D1D5DB; display:block;" aria-hidden="true"></i>
-        <p style="color:#6B7280; font-size:1.125rem; margin-bottom:16px;">Voce ainda nao tem agendamentos.</p>
+        <p style="color:var(--color-text-secondary); font-size:1.125rem; margin-bottom:16px;">Voce ainda nao tem agendamentos.</p>
         <a href="{{ route('clinicas.index') }}" class="btn btn-primary">
             <i class="bi bi-search" aria-hidden="true"></i> Buscar clinicas de fisioterapia
         </a>

@@ -280,6 +280,7 @@ label:focus-visible {
     min-height: 44px;
     display: inline-flex;
     align-items: center;
+    gap: 8px;
     transition: all 0.15s ease;
 }
 
@@ -1323,6 +1324,74 @@ body.dark-mode .site-footer a {
 
 body.dark-mode .site-footer-bottom {
     border-top-color: #374151 !important;
+}
+
+/* Painéis que permanecem claros no dark mode: redefinem as variaveis de
+   texto para o tema claro, mantendo o texto escuro legivel sobre fundo claro */
+body.dark-mode .clinica-lista-card,
+body.dark-mode .agenda-card,
+body.dark-mode .agenda-modal {
+    --color-text: #1A2E2C;
+    --color-text-secondary: #4B5563;
+}
+
+/* Numeros dos cards de estatistica: mantem o realce por cor */
+body.dark-mode .site-main p[style*="2.5rem"] {
+    color: #F9FAFB !important;
+}
+
+body.dark-mode .site-main p[style*="2.5rem"][style*="#92400E"] {
+    color: #FBBF24 !important;
+}
+
+body.dark-mode .site-main p[style*="2.5rem"][style*="#047857"] {
+    color: #6EE7B7 !important;
+}
+
+body.dark-mode .site-main p[style*="2.5rem"][style*="#009688"] {
+    color: #4DB6AC !important;
+}
+
+/* Contador de resultados da busca: cor fixa escura precisa virar clara */
+body.dark-mode .resultados-contagem {
+    color: #D1D5DB;
+}
+
+/* Auth modal em dark mode (o fundo branco quebraria o texto com var) */
+body.dark-mode .auth-modal {
+    background: #20302E !important;
+    border: 1px solid #374151 !important;
+}
+
+body.dark-mode .auth-modal .auth-tab {
+    color: #9CA3AF;
+}
+
+body.dark-mode .auth-modal .auth-tab:hover {
+    color: #F9FAFB;
+}
+
+body.dark-mode .auth-modal .auth-tab-ativo,
+body.dark-mode .auth-modal .auth-tab-ativo:hover {
+    background: #374151 !important;
+    color: #4DB6AC !important;
+    box-shadow: none;
+}
+
+body.dark-mode .auth-modal-fechar {
+    color: #9CA3AF;
+}
+
+body.dark-mode .auth-modal-fechar:hover {
+    background: #374151;
+    color: #F9FAFB;
+}
+
+/* Chat permanece como painel claro: mantem as variaveis de texto no tema claro
+   para os textos com var() continuarem legiveis dentro dele */
+body.dark-mode .chat-container {
+    --color-text: #1A2E2C;
+    --color-text-secondary: #4B5563;
 }
 
 /* =============================================

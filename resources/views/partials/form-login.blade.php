@@ -12,7 +12,7 @@
                placeholder="seu@email.com">
         @error('email')
             <p id="email-erro" class="form-error" role="alert">
-                <span aria-hidden="true">&#x26A0;</span> {{ $message }}
+                <i class="bi bi-exclamation-triangle-fill" aria-hidden="true"></i> {{ $message }}
             </p>
         @enderror
     </div>
@@ -31,7 +31,7 @@
         <label class="form-check" style="border:none; padding:0; min-height:auto;">
             <input type="checkbox" id="remember" name="remember"
                    style="width:18px; height:18px; accent-color:#009688;">
-            <span style="font-size:0.9375rem; color:#4B5563;">Lembrar de mim</span>
+            <span style="font-size:0.9375rem; color:var(--color-text-secondary);">Lembrar de mim</span>
         </label>
     </div>
 
