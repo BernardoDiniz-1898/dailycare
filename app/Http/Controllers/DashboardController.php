@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Agendamento;
 use App\Models\Clinica;
+use App\Models\Usuario;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -17,9 +18,9 @@ class DashboardController extends Controller
     /**
      * Direciona o usuário para o painel correto conforme seu papel.
      */
-    public function index()
+    public function index(Request $request)
     {
-        /** @var \App\Models\Usuario $user */
+        /** @var Usuario $user */
         $user = Auth::user();
 
         if ($user->isAdmin()) {
@@ -27,7 +28,7 @@ class DashboardController extends Controller
         }
 
         if ($user->isClinica()) {
-            return $this->clinica();
+            return $this->clinica($request);
         }
 
         return $this->paciente();
@@ -49,12 +50,13 @@ class DashboardController extends Controller
 
     /**
      * Monta o dashboard da clínica com os agendamentos recebidos.
+     * Aplica filtro por status via query string (?status=...) e calcula estatisticas.
      */
-    private function clinica()
+    private function clinica(Request $request)
     {
         $clinica = Auth::user()->clinica;
 
-        if (!$clinica) {
+        if (! $clinica) {
             return view('dashboard.clinica-setup');
         }
 
@@ -64,10 +66,36 @@ class DashboardController extends Controller
             ->orderBy('hora', 'desc')
             ->get();
 
-        $pendentes = $agendamentos->where('status', 'solicitado')->count();
-        $confirmados = $agendamentos->where('status', 'confirmado')->count();
+        $statusValidos = ['solicitado', 'confirmado', 'concluido', 'recusado', 'cancelado'];
+        $statusAtivo = $request->query('status');
 
-        return view('dashboard.clinica', compact('clinica', 'agendamentos', 'pendentes', 'confirmados'));
+        if (! in_array($statusAtivo, $statusValidos, true)) {
+            $statusAtivo = null;
+        }
+
+        $agendamentosFiltrados = $statusAtivo
+            ? $agendamentos->where('status', $statusAtivo)
+            : $agendamentos;
+
+        $contagem = [
+            'todos' => $agendamentos->count(),
+            'solicitado' => $agendamentos->where('status', 'solicitado')->count(),
+            'confirmado' => $agendamentos->where('status', 'confirmado')->count(),
+            'concluido' => $agendamentos->where('status', 'concluido')->count(),
+            'recusado' => $agendamentos->where('status', 'recusado')->count(),
+            'cancelado' => $agendamentos->where('status', 'cancelado')->count(),
+        ];
+
+        $receitaEstimada = ($contagem['confirmado'] + $contagem['concluido'])
+            * (float) ($clinica->preco_sessao ?? 0);
+
+        return view('dashboard.clinica', compact(
+            'clinica',
+            'agendamentosFiltrados',
+            'statusAtivo',
+            'contagem',
+            'receitaEstimada'
+        ));
     }
 
     /**
@@ -80,7 +108,8 @@ class DashboardController extends Controller
         $totalAgendamentos = Agendamento::count();
 
         $ultimosAgendamentos = Agendamento::with(['paciente', 'clinica'])
-            ->latest()
+            ->orderBy('data', 'desc')
+            ->orderBy('hora', 'desc')
             ->limit(10)
             ->get();
 

@@ -69,6 +69,54 @@ class DatabaseSeeder extends Seeder
             'condicao' => 'Lesao medular incompleta',
         ]);
 
+        // Pacientes extras pre-setados (todos com senha 'password')
+        $pacientesExtras = [
+            [
+                'nome' => 'Joao Pereira',
+                'email' => 'joao.paciente@email.com',
+                'cpf' => '555.555.555-55',
+                'telefone' => '(11) 91111-1111',
+                'idade' => 28,
+                'sexo' => 'M',
+                'condicao' => 'Sequelas de AVC',
+            ],
+            [
+                'nome' => 'Beatriz Souza',
+                'email' => 'beatriz.paciente@email.com',
+                'cpf' => '666.666.666-66',
+                'telefone' => '(11) 92222-2222',
+                'idade' => 22,
+                'sexo' => 'F',
+                'condicao' => 'Paralisia cerebral',
+            ],
+            [
+                'nome' => 'Carlos Lima',
+                'email' => 'carlos.paciente@email.com',
+                'cpf' => '777.777.777-77',
+                'telefone' => '(31) 93333-3333',
+                'idade' => 45,
+                'sexo' => 'M',
+                'condicao' => 'Lesao medular incompleta',
+            ],
+            [
+                'nome' => 'Marina Oliveira',
+                'email' => 'marina.paciente@email.com',
+                'cpf' => '888.888.888-88',
+                'telefone' => '(21) 94444-4444',
+                'idade' => 61,
+                'sexo' => 'F',
+                'condicao' => 'Parkinson',
+            ],
+        ];
+
+        foreach ($pacientesExtras as $dados) {
+            Usuario::create(array_merge([
+                'senha' => Hash::make('password'),
+                'role' => 'paciente',
+                'ativo' => true,
+            ], $dados));
+        }
+
         // Clinica de teste
         $usuarioClinica = Usuario::create([
             'nome' => 'Dr. Joao Santos',
@@ -158,6 +206,48 @@ class DatabaseSeeder extends Seeder
 
         $clinica3->especialidades()->sync([2, 6, 7]);
         $clinica3->servicosAcessibilidade()->attach([1, 4, 5, 8, 12]);
+
+        // Fisioterapeuta sem clinica vinculada (testa o fluxo de cadastro de perfil)
+        Usuario::create([
+            'nome' => 'Dr. Pedro Nunes',
+            'email' => 'pedro.fisio@email.com',
+            'senha' => Hash::make('password'),
+            'cpf' => '101.010.101-01',
+            'telefone' => '(11) 96666-6666',
+            'role' => 'fisioterapeuta',
+            'crefito' => 'CREFITO-3 765432-F',
+        ]);
+
+        // Clinica aguardando aprovacao do administrador
+        $usuarioClinica4 = Usuario::create([
+            'nome' => 'Dra. Renata Almeida',
+            'email' => 'clinica4@email.com',
+            'senha' => Hash::make('password'),
+            'cpf' => '121.212.121-21',
+            'telefone' => '(11) 97777-7777',
+            'role' => 'fisioterapeuta',
+            'crefito' => 'CREFITO-3 876543-F',
+        ]);
+
+        $clinica4 = Clinica::create([
+            'usuario_id' => $usuarioClinica4->id,
+            'razao_social' => 'Clinica de Reabilitacao Almeida LTDA',
+            'nome_fantasia' => 'Reabilitar Almeida',
+            'cnpj' => '45.678.901/0001-33',
+            'telefone' => '(11) 6666-7777',
+            'email_contato' => 'contato@reabilitaralmeida.com.br',
+            'logradouro' => 'Rua das Acacias',
+            'numero' => '210',
+            'bairro' => 'Moema',
+            'cidade' => 'Sao Paulo',
+            'estado' => 'SP',
+            'cep' => '04001-000',
+            'descricao' => 'Clinica nova de reabilitacao neurologica aguardando aprovacao do administrador.',
+            'status' => 'pendente',
+        ]);
+
+        $clinica4->especialidades()->sync([1, 4]);
+        $clinica4->servicosAcessibilidade()->attach([1, 2, 5]);
 
         // Horarios de funcionamento (exemplo)
         foreach ([$clinica, $clinica2, $clinica3] as $c) {

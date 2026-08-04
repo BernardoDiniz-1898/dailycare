@@ -73,61 +73,92 @@
 
     $jaAvaliou = auth()->check()
         && $clinica->avaliacoes->contains('paciente_id', auth()->id());
+
+    $usuarioPaciente = auth()->check() && auth()->user()->isPaciente();
+    $disponivel = $agendaDias->count() > 0;
+
+    $distribuicao = collect([5, 4, 3, 2, 1])->map(function ($nota) use ($clinica) {
+        $contagem = $clinica->avaliacoes->where('nota', $nota)->count();
+        $total = max(1, $clinica->avaliacoes->count());
+        return [
+            'nota' => $nota,
+            'contagem' => $contagem,
+            'pct' => round($contagem / $total * 100),
+        ];
+    });
 @endphp
 
-<a href="{{ route('clinicas.index') }}" style="display:inline-flex; align-items:center; gap:8px; color:#009688; font-weight:600; margin-bottom:24px; text-decoration:none;">
-    <i class="bi bi-arrow-left" aria-hidden="true"></i> Voltar para busca
-</a>
+<section class="perfil-hero" aria-label="Capa da clinica {{ $clinica->nome_fantasia }}">
+    @if ($clinica->foto_capa)
+        <img src="{{ $clinica->foto_capa }}" alt="Capa da clinica {{ $clinica->nome_fantasia }}" loading="lazy">
+    @endif
+    <div class="overlay" aria-hidden="true"></div>
+    <a href="{{ route('clinicas.index') }}" class="botao-voltar">
+        <i class="bi bi-arrow-left" aria-hidden="true"></i> Voltar para busca
+    </a>
+</section>
+
+<section class="perfil-card" aria-label="Informacoes principais da clinica">
+    <div style="display:flex; gap:24px; flex-wrap:wrap; align-items:center;">
+        <div class="perfil-card-foto">
+            <img src="{{ $fotoClinicaCapa }}" alt="Foto da clinica {{ $clinica->nome_fantasia }}" loading="lazy">
+            <span class="dot-disponibilidade {{ $disponivel ? 'disponivel' : 'indisponivel' }}"
+                  title="{{ $disponivel ? 'Disponivel para agendamento' : 'Sem horarios no momento' }}">
+                @if ($disponivel)
+                    <span class="dot-pulso" aria-hidden="true"></span>
+                @endif
+            </span>
+        </div>
+
+        <div style="flex:1; min-width:260px;">
+            <div class="clinica-lista-nome-linha">
+                <h1 style="font-size:1.5rem; font-weight:800; color:var(--color-text); margin:0;">{{ $clinica->nome_fantasia }}</h1>
+                <span class="icone-verificado" title="Clinica verificada"><i class="bi bi-check-lg" aria-hidden="true"></i></span>
+                @if ($disponivel)
+                    <span class="badge-disponivel"><span class="dot" aria-hidden="true"></span> Disponivel</span>
+                @else
+                    <span class="badge-indisponivel">Sem vagas agora</span>
+                @endif
+            </div>
+
+            @if ($especialidadePrincipal)
+                <p class="clinica-lista-especialidade">{{ $especialidadePrincipal->nome }}</p>
+            @endif
+
+            <div class="clinica-lista-meta" style="margin-bottom:10px;">
+                @if ($clinica->usuario && $clinica->usuario->crefito)
+                    <span><i class="bi bi-award" aria-hidden="true"></i> {{ $clinica->usuario->crefito }}</span>
+                @endif
+                @if ($clinica->atendimentos_concluidos_count > 0)
+                    <span><i class="bi bi-trending-up" aria-hidden="true"></i> {{ $clinica->atendimentos_concluidos_count }} sessoes realizadas</span>
+                @endif
+                <span><i class="bi bi-geo-alt-fill" aria-hidden="true"></i> {{ $clinica->cidade }} - {{ $clinica->estado }}</span>
+            </div>
+
+            <div style="display:flex; align-items:center; gap:8px; flex-wrap:wrap;">
+                <div class="star-rating" aria-label="Nota {{ $clinica->mediaAvaliacoes() }} de 5 estrelas">
+                    @for ($i = 1; $i <= 5; $i++)
+                        <span class="star {{ $i <= round($clinica->mediaAvaliacoes()) ? 'filled' : '' }}" aria-hidden="true"><i class="bi bi-star-fill"></i></span>
+                    @endfor
+                </div>
+                <span style="font-weight:700; color:var(--color-text);">{{ number_format($clinica->mediaAvaliacoes(), 1) }}</span>
+                <span style="color:var(--color-text-secondary); font-size:0.875rem;">({{ $clinica->totalAvaliacoes() }} avaliacoes)</span>
+            </div>
+        </div>
+
+        <div style="display:flex; flex-direction:column; gap:10px; flex-shrink:0;">
+            <a href="{{ $usuarioPaciente ? route('chat.iniciar', $clinica) : route('login') }}" class="btn btn-secondary">
+                <i class="bi bi-chat-dots" aria-hidden="true"></i> Enviar mensagem
+            </a>
+            <a href="#agendar" class="btn btn-primary">
+                <i class="bi bi-calendar-check" aria-hidden="true"></i> Agendar atendimento
+            </a>
+        </div>
+    </div>
+</section>
 
 <div class="perfil-clinica-grid">
-    {{-- Conteudo Principal --}}
     <div style="display:flex; flex-direction:column; gap:24px;">
-
-        {{-- Cabecalho --}}
-        <section class="card" style="padding:24px;" aria-label="Informacoes principais da clinica">
-            <div style="display:flex; gap:20px; flex-wrap:wrap;">
-                <div class="perfil-clinica-avatar">
-                    <img src="{{ $fotoClinicaCapa }}" alt="Foto da clinica {{ $clinica->nome_fantasia }}" loading="lazy">
-                </div>
-
-                <div style="flex:1; min-width:220px;">
-                    <div style="display:flex; align-items:center; gap:8px; flex-wrap:wrap;">
-                        <h1 style="font-size:1.5rem; font-weight:800; color:var(--color-text); margin:0;">{{ $clinica->nome_fantasia }}</h1>
-                        <i class="bi bi-patch-check-fill" style="color:#009688; font-size:1.125rem;" aria-hidden="true" title="CNPJ verificado"></i>
-                    </div>
-
-                    @if ($especialidadePrincipal)
-                        <p style="color:#009688; font-weight:600; font-size:0.9375rem; margin:2px 0 0;">{{ $especialidadePrincipal->nome }}</p>
-                    @endif
-
-                    <p style="color:var(--color-text-secondary); font-size:0.875rem; margin:2px 0 10px;">
-                        <i class="bi bi-geo-alt-fill" aria-hidden="true"></i> {{ $clinica->cidade }} - {{ $clinica->estado }}
-                    </p>
-
-                    <div style="display:flex; align-items:center; gap:8px; margin-bottom:12px;">
-                        <div class="star-rating" aria-label="Nota {{ $clinica->mediaAvaliacoes() }} de 5 estrelas">
-                            @for ($i = 1; $i <= 5; $i++)
-                                <span class="star {{ $i <= round($clinica->mediaAvaliacoes()) ? 'filled' : '' }}" aria-hidden="true"><i class="bi bi-star-fill"></i></span>
-                            @endfor
-                        </div>
-                        <span style="font-weight:700; color:var(--color-text);">{{ number_format($clinica->mediaAvaliacoes(), 1) }}</span>
-                        <span style="color:var(--color-text-secondary); font-size:0.875rem;">({{ $clinica->totalAvaliacoes() }} avaliacoes)</span>
-                    </div>
-
-                    @if ($especialidadesBadges->count() > 0)
-                        <div style="display:flex; flex-wrap:wrap; gap:6px; margin-bottom:14px;">
-                            @foreach ($especialidadesBadges->take(4) as $esp)
-                                <span class="badge badge-blue">{{ $esp->nome }}</span>
-                            @endforeach
-                        </div>
-                    @endif
-
-                    <a href="{{ auth()->check() && auth()->user()->isPaciente() ? route('chat.iniciar', $clinica) : route('login') }}" class="btn btn-secondary btn-sm">
-                        <i class="bi bi-chat-dots" aria-hidden="true"></i> Enviar mensagem
-                    </a>
-                </div>
-            </div>
-        </section>
 
         {{-- Abas --}}
         <section class="card" style="padding:24px;" aria-label="Detalhes da clinica">
@@ -136,8 +167,16 @@
                         onclick="window.DailyCare.perfilClinica.mudarAba('sobre', this)">Sobre</button>
                 <button type="button" class="perfil-tab" role="tab" aria-selected="false" aria-controls="painel-acessibilidade"
                         onclick="window.DailyCare.perfilClinica.mudarAba('acessibilidade', this)">Acessibilidade</button>
+                <button type="button" class="perfil-tab" role="tab" aria-selected="false" aria-controls="painel-agenda"
+                        onclick="window.DailyCare.perfilClinica.mudarAba('agenda', this)">Agenda</button>
                 <button type="button" class="perfil-tab" role="tab" aria-selected="false" aria-controls="painel-avaliacoes"
-                        onclick="window.DailyCare.perfilClinica.mudarAba('avaliacoes', this)">Avaliacoes</button>
+                        onclick="window.DailyCare.perfilClinica.mudarAba('avaliacoes', this)">
+                    Avaliacoes ({{ $clinica->avaliacoes->count() }})
+                </button>
+                <button type="button" class="perfil-tab" role="tab" aria-selected="false" aria-controls="painel-galeria"
+                        onclick="window.DailyCare.perfilClinica.mudarAba('galeria', this)">
+                    Galeria ({{ $clinica->fotos->count() }})
+                </button>
             </div>
 
             {{-- Aba: Sobre --}}
@@ -177,44 +216,91 @@
                         @endforeach
                     </div>
                 @else
-                    <p style="color:var(--color-text-secondary); padding:20px; text-align:center; margin-bottom:24px;">Nenhum recurso de acessibilidade cadastrado.</p>
-                @endif
-
-                <h3 style="font-weight:700; color:var(--color-text); margin-bottom:12px;">Fotos do espaco</h3>
-                @php
-                    $fotosParaExibir = $clinica->fotos->count() > 0
-                        ? $clinica->fotos->map(fn ($f) => ['src' => $f->caminho, 'legenda' => $f->legenda ?: 'Foto da clinica'])
-                        : collect($fotosEspacoFallback);
-                @endphp
-                <div class="fotos-carrossel">
-                    <button type="button" class="fotos-carrossel-seta fotos-carrossel-seta-esquerda"
-                            onclick="window.DailyCare.perfilClinica.moverCarrossel(this, -1)" aria-label="Foto anterior">
-                        <i class="bi bi-chevron-left" aria-hidden="true"></i>
-                    </button>
-
-                    <div class="fotos-carrossel-viewport">
-                        <div class="fotos-carrossel-trilho">
-                            @foreach ($fotosParaExibir as $foto)
-                                <div class="fotos-carrossel-item">
-                                    <img src="{{ $foto['src'] }}" alt="{{ $foto['legenda'] }}" loading="lazy">
-                                </div>
-                            @endforeach
-                        </div>
+                    <div class="estado-vazio" style="margin-bottom:24px;">
+                        <i class="bi bi-universal-access" aria-hidden="true"></i>
+                        <p>Nenhum recurso de acessibilidade cadastrado.</p>
                     </div>
+                @endif
+            </div>
 
-                    <button type="button" class="fotos-carrossel-seta fotos-carrossel-seta-direita"
-                            onclick="window.DailyCare.perfilClinica.moverCarrossel(this, 1)" aria-label="Proxima foto">
-                        <i class="bi bi-chevron-right" aria-hidden="true"></i>
-                    </button>
-                </div>
-                <p style="color:var(--color-text-secondary); font-size:0.875rem; margin-top:8px;">
-                    Fotos ilustrativas. A estrutura real pode variar - fale com a clinica para confirmar detalhes especificos.
-                </p>
+            {{-- Aba: Agenda --}}
+            <div id="painel-agenda" class="perfil-tab-painel" role="tabpanel">
+                @if ($agendaDias->count() > 0)
+                    <div style="display:flex; flex-direction:column; gap:18px;">
+                        @foreach ($agendaDias as $dia)
+                            <div class="agenda-dia-bloco">
+                                <span class="agenda-dia-label">{{ $dia['label'] }}</span>
+                                <div class="agenda-slots-wrap">
+                                    @foreach ($dia['slots'] as $slot)
+                                        @php
+                                            $slotBloqueado = $slot['ocupado'] || (auth()->check() && !auth()->user()->isPaciente());
+                                        @endphp
+                                        <button type="button"
+                                                class="horario-slot {{ $slot['ocupado'] ? 'ocupado' : '' }}"
+                                                {{ $slotBloqueado ? 'disabled' : '' }}
+                                                @if (!$slot['ocupado'] && auth()->check() && !auth()->user()->isPaciente())
+                                                    title="Agende com uma conta de paciente"
+                                                @endif
+                                                data-data="{{ $dia['data'] }}"
+                                                data-hora="{{ $slot['hora'] }}"
+                                                data-label="{{ $dia['label'] }}"
+                                                onclick="window.DailyCare.perfilClinica.agendarDaAba(this)">
+                                            {{ $slot['hora'] }}
+                                        </button>
+                                    @endforeach
+                                </div>
+                            </div>
+                        @endforeach
+                    </div>
+                    <p class="clinica-horarios-dica" style="margin-top:14px;">
+                        <i class="bi bi-info-circle" aria-hidden="true"></i>
+                        @auth
+                            @if (auth()->user()->isPaciente())
+                                Selecione um horario para confirmar o agendamento.
+                            @else
+                                Agendamentos sao realizados pelo paciente. Acesse uma conta de paciente para agendar.
+                            @endif
+                        @else
+                            Faca login como paciente para agendar com esta clinica.
+                        @endauth
+                    </p>
+                @else
+                    <div class="estado-vazio">
+                        <i class="bi bi-calendar-x" aria-hidden="true"></i>
+                        <p>Esta clinica ainda nao cadastrou horarios disponiveis.</p>
+                    </div>
+                @endif
             </div>
 
             {{-- Aba: Avaliacoes --}}
             <div id="painel-avaliacoes" class="perfil-tab-painel" role="tabpanel">
                 @if ($clinica->avaliacoes->count() > 0)
+                    <div class="rating-resumo">
+                        <div style="text-align:center;">
+                            <div class="nota-grande">{{ number_format($clinica->mediaAvaliacoes(), 1) }}<small>/5</small></div>
+                            <div class="star-rating" style="justify-content:center; margin-top:8px;" aria-label="Nota media {{ number_format($clinica->mediaAvaliacoes(), 1) }} de 5">
+                                @for ($i = 1; $i <= 5; $i++)
+                                    <span class="star {{ $i <= round($clinica->mediaAvaliacoes()) ? 'filled' : '' }}" aria-hidden="true"><i class="bi bi-star-fill"></i></span>
+                                @endfor
+                            </div>
+                            <p style="color:var(--color-text-secondary); font-size:0.8125rem; margin:6px 0 0;">
+                                {{ $clinica->avaliacoes->count() }} avaliacao{{ $clinica->avaliacoes->count() > 1 ? 'oes' : '' }}
+                            </p>
+                        </div>
+
+                        <div class="rating-barras">
+                            @foreach ($distribuicao as $linha)
+                                <div class="rating-barra">
+                                    <span>{{ $linha['nota'] }} <i class="bi bi-star-fill" aria-hidden="true" style="color:#FBBF24;"></i></span>
+                                    <div class="barra-fundo">
+                                        <div class="barra-preenchida" style="width: {{ $linha['pct'] }}%;"></div>
+                                    </div>
+                                    <b>{{ $linha['contagem'] }}</b>
+                                </div>
+                            @endforeach
+                        </div>
+                    </div>
+
                     <div style="display:flex; flex-direction:column; gap:20px; margin-bottom:24px;">
                         @foreach ($clinica->avaliacoes as $avaliacao)
                             <div style="padding-bottom:20px; border-bottom:1px solid #F3F4F6;">
@@ -238,9 +324,10 @@
                         @endforeach
                     </div>
                 @else
-                    <p style="color:var(--color-text-secondary); padding:24px; text-align:center; border:1px dashed #D1D5DB; border-radius:12px; margin-bottom:24px;">
-                        Ainda nao ha avaliacoes com comentarios.
-                    </p>
+                    <div class="estado-vazio" style="margin-bottom:24px;">
+                        <i class="bi bi-chat-square-text" aria-hidden="true"></i>
+                        <p>Ainda nao ha avaliacoes com comentarios.</p>
+                    </div>
                 @endif
 
                 @auth
@@ -291,11 +378,44 @@
                     @endif
                 @endauth
             </div>
+
+            {{-- Aba: Galeria --}}
+            <div id="painel-galeria" class="perfil-tab-painel" role="tabpanel">
+                @php
+                    $fotosParaExibir = $clinica->fotos->count() > 0
+                        ? $clinica->fotos->map(fn ($f) => ['src' => $f->caminho, 'legenda' => $f->legenda ?: 'Foto da clinica'])
+                        : collect($fotosEspacoFallback);
+                @endphp
+                <div class="fotos-carrossel">
+                    <button type="button" class="fotos-carrossel-seta fotos-carrossel-seta-esquerda"
+                            onclick="window.DailyCare.perfilClinica.moverCarrossel(this, -1)" aria-label="Foto anterior">
+                        <i class="bi bi-chevron-left" aria-hidden="true"></i>
+                    </button>
+
+                    <div class="fotos-carrossel-viewport">
+                        <div class="fotos-carrossel-trilho">
+                            @foreach ($fotosParaExibir as $foto)
+                                <div class="fotos-carrossel-item">
+                                    <img src="{{ $foto['src'] }}" alt="{{ $foto['legenda'] }}" loading="lazy">
+                                </div>
+                            @endforeach
+                        </div>
+                    </div>
+
+                    <button type="button" class="fotos-carrossel-seta fotos-carrossel-seta-direita"
+                            onclick="window.DailyCare.perfilClinica.moverCarrossel(this, 1)" aria-label="Proxima foto">
+                        <i class="bi bi-chevron-right" aria-hidden="true"></i>
+                    </button>
+                </div>
+                <p style="color:var(--color-text-secondary); font-size:0.875rem; margin-top:8px;">
+                    Fotos ilustrativas. A estrutura real pode variar - fale com a clinica para confirmar detalhes especificos.
+                </p>
+            </div>
         </section>
     </div>
 
     {{-- Sidebar: Agendamento --}}
-    <aside style="position:sticky; top:88px;">
+    <aside id="agendar" style="position:sticky; top:88px;">
         @auth
             @if (Auth::user()->isPaciente())
                 <div class="agenda-card">
@@ -389,7 +509,7 @@
                                               placeholder="Descreva sua condicao ou necessidade..."></textarea>
                                 </div>
 
-                                <button type="submit" class="btn btn-primary" style="width:100%; justify-content:center; margin-top:16px;">
+                                <button type="submit" class="btn btn-accent" style="width:100%; justify-content:center; margin-top:16px;">
                                     <i class="bi bi-calendar-check" aria-hidden="true"></i> Solicitar agendamento
                                 </button>
                             </form>
@@ -409,6 +529,13 @@
                 </div>
             </div>
         @endauth
+
+        <ul class="trust-signals" style="list-style:none; margin:16px 0 0; padding:16px 20px; background:#FFFFFF; border:2px solid #E5E7EB; border-radius:16px;">
+            <li><i class="bi bi-shield-check" aria-hidden="true"></i> Clinica com perfil verificado</li>
+            <li><i class="bi bi-alarm" aria-hidden="true"></i> Horarios atualizados em tempo real</li>
+            <li><i class="bi bi-chat-dots" aria-hidden="true"></i> Atendimento pelo chat integrado</li>
+            <li><i class="bi bi-patch-check" aria-hidden="true"></i> Agendamento confirmado pela clinica</li>
+        </ul>
     </aside>
 </div>
 
@@ -446,6 +573,19 @@
         fecharModalAgendamento() {
             document.getElementById('modal-agendamento-backdrop').classList.remove('aberto');
             document.body.style.overflow = '';
+        },
+        agendarDaAba(botao) {
+            if (botao.disabled) return;
+            const temModal = document.getElementById('modal-agendamento-backdrop');
+            if (temModal) {
+                this.abrirModalAgendamento(botao);
+                return;
+            }
+            if (window.DailyCare.authModal) {
+                window.DailyCare.authModal.abrir('login');
+            } else {
+                window.location.href = @json(route('login'));
+            }
         },
         moverCarrossel(botao, direcao) {
             const carrossel = botao.closest('.fotos-carrossel');

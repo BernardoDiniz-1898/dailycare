@@ -7,10 +7,15 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ClinicaController;
 use App\Http\Controllers\ClinicaPerfilController;
 use App\Http\Controllers\DashboardController;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
-    return redirect()->route('clinicas.index');
+    if (Auth::check()) {
+        return redirect()->route('dashboard');
+    }
+
+    return redirect()->route('login');
 })->name('home');
 
 // Auth

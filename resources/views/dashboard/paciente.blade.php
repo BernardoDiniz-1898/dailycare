@@ -19,7 +19,7 @@
                 <div style="display:flex; justify-content:space-between; align-items:flex-start; flex-wrap:wrap; gap:16px;">
                     <div>
                         <h2 style="font-size:1.125rem; font-weight:700; margin-bottom:4px;">
-                            <a href="{{ route('clinicas.show', $agendamento->clinica) }}" style="color:#009688; text-decoration:none;">
+                            <a href="{{ route('clinicas.show', $agendamento->clinica) }}" style="color:var(--color-primary); text-decoration:none;">
                                 {{ $agendamento->clinica->nome_fantasia }}
                             </a>
                         </h2>
@@ -33,7 +33,7 @@
                             <p style="color:var(--color-text-secondary); font-size:0.875rem; margin-top:8px;">{{ $agendamento->observacao_paciente }}</p>
                         @endif
                         @if ($agendamento->observacao_clinica)
-                            <p style="color:#009688; font-size:0.875rem; margin-top:8px; padding:8px 12px; background:#E0F2F1; border-radius:8px;">
+                            <p style="color:var(--color-primary-dark); font-size:0.875rem; margin-top:8px; padding:8px 12px; background:var(--color-primary-light); border-radius:8px;">
                                 <strong>Resposta da clinica:</strong> {{ $agendamento->observacao_clinica }}
                             </p>
                         @endif
