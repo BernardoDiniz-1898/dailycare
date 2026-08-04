@@ -97,8 +97,13 @@
         }
     });
 
-    {{-- Se o form voltou com erro de validacao, reabre o modal na aba certa --}}
-    @if ($errors->any())
+    {{-- Se o form de login/registro voltou com erro, reabre o modal na aba certa.
+         Confere a URL anterior pra nao abrir por engano quando o erro e de outro formulario. --}}
+    @php
+        $urlAnterior = url()->previous();
+        $veioDeLoginOuRegistro = str_ends_with($urlAnterior, '/login') || str_ends_with($urlAnterior, '/registro');
+    @endphp
+    @if ($errors->any() && $veioDeLoginOuRegistro)
         document.addEventListener('DOMContentLoaded', function () {
             window.DailyCare.authModal.abrir('{{ old('role') !== null ? 'registro' : 'login' }}');
         });
