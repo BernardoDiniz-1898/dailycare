@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Agendamento;
 use App\Models\Clinica;
+use App\Models\Mensagem;
 use App\Models\Usuario;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -35,26 +36,54 @@ class DashboardController extends Controller
     }
 
     /**
-     * Monta o dashboard do paciente com seus agendamentos.
+     * Monta o dashboard do paciente com boas-vindas, proximas consultas e recomendados.
      */
     private function paciente()
     {
+        $user = Auth::user();
+
         $agendamentos = Agendamento::where('paciente_id', Auth::id())
             ->with('clinica')
             ->orderBy('data', 'desc')
             ->orderBy('hora', 'desc')
             ->get();
 
-        return view('dashboard.paciente', compact('agendamentos'));
+        $proximosAgendamentos = Agendamento::where('paciente_id', Auth::id())
+            ->whereDate('data', '>=', today())
+            ->whereIn('status', ['solicitado', 'confirmado'])
+            ->with('clinica')
+            ->orderBy('data', 'asc')
+            ->orderBy('hora', 'asc')
+            ->take(5)
+            ->get();
+
+        $agendamentosPendentes = $agendamentos->where('status', 'solicitado')->count();
+
+        $recomendados = Clinica::where('status', 'aprovada')
+            ->where('ativa', true)
+            ->with(['especialidades', 'avaliacoes'])
+            ->get()
+            ->sortByDesc(fn (Clinica $c) => [$c->mediaAvaliacoes(), $c->totalAvaliacoes()])
+            ->take(3)
+            ->values();
+
+        return view('dashboard.paciente', compact(
+            'user',
+            'agendamentos',
+            'proximosAgendamentos',
+            'agendamentosPendentes',
+            'recomendados'
+        ));
     }
 
     /**
-     * Monta o dashboard da clínica com os agendamentos recebidos.
+     * Monta o dashboard da clínica com métricas, agenda do dia e avaliações.
      * Aplica filtro por status via query string (?status=...) e calcula estatisticas.
      */
     private function clinica(Request $request)
     {
-        $clinica = Auth::user()->clinica;
+        $user = Auth::user();
+        $clinica = $user->clinica;
 
         if (! $clinica) {
             return view('dashboard.clinica-setup');
@@ -89,12 +118,83 @@ class DashboardController extends Controller
         $receitaEstimada = ($contagem['confirmado'] + $contagem['concluido'])
             * (float) ($clinica->preco_sessao ?? 0);
 
+        $ativos = $agendamentos->whereNotIn('status', ['cancelado', 'recusado']);
+
+        $sessoesHoje = $ativos->filter(function (Agendamento $a) {
+            return $a->data->isSameDay(today());
+        })->count();
+
+        $pacientesAtivos = $ativos->pluck('paciente_id')->unique()->count();
+
+        $avaliacaoMedia = $clinica->mediaAvaliacoes();
+        $totalAvaliacoes = $clinica->totalAvaliacoes();
+
+        $ultimasAvaliacoes = $clinica->avaliacoes()
+            ->with('paciente')
+            ->orderBy('created_at', 'desc')
+            ->take(3)
+            ->get();
+
+        $naoLidas = Mensagem::where('lida', false)
+            ->where('remetente_id', '!=', $user->id)
+            ->whereHas('conversa', fn ($query) => $query->where('clinica_id', $clinica->id))
+            ->count();
+
+        $perfilIncompleto = empty($clinica->foto_capa)
+            || empty($clinica->descricao)
+            || $clinica->especialidades()->count() === 0;
+
+        $agendaHoje = $ativos->filter(function (Agendamento $a) {
+            return $a->data->isSameDay(today());
+        })->sortBy('hora')->values();
+
+        $diasPT = ['domingo', 'segunda', 'terca', 'quarta', 'quinta', 'sexta', 'sabado'];
+        $diaSemanaHoje = $diasPT[today()->dayOfWeek];
+
+        $horariosHoje = $clinica->horarios()
+            ->where('dia_semana', $diaSemanaHoje)
+            ->where('ativo', true)
+            ->get();
+
+        $slotsHoje = collect();
+        foreach ($horariosHoje as $horario) {
+            $inicio = \Carbon\Carbon::parse($horario->hora_inicio);
+            $fim = \Carbon\Carbon::parse($horario->hora_fim);
+            $cursor = $inicio->copy();
+            while ($cursor->lt($fim)) {
+                $hora = $cursor->format('H:i');
+                $slotsHoje->push([
+                    'hora' => $hora,
+                    'agendamento' => $agendaHoje->firstWhere('hora', $hora),
+                ]);
+                $cursor->addMinutes(60);
+            }
+        }
+
+        if ($slotsHoje->isEmpty() && $agendaHoje->isNotEmpty()) {
+            $slotsHoje = $agendaHoje->map(fn (Agendamento $a) => [
+                'hora' => substr($a->hora, 0, 5),
+                'agendamento' => $a,
+            ])->sortBy('hora')->values();
+        }
+
         return view('dashboard.clinica', compact(
+            'user',
             'clinica',
+            'agendamentos',
             'agendamentosFiltrados',
             'statusAtivo',
             'contagem',
-            'receitaEstimada'
+            'receitaEstimada',
+            'sessoesHoje',
+            'pacientesAtivos',
+            'avaliacaoMedia',
+            'totalAvaliacoes',
+            'ultimasAvaliacoes',
+            'naoLidas',
+            'perfilIncompleto',
+            'agendaHoje',
+            'slotsHoje'
         ));
     }
 

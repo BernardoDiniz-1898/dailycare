@@ -21,10 +21,16 @@
         <label for="senha" class="form-label">
             Senha <span class="required" aria-label="obrigatorio">*</span>
         </label>
-        <input type="password" id="senha" name="senha" required
-               class="form-input"
-               autocomplete="current-password"
-               placeholder="Sua senha">
+        <div class="password-wrapper">
+            <input type="password" id="senha" name="senha" required
+                   class="form-input"
+                   autocomplete="current-password"
+                   placeholder="Sua senha">
+            <button type="button" class="password-toggle" onclick="alternarVisibilidadeSenha(this)"
+                    aria-label="Mostrar senha" aria-pressed="false">
+                <i class="bi bi-eye" aria-hidden="true"></i>
+            </button>
+        </div>
     </div>
 
     <div style="margin-bottom:24px;">
@@ -39,3 +45,18 @@
         Entrar
     </button>
 </form>
+
+<script>
+function alternarVisibilidadeSenha(botao) {
+    const wrapper = botao.closest('.password-wrapper');
+    const input = wrapper.querySelector('input');
+    const exibindo = input.type === 'text';
+
+    input.type = exibindo ? 'password' : 'text';
+    const icone = botao.querySelector('i');
+    icone.className = exibindo ? 'bi bi-eye' : 'bi bi-eye-slash';
+    botao.setAttribute('aria-pressed', String(!exibindo));
+    botao.setAttribute('aria-label', exibindo ? 'Mostrar senha' : 'Ocultar senha');
+    input.focus();
+}
+</script>

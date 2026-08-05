@@ -62,8 +62,8 @@
             <label for="cpf" class="form-label">
                 CPF <span class="required" aria-label="obrigatorio">*</span>
             </label>
-            <input type="text" id="cpf" name="cpf" value="{{ old('cpf') }}" required
-                class="form-input input-paciente" placeholder="000.000.000-00" maxlength="14">
+<input type="text" id="cpf" name="cpf" value="{{ old('cpf') }}" required
+    class="form-input input-paciente" placeholder="000.000.000-00" maxlength="14" inputmode="numeric" oninput="formatarCPF(this)">
             @error('cpf') <p class="form-error" role="alert"><i class="bi bi-exclamation-triangle-fill" aria-hidden="true"></i> {{ $message }}</p> @enderror
         </div>
 
@@ -182,8 +182,14 @@
         <label for="senha" class="form-label">
             Senha <span class="required" aria-label="obrigatorio">*</span>
         </label>
-        <input type="password" id="senha" name="senha" required
-            class="form-input" autocomplete="new-password" placeholder="Minimo 8 caracteres">
+        <div class="password-wrapper">
+            <input type="password" id="senha" name="senha" required
+                class="form-input" autocomplete="new-password" placeholder="Minimo 8 caracteres">
+            <button type="button" class="password-toggle" onclick="alternarVisibilidadeSenha(this)"
+                aria-label="Mostrar senha" aria-pressed="false">
+                <i class="bi bi-eye" aria-hidden="true"></i>
+            </button>
+        </div>
         @error('senha') <p class="form-error" role="alert"><i class="bi bi-exclamation-triangle-fill" aria-hidden="true"></i> {{ $message }}</p> @enderror
     </div>
 
@@ -191,8 +197,14 @@
         <label for="senha_confirmation" class="form-label">
             Confirmar Senha <span class="required" aria-label="obrigatorio">*</span>
         </label>
-        <input type="password" id="senha_confirmation" name="senha_confirmation" required
-            class="form-input" autocomplete="new-password" placeholder="Repita a senha">
+        <div class="password-wrapper">
+            <input type="password" id="senha_confirmation" name="senha_confirmation" required
+                class="form-input" autocomplete="new-password" placeholder="Repita a senha">
+            <button type="button" class="password-toggle" onclick="alternarVisibilidadeSenha(this)"
+                aria-label="Mostrar senha" aria-pressed="false">
+                <i class="bi bi-eye" aria-hidden="true"></i>
+            </button>
+        </div>
     </div>
 
     {{-- Botão que submete o formulário --}}
@@ -204,6 +216,33 @@
 
 {{-- SCRIPT PARA ALTERNÂNCIA DINÂMICA DOS BLOCOS E REGRAS --}}
 <script>
+function alternarVisibilidadeSenha(botao) {
+    const wrapper = botao.closest('.password-wrapper');
+    const input = wrapper.querySelector('input');
+    const exibindo = input.type === 'text';
+
+    input.type = exibindo ? 'password' : 'text';
+    const icone = botao.querySelector('i');
+    icone.className = exibindo ? 'bi bi-eye' : 'bi bi-eye-slash';
+    botao.setAttribute('aria-pressed', String(!exibindo));
+    botao.setAttribute('aria-label', exibindo ? 'Mostrar senha' : 'Ocultar senha');
+    input.focus();
+}
+
+function formatarCPF(input) {
+    let valor = input.value.replace(/\D/g, '').slice(0, 11);
+
+    if (valor.length > 9) {
+        valor = valor.replace(/(\d{3})(\d{3})(\d{3})(\d{1,2})/, '$1.$2.$3-$4');
+    } else if (valor.length > 6) {
+        valor = valor.replace(/(\d{3})(\d{3})(\d{1,3})/, '$1.$2.$3');
+    } else if (valor.length > 3) {
+        valor = valor.replace(/(\d{3})(\d{1,3})/, '$1.$2');
+    }
+
+    input.value = valor;
+}
+
 function alternarCampos(role) {
     const blocoPaciente = document.getElementById('bloco-paciente');
     const blocoClinica = document.getElementById('bloco-clinica');

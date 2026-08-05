@@ -56,7 +56,7 @@ class DashboardClinicaSmokeTest extends TestCase
         $resposta->assertSee('Fisio Acessivel');
         $resposta->assertSee('Solicitados');
         $resposta->assertSee('Confirmados');
-        $resposta->assertSee('360,00', false);
+        $resposta->assertSee('Aguardando confirmação');
         $resposta->assertSee('Parkinson');
 
         $filtrado = $this->get(route('dashboard', ['status' => 'solicitado']));

@@ -566,6 +566,54 @@ label:focus-visible {
     color: #9CA3AF;
 }
 
+.password-wrapper {
+    position: relative;
+}
+
+.password-wrapper .form-input {
+    padding-right: 48px;
+}
+
+.password-toggle {
+    position: absolute;
+    top: 50%;
+    right: 8px;
+    transform: translateY(-50%);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    border: none;
+    border-radius: 10px;
+    background: transparent;
+    color: #6B7280;
+    font-size: 1.125rem;
+    cursor: pointer;
+    transition: color 0.15s ease, background-color 0.15s ease;
+    -webkit-tap-highlight-color: transparent;
+}
+
+.password-toggle:hover,
+.password-toggle:focus-visible {
+    color: #009688;
+    background: #E0F2F1;
+}
+
+body.dark-mode .password-toggle {
+    color: #9CA3AF;
+}
+
+body.dark-mode .password-toggle:hover,
+body.dark-mode .password-toggle:focus-visible {
+    color: #4DD0B8;
+    background: rgba(0, 150, 136, 0.15);
+}
+
+body.alto-contraste .password-toggle {
+    color: #111827;
+}
+
 .form-textarea {
     min-height: 100px;
     resize: vertical;
