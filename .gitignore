@@ -6,3 +6,4 @@ storage/*.key
 Thumbs.db
 .idea/
 .vscode/
+/database/database.sqlite
