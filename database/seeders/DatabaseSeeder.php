@@ -16,6 +16,35 @@ class DatabaseSeeder extends Seeder
 {
     public function run(): void
     {
+        // Planos de assinatura das clinicas na plataforma
+        \App\Models\Plano::create([
+            'nome' => 'Espaco Basico',
+            'descricao' => 'Ideal para comecar a divulgar sua clinica na DailyCare.',
+            'preco_mensal' => 49.90,
+            'preco_anual' => 479.00,
+            'permite_posts' => true,
+            'prioridade_busca' => false,
+            'beneficios' => [
+                'Publicacoes ilimitadas',
+                'Perfil completo na plataforma',
+                'Recebimento de agendamentos e mensagens',
+            ],
+        ]);
+
+        \App\Models\Plano::create([
+            'nome' => 'Espaco em Destaque',
+            'descricao' => 'Para clinicas que querem aparecer primeiro nas buscas dos pacientes.',
+            'preco_mensal' => 99.90,
+            'preco_anual' => 959.00,
+            'permite_posts' => true,
+            'prioridade_busca' => true,
+            'beneficios' => [
+                'Tudo do plano Espaco Basico',
+                'Prioridade nos resultados de busca',
+                'Selo de destaque no perfil',
+            ],
+        ]);
+
         $this->seedEspecialidades();
         $this->seedServicos();
 
