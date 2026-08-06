@@ -74,6 +74,25 @@ Route::middleware('auth')->group(function () {
     Route::put('/configuracoes/senha', [\App\Http\Controllers\ConfiguracoesController::class, 'atualizarSenha'])->name('configuracoes.senha');
 });
 
+/**
+ * Rotas de posts (publicacoes) da clinica/fisioterapeuta.
+ * Somente quem tem papel de clinica ou fisioterapeuta pode criar/remover.
+ */
+Route::middleware(['auth', 'role:clinica,fisioterapeuta'])->group(function () {
+    Route::post('/posts', [\App\Http\Controllers\PostController::class, 'store'])->name('posts.store');
+    Route::delete('/posts/{post}', [\App\Http\Controllers\PostController::class, 'destroy'])->name('posts.destroy');
+});
+
+/**
+ * Rotas de planos (assinatura da clinica na plataforma).
+ * A clinica "aluga o espaco" pra divulgar seu trabalho, com planos mensal ou anual.
+ */
+Route::middleware(['auth', 'role:clinica,fisioterapeuta'])->prefix('planos')->name('planos.')->group(function () {
+    Route::get('/', [\App\Http\Controllers\PlanoController::class, 'index'])->name('index');
+    Route::post('/{plano}/assinar', [\App\Http\Controllers\PlanoController::class, 'assinar'])->name('assinar');
+    Route::delete('/cancelar', [\App\Http\Controllers\PlanoController::class, 'cancelar'])->name('cancelar');
+});
+
 // Perfil Clinica
 Route::middleware(['auth', 'role:clinica,fisioterapeuta'])->prefix('clinica-perfil')->name('clinica.perfil.')->group(function () {
     Route::get('/criar', [ClinicaPerfilController::class, 'create'])->name('create');

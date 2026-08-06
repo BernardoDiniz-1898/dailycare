@@ -62,6 +62,36 @@ class Clinica extends Model
         return $this->hasMany(ClinicaFoto::class);
     }
 
+    public function posts()
+    {
+        return $this->hasMany(Post::class)->latest();
+    }
+
+    public function assinaturas()
+    {
+        return $this->hasMany(Assinatura::class);
+    }
+
+    public function assinaturaAtiva()
+    {
+        return $this->hasOne(Assinatura::class)
+            ->where('status', 'ativa')
+            ->where('data_fim', '>=', now())
+            ->latest();
+    }
+
+    public function temPlanoAtivo(): bool
+    {
+        return $this->assinaturaAtiva()->exists();
+    }
+
+    public function temPrioridadeBusca(): bool
+    {
+        $assinatura = $this->assinaturaAtiva()->first();
+
+        return $assinatura && $assinatura->plano->prioridade_busca;
+    }
+
     public function horarios()
     {
         return $this->hasMany(HorarioDisponivel::class);

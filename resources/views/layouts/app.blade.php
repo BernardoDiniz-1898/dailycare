@@ -185,6 +185,11 @@
                             <span><i class="bi bi-hospital" aria-hidden="true"></i> Meu Perfil</span>
                         </a>
                     </li>
+                    <li>
+                        <a href="{{ route('planos.index') }}" class="{{ request()->routeIs('planos.*') ? 'ativo' : '' }}">
+                            <span><i class="bi bi-rocket-takeoff" aria-hidden="true"></i> Planos</span>
+                        </a>
+                    </li>
                 @endif
             @endauth
         </ul>

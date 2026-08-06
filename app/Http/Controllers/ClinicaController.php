@@ -58,6 +58,18 @@ class ClinicaController extends Controller
                 $q->where('status', 'concluido');
             }]);
 
+        // Clinicas com plano de prioridade ativo aparecem primeiro na busca
+        $query->addSelect([
+            'tem_prioridade' => \App\Models\Assinatura::query()
+                ->join('planos', 'planos.id', '=', 'assinaturas.plano_id')
+                ->whereColumn('assinaturas.clinica_id', 'clinicas.id')
+                ->where('assinaturas.status', 'ativa')
+                ->where('assinaturas.data_fim', '>=', now())
+                ->where('planos.prioridade_busca', true)
+                ->selectRaw('1')
+                ->limit(1),
+        ])->orderByDesc('tem_prioridade');
+
         switch ($request->input('ordenar')) {
             case 'avaliacao':
                 $query->orderByDesc('avaliacoes_avg_nota');
