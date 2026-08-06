@@ -123,7 +123,7 @@
         <div style="display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-bottom:20px;">
             <div>
                 <label for="cep" class="form-label">CEP *</label>
-                <input type="text" id="cep" name="cep" value="{{ old('cep') }}" class="form-input input-clinica" placeholder="00000-000">
+                <input type="text" id="cep" name="cep" value="{{ old('cep') }}" class="form-input input-clinica" placeholder="00000-000" maxlength="9" inputmode="numeric" oninput="formatarCEP(this)" onblur="buscarCEP()">
                 @error('cep') <p class="form-error" role="alert"><i class="bi bi-exclamation-triangle-fill" aria-hidden="true"></i> {{ $message }}</p> @enderror
             </div>
             <div>
@@ -282,6 +282,58 @@ document.addEventListener('DOMContentLoaded', () => {
     const roleChecked = document.querySelector('input[name="role"]:checked');
     if (roleChecked) {
         alternarCampos(roleChecked.value);
+    }
+
+    
+document.getElementById('cep').addEventListener('blur', buscarCEP);
+
+    async function buscarCEP() {
+            const campoCep = document.getElementById('cep');
+        
+            // Verifica se o campo CEP existe na página
+            if (!campoCep) {
+                return;
+            }
+        
+            // Remove qualquer caractere que não seja número
+            const cep = campoCep.value.replace(/\D/g, '');
+        
+            // O CEP deve possuir exatamente 8 dígitos
+            if (cep.length !== 8) {
+                return;
+            }
+        
+            try {
+        
+                // Consulta o ViaCEP
+                const resposta = await fetch(
+                    `https://viacep.com.br/ws/${cep}/json/`
+                );
+        
+                const dados = await resposta.json();
+        
+                // CEP inexistente
+                if (dados.erro) {
+                    alert('CEP não encontrado.');
+                    return;
+                }
+        
+                // Preenche os campos automaticamente
+                document.getElementById('logradouro').value = dados.logradouro || '';
+                document.getElementById('bairro').value = dados.bairro || '';
+                document.getElementById('cidade').value = dados.localidade || '';
+                document.getElementById('estado').value = dados.uf || '';
+        
+                // Posiciona o cursor no campo Número
+                document.getElementById('numero').focus();
+        
+            } 
+            catch (erro) {
+        
+                console.error('Erro ao consultar o ViaCEP:', erro);
+                alert('Erro ao consultar o CEP.');
+        
+            }
     }
 });
 </script>
