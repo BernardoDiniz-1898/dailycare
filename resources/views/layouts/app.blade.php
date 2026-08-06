@@ -72,8 +72,6 @@
                 <i class="bi bi-brightness-high-fill" aria-hidden="true"></i> Alto Contraste
             </button>
         </div>
-
-        <div id="vlibras-widget" aria-label="Widget de traducao para Libras"></div>
     </div>
 
     {{-- =============================================
@@ -115,13 +113,13 @@
                     <li role="none">
                         <button type="button" class="nav-link" role="menuitem"
                                 style="background:none; border:none; cursor:pointer;"
-                                onclick="window.DailyCare.authModal.abrir('login')">
+                                onclick="DailyCare.auth.abrir('login')">
                             <i class="bi bi-box-arrow-in-right" aria-hidden="true"></i> Entrar
                         </button>
                     </li>
                     <li role="none">
                         <button type="button" class="btn btn-accent btn-sm" role="menuitem"
-                                onclick="window.DailyCare.authModal.abrir('registro')">
+                                onclick="DailyCare.auth.abrir('registro')">
                             <i class="bi bi-person-plus" aria-hidden="true"></i> Cadastrar
                         </button>
                     </li>
@@ -178,6 +176,11 @@
                 </li>
                 @if (Auth::user()->isClinica())
                     <li>
+                        <a href="{{ route('agenda') }}" class="{{ request()->routeIs('agenda') ? 'ativo' : '' }}">
+                            <span><i class="bi bi-calendar3" aria-hidden="true"></i> Minha Agenda</span>
+                        </a>
+                    </li>
+                    <li>
                         <a href="{{ route('clinica.perfil.edit') }}" class="{{ request()->routeIs('clinica.perfil.*') ? 'ativo' : '' }}">
                             <span><i class="bi bi-hospital" aria-hidden="true"></i> Meu Perfil</span>
                         </a>
@@ -201,10 +204,10 @@
             </div>
         @else
             <div class="menu-lateral-rodape menu-lateral-rodape-guest">
-                <button type="button" class="btn btn-pill btn-pill-outline" onclick="window.DailyCare.authModal.abrir('login')">
+                <button type="button" class="btn btn-pill btn-pill-outline" onclick="DailyCare.auth.abrir('login')">
                     <i class="bi bi-box-arrow-in-right" aria-hidden="true"></i> Entrar
                 </button>
-                <button type="button" class="btn btn-pill btn-accent" onclick="window.DailyCare.authModal.abrir('registro')">
+                <button type="button" class="btn btn-pill btn-accent" onclick="DailyCare.auth.abrir('registro')">
                     <i class="bi bi-person-plus" aria-hidden="true"></i> Criar conta
                 </button>
             </div>
@@ -278,8 +281,8 @@
                             @auth
                                 <li><a href="{{ route('dashboard') }}">Meu Painel</a></li>
                             @else
-                                <li><button type="button" onclick="window.DailyCare.authModal.abrir('login')" style="background:none; border:none; padding:0; color:inherit; cursor:pointer; text-decoration:underline;">Entrar</button></li>
-                                <li><button type="button" onclick="window.DailyCare.authModal.abrir('registro')" style="background:none; border:none; padding:0; color:inherit; cursor:pointer; text-decoration:underline;">Cadastrar</button></li>
+                                <li><button type="button" onclick="DailyCare.auth.abrir('login')" style="background:none; border:none; padding:0; color:inherit; cursor:pointer; text-decoration:underline;">Entrar</button></li>
+                                <li><button type="button" onclick="DailyCare.auth.abrir('registro')" style="background:none; border:none; padding:0; color:inherit; cursor:pointer; text-decoration:underline;">Cadastrar</button></li>
                             @endauth
                         </ul>
                     </nav>
@@ -294,7 +297,7 @@
                         Integracao com <strong>V-Libras</strong> para traducao em Libras.
                     </p>
                     <p style="margin-top:12px; font-size:0.875rem; color:var(--color-text-secondary);">
-                        Atalhos: Alt+1 (conteudo), Alt+2 (nav), Alt+T (tema), Alt+/Alt- (fonte)
+                        Atalhos: Alt+1 (conteudo), Alt+2 (navegacao), Alt+T (tema), Alt++ / Alt+- (fonte)
                     </p>
                 </div>
             </div>

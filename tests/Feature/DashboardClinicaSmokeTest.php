@@ -24,9 +24,9 @@ class DashboardClinicaSmokeTest extends TestCase
         ], $dados));
     }
 
-    public function test_dashboard_clinica_renderiza_com_estatisticas_e_filtro(): void
+    public function test_dashboard_clinica_renderiza_com_estatisticas(): void
     {
-        $user = $this->criarUsuario(['role' => 'fisioterapeuta', 'nome' => 'Fisio Acessivel']);
+        $user = $this->criarUsuario(['role' => 'fisioterapeuta', 'nome' => 'Fisio Acessivel', 'ativo' => true]);
         $clinica = Clinica::create([
             'usuario_id' => $user->id,
             'razao_social' => 'Fisio Acessivel LTDA',
@@ -54,13 +54,19 @@ class DashboardClinicaSmokeTest extends TestCase
         $resposta = $this->get(route('dashboard'));
         $resposta->assertOk();
         $resposta->assertSee('Fisio Acessivel');
-        $resposta->assertSee('Solicitados');
-        $resposta->assertSee('Confirmados');
         $resposta->assertSee('Aguardando confirmação');
-        $resposta->assertSee('Parkinson');
+        $resposta->assertSee('Ver agenda completa');
 
-        $filtrado = $this->get(route('dashboard', ['status' => 'solicitado']));
+        $agenda = $this->get(route('agenda', ['data' => '2026-08-10']));
+        $agenda->assertOk();
+        $agenda->assertSee('Minha Agenda');
+        $agenda->assertSee('Solicitados');
+        $agenda->assertSee('Confirmados');
+        $agenda->assertSee('Parkinson');
+
+        $filtrado = $this->get(route('agenda', ['data' => '2026-08-10', 'status' => 'solicitado']));
         $filtrado->assertOk();
         $filtrado->assertSee('09:00');
+        $filtrado->assertSee('Parkinson');
     }
 }

@@ -7,7 +7,7 @@
         </label>
         <input type="email" id="email" name="email" value="{{ old('email') }}" required autofocus
                class="form-input"
-               aria-describedby="email-erro"
+               @if ($errors->has('email')) aria-describedby="email-erro" @endif
                autocomplete="email"
                placeholder="seu@email.com">
         @error('email')

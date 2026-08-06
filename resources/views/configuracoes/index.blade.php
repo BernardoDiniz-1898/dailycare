@@ -32,7 +32,7 @@
             </div>
             <label class="config-toggle">
                 <input type="checkbox" id="toggle-alto-contraste"
-                       onchange="DailyCare.tema.trocar(this.checked ? 'alto-contraste' : 'claro')">
+                       onchange="alternarAltoContraste(this)">
                 <span class="config-toggle-slider" aria-hidden="true"></span>
                 <span class="sr-only">Ativar alto contraste</span>
             </label>
@@ -102,13 +102,20 @@
 </div>
 
 <script>
-    document.addEventListener('DOMContentLoaded', function () {
-        const escalaAtual = window.DailyCare.fonte.atual();
-        document.getElementById('slider-fonte').value = escalaAtual;
-        document.getElementById('slider-fonte-valor').textContent = escalaAtual + '%';
+    function alternarAltoContraste(toggle) {
+        if (toggle.checked) {
+            DailyCare.tema.trocar('alto-contraste');
+        } else if (document.body.classList.contains('alto-contraste')) {
+            DailyCare.tema.trocar('claro');
+        }
+    }
 
-        const contrasteAtivo = document.body.classList.contains('alto-contraste');
-        document.getElementById('toggle-alto-contraste').checked = contrasteAtivo;
+    document.addEventListener('DOMContentLoaded', function () {
+        const escalaSalva = parseInt(localStorage.getItem('dc_fonte') || '100', 10);
+        document.getElementById('slider-fonte').value = escalaSalva;
+        document.getElementById('slider-fonte-valor').textContent = escalaSalva + '%';
+
+        document.getElementById('toggle-alto-contraste').checked = localStorage.getItem('dc_tema') === 'alto-contraste';
     });
 </script>
 @endsection

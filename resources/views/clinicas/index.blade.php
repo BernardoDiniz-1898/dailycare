@@ -19,13 +19,15 @@
 
     {{-- Pills de especialidade (filtro rapido) --}}
     <div style="display:flex; gap:8px; flex-wrap:wrap; margin-bottom:20px;" role="group" aria-label="Filtro rapido por especialidade">
-        <button type="submit" name="especialidade" value=""
-                class="pill-filtro {{ !request('especialidade') ? 'pill-ativo' : '' }}">
+        <button type="button" value=""
+                class="pill-filtro {{ !request('especialidade') ? 'pill-ativo' : '' }}"
+                onclick="window.DailyCare.buscaClinicas.filtrarEspecialidade(this)">
             Todas
         </button>
         @foreach ($especialidades as $esp)
-            <button type="submit" name="especialidade" value="{{ $esp->id }}"
-                    class="pill-filtro {{ request('especialidade') == $esp->id ? 'pill-ativo' : '' }}">
+            <button type="button" value="{{ $esp->id }}"
+                    class="pill-filtro {{ request('especialidade') == $esp->id ? 'pill-ativo' : '' }}"
+                    onclick="window.DailyCare.buscaClinicas.filtrarEspecialidade(this)">
                 {{ $esp->nome }}
             </button>
         @endforeach
@@ -61,7 +63,8 @@
         </div>
     </div>
 
-    {{-- Preserva ordenacao ao filtrar --}}
+    {{-- Preserva especialidade e ordenacao ao filtrar --}}
+    <input type="hidden" name="especialidade" value="{{ request('especialidade') }}">
     <input type="hidden" name="ordenar" value="{{ request('ordenar', 'recentes') }}">
 </form>
 
@@ -286,6 +289,14 @@
 <script>
     window.DailyCare = window.DailyCare || {};
     window.DailyCare.buscaClinicas = {
+        filtrarEspecialidade(botao) {
+            const form = document.getElementById('form-busca-clinicas');
+            form.querySelector('input[name="especialidade"]').value = botao.value;
+            document.querySelectorAll('.pill-filtro').forEach(function (pill) {
+                pill.classList.toggle('pill-ativo', pill === botao);
+            });
+            form.submit();
+        },
         ordenar(valor) {
             const form = document.getElementById('form-busca-clinicas');
             form.querySelector('input[name="ordenar"]').value = valor;

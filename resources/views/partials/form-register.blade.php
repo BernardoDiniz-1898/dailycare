@@ -163,10 +163,10 @@
     {{-- BLOCO 3: CAMPOS COMUNS (E-MAIL, SENHAS)    --}}
     {{-- ========================================== --}}
     <div class="form-group" style="margin-bottom:20px;">
-        <label for="email" class="form-label">
+        <label for="reg-email" class="form-label">
             E-mail <span class="required" aria-label="obrigatorio">*</span>
         </label>
-        <input type="email" id="email" name="email" value="{{ old('email') }}" required
+        <input type="email" id="reg-email" name="email" value="{{ old('email') }}" required
             class="form-input" autocomplete="email" placeholder="seu@email.com">
         @error('email') <p class="form-error" role="alert"><i class="bi bi-exclamation-triangle-fill" aria-hidden="true"></i> {{ $message }}</p> @enderror
     </div>
@@ -179,11 +179,11 @@
     </div>
 
     <div class="form-group" style="margin-bottom:20px;">
-        <label for="senha" class="form-label">
+        <label for="reg-senha" class="form-label">
             Senha <span class="required" aria-label="obrigatorio">*</span>
         </label>
         <div class="password-wrapper">
-            <input type="password" id="senha" name="senha" required
+            <input type="password" id="reg-senha" name="senha" required
                 class="form-input" autocomplete="new-password" placeholder="Minimo 8 caracteres">
             <button type="button" class="password-toggle" onclick="alternarVisibilidadeSenha(this)"
                 aria-label="Mostrar senha" aria-pressed="false">
@@ -194,17 +194,18 @@
     </div>
 
     <div class="form-group" style="margin-bottom:24px;">
-        <label for="senha_confirmation" class="form-label">
+        <label for="reg-senha-confirmation" class="form-label">
             Confirmar Senha <span class="required" aria-label="obrigatorio">*</span>
         </label>
         <div class="password-wrapper">
-            <input type="password" id="senha_confirmation" name="senha_confirmation" required
+            <input type="password" id="reg-senha-confirmation" name="senha_confirmation" required
                 class="form-input" autocomplete="new-password" placeholder="Repita a senha">
             <button type="button" class="password-toggle" onclick="alternarVisibilidadeSenha(this)"
                 aria-label="Mostrar senha" aria-pressed="false">
                 <i class="bi bi-eye" aria-hidden="true"></i>
             </button>
         </div>
+        @error('senha_confirmation') <p class="form-error" role="alert"><i class="bi bi-exclamation-triangle-fill" aria-hidden="true"></i> {{ $message }}</p> @enderror
     </div>
 
     {{-- Botão que submete o formulário --}}

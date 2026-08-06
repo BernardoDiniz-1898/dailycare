@@ -37,6 +37,11 @@ Route::middleware('auth')->group(function () {
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 });
 
+// Agenda da clinica
+Route::middleware(['auth', 'role:clinica,fisioterapeuta'])->group(function () {
+    Route::get('/agenda', [DashboardController::class, 'agenda'])->name('agenda');
+});
+
 // Agendamentos
 Route::middleware('auth')->group(function () {
     Route::post('/agendamentos', [AgendamentoController::class, 'store'])->name('agendamentos.store');

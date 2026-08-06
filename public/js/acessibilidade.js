@@ -219,9 +219,10 @@ const DailyCare = {
 
             // Escape: Fechar menus modais
             if (e.key === 'Escape') {
+                const modalAberto = document.querySelector('.agenda-modal-backdrop.aberto, .auth-modal-backdrop.aberto');
                 if (DailyCare.menu.estaAberto()) {
                     DailyCare.menu.fechar();
-                } else {
+                } else if (!modalAberto) {
                     document.activeElement.blur();
                 }
             }
@@ -298,6 +299,22 @@ const DailyCare = {
     },
 
     // =============================================
+    // AUTENTICACAO (fallback de navegacao)
+    // Abre o modal quando ele existe; caso contrario,
+    // redireciona para a pagina de login/registro.
+    // =============================================
+    auth: {
+        abrir(aba) {
+            const modal = window.DailyCare && window.DailyCare.authModal;
+            if (modal) {
+                modal.abrir(aba);
+                return;
+            }
+            window.location.href = aba === 'registro' ? '/registro' : '/login';
+        }
+    },
+
+    // =============================================
     // INICIALIZACAO
     // =============================================
     init() {
@@ -306,6 +323,10 @@ const DailyCare = {
         this.atalhos.init();
     }
 };
+
+// Expor no escopo global preservando modulos adicionados por outras paginas
+// (ex.: window.DailyCare.authModal, .buscaClinicas, .perfilClinica)
+window.DailyCare = Object.assign(window.DailyCare || {}, DailyCare);
 
 // Inicializar quando o DOM estiver pronto
 document.addEventListener('DOMContentLoaded', () => DailyCare.init());

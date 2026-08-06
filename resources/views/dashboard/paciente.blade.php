@@ -34,7 +34,7 @@
         <div style="display:flex; justify-content:space-between; align-items:flex-start; flex-wrap:wrap; gap:16px;">
             <div>
                 <h1 style="color:#fff; font-size:1.5rem; font-weight:800; font-family:var(--font-heading); margin:0 0 4px;">
-                    Olá, {{ $user->nome }} 👋
+                    Olá, {{ $user->nome }}
                 </h1>
                 <p style="color:#99E6DC; font-size:0.875rem; margin:0 0 6px;">Como você está se sentindo hoje?</p>
                 <p style="color:rgba(255,255,255,0.6); font-size:0.75rem; margin:0; text-transform:capitalize;">{{ $dataHoje }}</p>
@@ -98,7 +98,7 @@
 
         @foreach ($acoes as $acao)
             <a href="{{ $acao['href'] }}"
-               style="display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center; min-height:150px; padding:20px; background:#fff; border:1px solid #F3F4F6; border-radius:16px; box-shadow:0 1px 2px rgba(0,0,0,0.05); text-decoration:none; position:relative; transition:transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;">
+               style="display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center; min-height:150px; padding:20px; background:#fff; border:1px solid #E3E9E8; border-radius:16px; box-shadow:0 1px 2px rgba(16,42,42,0.05), 0 4px 14px rgba(16,42,42,0.06); text-decoration:none; position:relative; transition:transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;">
                 @if ($acao['badge'])
                     <span style="position:absolute; top:12px; right:12px; background:#009688; color:#fff; font-size:0.75rem; font-weight:800; min-width:22px; height:22px; border-radius:9999px; display:inline-flex; align-items:center; justify-content:center; padding:0 6px;">
                         {{ $acao['badge'] }}

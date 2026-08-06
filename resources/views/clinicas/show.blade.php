@@ -334,7 +334,7 @@
                     @if (Auth::user()->isPaciente())
                         <div style="padding-top:20px; border-top:2px solid #E5E7EB;">
                             @if ($jaAvaliou)
-                                <p style="color:var(--color-text-secondary); padding:16px; background:#F9FAFB; border-radius:10px;">
+                                <p style="color:var(--color-text-secondary); padding:16px; background:#F2F6F5; border-radius:10px;">
                                     <i class="bi bi-check-circle-fill" style="color:#009688;" aria-hidden="true"></i>
                                     Voce ja avaliou esta clinica. Obrigado pelo feedback!
                                 </p>
@@ -369,7 +369,7 @@
                                     <button type="submit" class="btn btn-primary">Enviar avaliacao</button>
                                 </form>
                             @else
-                                <p style="color:var(--color-text-secondary); padding:16px; background:#F9FAFB; border-radius:10px;">
+                                <p style="color:var(--color-text-secondary); padding:16px; background:#F2F6F5; border-radius:10px;">
                                     <i class="bi bi-info-circle" aria-hidden="true"></i>
                                     Voce podera avaliar esta clinica apos ter um atendimento concluido por aqui.
                                 </p>
@@ -571,7 +571,9 @@
             document.body.style.overflow = 'hidden';
         },
         fecharModalAgendamento() {
-            document.getElementById('modal-agendamento-backdrop').classList.remove('aberto');
+            const backdrop = document.getElementById('modal-agendamento-backdrop');
+            if (!backdrop) return;
+            backdrop.classList.remove('aberto');
             document.body.style.overflow = '';
         },
         agendarDaAba(botao) {
@@ -599,6 +601,14 @@
             window.DailyCare.perfilClinica.fecharModalAgendamento();
         }
     });
+
+    if (document.getElementById('modal-agendamento-backdrop')) {
+        document.addEventListener('keydown', function (evento) {
+            if (evento.key === 'Escape') {
+                window.DailyCare.perfilClinica.fecharModalAgendamento();
+            }
+        });
+    }
 </script>
 
 @push('head')

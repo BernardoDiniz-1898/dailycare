@@ -96,6 +96,10 @@ class ClinicaController extends Controller
             'avaliacoes.paciente',
         ]);
 
+        $clinica->loadCount([
+            'agendamentos as atendimentos_concluidos_count' => fn ($q) => $q->where('status', 'concluido'),
+        ]);
+
         return view('clinicas.show', compact('clinica'));
     }
 }

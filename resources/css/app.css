@@ -23,23 +23,23 @@
     --color-danger: #B91C1C;
     --color-danger-light: #FEE2E2;
     --color-surface: #FFFFFF;
-    --color-background: #F8F9FA;
-    --color-text: #374151;
-    --color-text-secondary: #6B7280;
-    --color-text-weak: #9CA3AF;
-    --color-border: #E5E7EB;
+    --color-background: #EBF1F0;
+    --color-text: #1F2937;
+    --color-text-secondary: #4B5563;
+    --color-text-weak: #8A94A0;
+    --color-border: #DCE4E3;
 
     /* Tokens da identidade visual (aliases) */
     --dc-primary: #009688;
     --dc-primary-dark: #00796B;
     --dc-dark: #1E3A3A;
     --dc-accent: #D4AF37;
-    --dc-background: #F8F9FA;
+    --dc-background: #EBF1F0;
     --dc-card: #FFFFFF;
-    --dc-text: #374151;
-    --dc-text-secondary: #6B7280;
-    --dc-text-weak: #9CA3AF;
-    --dc-border: #E5E7EB;
+    --dc-text: #1F2937;
+    --dc-text-secondary: #4B5563;
+    --dc-text-weak: #8A94A0;
+    --dc-border: #DCE4E3;
 
     --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
     --ease-smooth: cubic-bezier(0.4, 0, 0.2, 1);
@@ -265,8 +265,8 @@ label:focus-visible {
 
 .site-header {
     background: #FFFFFF;
-    border-bottom: 2px solid #E5E7EB;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
+    border-bottom: 1px solid #DCE4E3;
+    box-shadow: 0 1px 2px rgba(16, 42, 42, 0.05), 0 4px 14px rgba(16, 42, 42, 0.06);
     position: sticky;
     top: 0;
     z-index: 100;
@@ -468,16 +468,16 @@ label:focus-visible {
 
 .card {
     background: #FFFFFF;
-    border: 1px solid #F3F4F6;
+    border: 1px solid #E3E9E8;
     border-radius: 16px;
-    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+    box-shadow: 0 1px 2px rgba(16, 42, 42, 0.05), 0 4px 14px rgba(16, 42, 42, 0.06);
     overflow: hidden;
     transition: transform 0.25s var(--ease-out), box-shadow 0.25s var(--ease-out), border-color 0.2s ease;
 }
 
 .card:hover {
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
-    border-color: #E5E7EB;
+    box-shadow: 0 10px 26px rgba(16, 42, 42, 0.10);
+    border-color: #DCE4E3;
 }
 
 /* Tira colorida no topo do card (degrade do primary) */
@@ -535,12 +535,12 @@ label:focus-visible {
 .form-textarea {
     width: 100%;
     padding: 12px 16px;
-    border: 1px solid #E5E7EB;
+    border: 1px solid #D6DEE0;
     border-radius: 12px;
     font-size: 1rem;
     line-height: 1.5;
     color: #111827;
-    background: #F9FAFB;
+    background: #FFFFFF;
     min-height: 48px;
     transition: border-color 0.15s ease, box-shadow 0.15s ease, background-color 0.15s ease;
 }
@@ -548,7 +548,7 @@ label:focus-visible {
 .form-input:hover,
 .form-select:hover,
 .form-textarea:hover {
-    border-color: #9CA3AF;
+    border-color: #8A94A0;
 }
 
 .form-input:focus,
@@ -563,7 +563,7 @@ label:focus-visible {
 
 .form-input::placeholder,
 .form-textarea::placeholder {
-    color: #9CA3AF;
+    color: #8A94A0;
 }
 
 .password-wrapper {
@@ -748,7 +748,7 @@ body.alto-contraste .password-toggle {
 
 .table-container {
     overflow-x: auto;
-    border: 2px solid #E5E7EB;
+    border: 2px solid #DCE4E3;
     border-radius: 16px;
 }
 
@@ -758,8 +758,8 @@ body.alto-contraste .password-toggle {
 }
 
 .data-table thead {
-    background: #F9FAFB;
-    border-bottom: 2px solid #E5E7EB;
+    background: #F2F6F5;
+    border-bottom: 2px solid #DCE4E3;
 }
 
 .data-table th {
@@ -777,7 +777,7 @@ body.alto-contraste .password-toggle {
     padding: 16px 24px;
     font-size: 0.9375rem;
     color: #111827;
-    border-bottom: 1px solid #F3F4F6;
+    border-bottom: 1px solid #EDF1F0;
 }
 
 .data-table tbody tr {
@@ -785,7 +785,7 @@ body.alto-contraste .password-toggle {
 }
 
 .data-table tbody tr:hover {
-    background: #F9FAFB;
+    background: #F2F6F5;
 }
 
 .data-table tbody tr:last-child td {
@@ -2417,42 +2417,6 @@ body.tema-transition *::after {
 }
 
 /* =============================================
-   LOGIN / CADASTRO - ABAS ENTRAR/CRIAR CONTA
-   ============================================= */
-
-.auth-tabs {
-    display: flex;
-    background: #E5E7EB;
-    border-radius: 12px;
-    padding: 4px;
-    margin-bottom: 20px;
-    gap: 4px;
-}
-
-.auth-tab {
-    flex: 1;
-    text-align: center;
-    padding: 10px 16px;
-    border-radius: 9px;
-    font-weight: 700;
-    font-size: 0.9375rem;
-    color: #4B5563;
-    text-decoration: none;
-    transition: all 0.15s ease;
-}
-
-.auth-tab:hover {
-    color: #111827;
-}
-
-.auth-tab-ativo,
-.auth-tab-ativo:hover {
-    background: #FFFFFF;
-    color: #009688;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-}
-
-/* =============================================
    HORARIOS CLICAVEIS (BUSCA DE CLINICAS)
    ============================================= */
 
@@ -3832,4 +3796,131 @@ body.dark-mode .estado-vazio i.bi {
 
 .agenda-modal {
     border-radius: 16px;
+}
+
+/* =============================================
+   CONFIGURACOES - SLIDER DE FONTE E TOGGLE
+   ============================================= */
+
+.config-slider {
+    width: 100%;
+    height: 8px;
+    border-radius: 9999px;
+    -webkit-appearance: none;
+    appearance: none;
+    background: #E5E7EB;
+    outline: none;
+    cursor: pointer;
+}
+
+.config-slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    background: var(--color-primary, #009688);
+    border: 3px solid #FFFFFF;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.25);
+    cursor: pointer;
+    transition: transform 0.15s ease;
+}
+
+.config-slider::-moz-range-thumb {
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    background: var(--color-primary, #009688);
+    border: 3px solid #FFFFFF;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.25);
+    cursor: pointer;
+}
+
+.config-slider:focus-visible {
+    outline: 3px solid var(--color-primary, #009688);
+    outline-offset: 2px;
+}
+
+.config-toggle {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    flex-shrink: 0;
+    width: 48px;
+    height: 26px;
+    cursor: pointer;
+}
+
+.config-toggle input {
+    position: absolute;
+    opacity: 0;
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    cursor: pointer;
+}
+
+.config-toggle-slider {
+    position: absolute;
+    inset: 0;
+    border-radius: 9999px;
+    background: #E5E7EB;
+    transition: background-color 0.2s ease;
+}
+
+.config-toggle-slider::after {
+    content: '';
+    position: absolute;
+    top: 3px;
+    left: 3px;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: #FFFFFF;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.25);
+    transition: transform 0.2s ease;
+}
+
+.config-toggle input:checked + .config-toggle-slider {
+    background: var(--color-primary, #009688);
+}
+
+.config-toggle input:checked + .config-toggle-slider::after {
+    transform: translateX(22px);
+}
+
+.config-toggle input:focus-visible + .config-toggle-slider {
+    outline: 3px solid var(--color-primary, #009688);
+    outline-offset: 2px;
+}
+
+body.dark-mode .config-slider {
+    background: #4B5563;
+}
+
+body.dark-mode .config-slider::-webkit-slider-thumb {
+    border-color: #374151;
+}
+
+body.dark-mode .config-slider::-moz-range-thumb {
+    border-color: #374151;
+}
+
+body.dark-mode .config-toggle-slider {
+    background: #4B5563;
+}
+
+/* =============================================
+   BUSCA DE CLINICAS - BOTAO "VER AGENDA"
+   ============================================= */
+
+.btn-ver-agenda[aria-expanded="true"] {
+    background: #E0F2F1;
+    border-color: #009688;
+    color: #009688;
+}
+
+body.dark-mode .btn-ver-agenda[aria-expanded="true"] {
+    background: #002A26;
+    color: #4DB6AC;
 }

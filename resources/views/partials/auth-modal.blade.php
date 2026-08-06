@@ -98,14 +98,15 @@
     });
 
     {{-- Se o form de login/registro voltou com erro, reabre o modal na aba certa.
-         Confere a URL anterior pra nao abrir por engano quando o erro e de outro formulario. --}}
+         O form de registro sempre envia 'role'; o de login envia apenas 'email'.
+         Isso distingue os dois forms dos demais (agendamento, avaliacao, etc). --}}
     @php
-        $urlAnterior = url()->previous();
-        $veioDeLoginOuRegistro = str_ends_with($urlAnterior, '/login') || str_ends_with($urlAnterior, '/registro');
+        $formCadastro = old('role') !== null;
+        $formLogin = old('role') === null && old('email') !== null;
     @endphp
-    @if ($errors->any() && $veioDeLoginOuRegistro)
+    @if ($errors->any() && ($formCadastro || $formLogin))
         document.addEventListener('DOMContentLoaded', function () {
-            window.DailyCare.authModal.abrir('{{ old('role') !== null ? 'registro' : 'login' }}');
+            window.DailyCare.authModal.abrir('{{ $formCadastro ? 'registro' : 'login' }}');
         });
     @endif
 </script>

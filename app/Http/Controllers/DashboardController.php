@@ -29,7 +29,7 @@ class DashboardController extends Controller
         }
 
         if ($user->isClinica()) {
-            return $this->clinica($request);
+            return $this->clinica();
         }
 
         return $this->paciente();
@@ -77,10 +77,9 @@ class DashboardController extends Controller
     }
 
     /**
-     * Monta o dashboard da clínica com métricas, agenda do dia e avaliações.
-     * Aplica filtro por status via query string (?status=...) e calcula estatisticas.
+     * Monta o dashboard da clínica com métricas, prévia da agenda do dia e avaliações.
      */
-    private function clinica(Request $request)
+    private function clinica()
     {
         $user = Auth::user();
         $clinica = $user->clinica;
@@ -94,17 +93,6 @@ class DashboardController extends Controller
             ->orderBy('data', 'desc')
             ->orderBy('hora', 'desc')
             ->get();
-
-        $statusValidos = ['solicitado', 'confirmado', 'concluido', 'recusado', 'cancelado'];
-        $statusAtivo = $request->query('status');
-
-        if (! in_array($statusAtivo, $statusValidos, true)) {
-            $statusAtivo = null;
-        }
-
-        $agendamentosFiltrados = $statusAtivo
-            ? $agendamentos->where('status', $statusAtivo)
-            : $agendamentos;
 
         $contagem = [
             'todos' => $agendamentos->count(),
@@ -182,8 +170,6 @@ class DashboardController extends Controller
             'user',
             'clinica',
             'agendamentos',
-            'agendamentosFiltrados',
-            'statusAtivo',
             'contagem',
             'receitaEstimada',
             'sessoesHoje',
@@ -195,6 +181,109 @@ class DashboardController extends Controller
             'perfilIncompleto',
             'agendaHoje',
             'slotsHoje'
+        ));
+    }
+
+    /**
+     * Página dedicada da agenda da clínica: navegação por dia, linha do tempo
+     * de horários e lista de agendamentos com filtro por status.
+     */
+    public function agenda(Request $request)
+    {
+        $user = Auth::user();
+        $clinica = $user->clinica;
+
+        if (! $clinica) {
+            return redirect()->route('clinica.perfil.create');
+        }
+
+        $data = today();
+
+        if ($request->query('data')) {
+            try {
+                $data = \Carbon\Carbon::parse($request->query('data'));
+            } catch (\Throwable $e) {
+                $data = today();
+            }
+        }
+
+        $statusValidos = ['solicitado', 'confirmado', 'concluido', 'recusado', 'cancelado'];
+        $statusAtivo = $request->query('status');
+
+        if (! in_array($statusAtivo, $statusValidos, true)) {
+            $statusAtivo = null;
+        }
+
+        $diasPT = ['domingo', 'segunda', 'terca', 'quarta', 'quinta', 'sexta', 'sabado'];
+        $diaSemana = $diasPT[$data->dayOfWeek];
+
+        $horariosDia = $clinica->horarios()
+            ->where('dia_semana', $diaSemana)
+            ->where('ativo', true)
+            ->get();
+
+        $agendamentosDia = Agendamento::where('clinica_id', $clinica->id)
+            ->whereDate('data', $data->toDateString())
+            ->with('paciente')
+            ->orderBy('hora', 'asc')
+            ->get();
+
+        $contagem = [
+            'todos' => $agendamentosDia->count(),
+            'solicitado' => $agendamentosDia->where('status', 'solicitado')->count(),
+            'confirmado' => $agendamentosDia->where('status', 'confirmado')->count(),
+            'concluido' => $agendamentosDia->where('status', 'concluido')->count(),
+            'recusado' => $agendamentosDia->where('status', 'recusado')->count(),
+            'cancelado' => $agendamentosDia->where('status', 'cancelado')->count(),
+        ];
+
+        $agendamentosFiltrados = $statusAtivo
+            ? $agendamentosDia->where('status', $statusAtivo)->values()
+            : $agendamentosDia;
+
+        $slots = collect();
+        foreach ($horariosDia as $horario) {
+            $inicio = \Carbon\Carbon::parse($horario->hora_inicio);
+            $fim = \Carbon\Carbon::parse($horario->hora_fim);
+            $cursor = $inicio->copy();
+            while ($cursor->lt($fim)) {
+                $hora = $cursor->format('H:i');
+                $slots->push([
+                    'hora' => $hora,
+                    'agendamento' => $agendamentosDia->firstWhere('hora', $hora),
+                ]);
+                $cursor->addMinutes(60);
+            }
+        }
+
+        if ($slots->isEmpty() && $agendamentosDia->isNotEmpty()) {
+            $slots = $agendamentosDia
+                ->whereNotIn('status', ['cancelado', 'recusado'])
+                ->values()
+                ->map(fn (Agendamento $a) => [
+                    'hora' => substr($a->hora, 0, 5),
+                    'agendamento' => $a,
+                ])
+                ->sortBy('hora')
+                ->values();
+        }
+
+        $anterior = $data->copy()->subDay();
+        $proxima = $data->copy()->addDay();
+
+        return view('dashboard.agenda', compact(
+            'user',
+            'clinica',
+            'data',
+            'diaSemana',
+            'horariosDia',
+            'agendamentosDia',
+            'agendamentosFiltrados',
+            'statusAtivo',
+            'contagem',
+            'slots',
+            'anterior',
+            'proxima'
         ));
     }
 

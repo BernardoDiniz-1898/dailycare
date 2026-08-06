@@ -18,7 +18,7 @@ class ChatController extends Controller
         $query = Conversa::with(['paciente', 'clinica', 'ultimaMensagem']);
 
         if ($usuario->isClinica()) {
-            $query->where('clinica_id', $usuario->clinica->id ?? 0);
+            $query->where('clinica_id', $usuario->clinica?->id ?? 0);
         } else {
             $query->where('paciente_id', $usuario->id);
         }
