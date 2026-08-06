@@ -55,7 +55,7 @@
                 'hora' => $cursor->format('H:i'),
                 'ocupado' => in_array($chave, $agendamentosOcupados),
             ];
-            $cursor->addMinutes(90);
+            $cursor->addMinutes(60);
         }
 
         $agendaDias->push([
@@ -147,9 +147,11 @@
         </div>
 
         <div style="display:flex; flex-direction:column; gap:10px; flex-shrink:0;">
-            <a href="{{ $usuarioPaciente ? route('chat.iniciar', $clinica) : route('login') }}" class="btn btn-secondary">
-                <i class="bi bi-chat-dots" aria-hidden="true"></i> Enviar mensagem
-            </a>
+            @if ($usuarioPaciente || !auth()->check())
+                <a href="{{ $usuarioPaciente ? route('chat.iniciar', $clinica) : route('login') }}" class="btn btn-secondary">
+                    <i class="bi bi-chat-dots" aria-hidden="true"></i> Enviar mensagem
+                </a>
+            @endif
             <a href="#agendar" class="btn btn-primary">
                 <i class="bi bi-calendar-check" aria-hidden="true"></i> Agendar atendimento
             </a>

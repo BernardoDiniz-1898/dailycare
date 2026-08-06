@@ -373,12 +373,12 @@ Edite o arquivo `.env` após a instalação:
 dailycare/
 ├── app/
 │   ├── Http/
-│   │   ├── Controllers/           # 7 controllers (Auth, Dashboard, Clinica, etc.)
+│   │   ├── Controllers/           # 9 controllers (Auth, Dashboard, Clinica, etc.)
 │   │   └── Middleware/            # CheckRole (controle de acesso por perfil)
-│   └── Models/                    # 8 models Eloquent com relationships
+│   └── Models/                    # 10 models Eloquent com relationships
 ├── database/
 │   ├── factories/                 # Factories para teste
-│   ├── migrations/                # 13 migrações do banco de dados
+│   ├── migrations/                # 17 migrações do banco de dados
 │   └── seeders/                   # Seeders com dados iniciais
 ├── public/
 │   ├── build/                     # Assets compilados (Vite)
@@ -395,7 +395,7 @@ dailycare/
 │       ├── dashboard/             # Painéis por perfil (paciente/clínica/admin)
 │       └── admin/                 # Painel administrativo
 ├── routes/
-│   └── web.php                    # 29 rotas nomeadas
+│   └── web.php                    # 31 rotas nomeadas
 ├── composer.json
 ├── package.json
 ├── vite.config.js
@@ -414,6 +414,8 @@ dailycare/
 | `HorarioDisponivel` | `horarios_disponiveis` | clinica |
 | `Agendamento` | `agendamentos` | paciente, clinica |
 | `Avaliacao` | `avaliacoes` | paciente, clinica |
+| `Conversa` | `conversas` | paciente, clinica, mensagens |
+| `Mensagem` | `mensagens` | conversa, remetente |
 
 ---
 
