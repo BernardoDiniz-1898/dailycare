@@ -2,12 +2,22 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Agendamento;
 use App\Models\Avaliacao;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
+/**
+ * Controlador de avaliações.
+ * Este arquivo organiza a lógica para um paciente avaliar uma clínica.
+ * A semântica central é impedir avaliações duplicadas e validar a disponibilidade da clínica.
+ */
 class AvaliacaoController extends Controller
 {
+    /**
+     * Salva uma nova avaliação enviada pelo paciente.
+     * O método valida os dados, verifica se a clínica está aprovada e evita avaliações repetidas.
+     */
     public function store(Request $request)
     {
         $validated = $request->validate([
@@ -19,6 +29,16 @@ class AvaliacaoController extends Controller
         $clinica = \App\Models\Clinica::find($validated['clinica_id']);
         if (!$clinica || $clinica->status !== 'aprovada') {
             return back()->withErrors(['clinica_id' => 'Esta clinica nao esta disponivel para avaliacao.']);
+        }
+
+        // Só deixa avaliar quem realmente já foi atendido pela clinica (evita avaliacao sem ter usado o servico)
+        $atendimentoConcluido = Agendamento::where('paciente_id', Auth::id())
+            ->where('clinica_id', $validated['clinica_id'])
+            ->where('status', 'concluido')
+            ->exists();
+
+        if (!$atendimentoConcluido) {
+            return back()->withErrors(['nota' => 'Voce so pode avaliar clinicas onde ja teve um atendimento concluido.']);
         }
 
         $existe = Avaliacao::where('paciente_id', Auth::id())

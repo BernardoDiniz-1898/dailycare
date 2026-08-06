@@ -4,8 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-return new class extends Migration
-{
+return new class extends Migration {
     public function up(): void
     {
         Schema::create('usuarios', function (Blueprint $table) {
@@ -14,11 +13,17 @@ return new class extends Migration
             $table->string('email')->unique();
             $table->string('senha');
             $table->string('telefone')->nullable();
-            $table->string('cpf')->unique();
+            $table->string('cpf')->unique()->nullable();
             $table->integer('idade')->nullable();
             $table->string('endereco')->nullable();
             $table->enum('sexo', ['M', 'F', 'Outro'])->nullable();
-            $table->enum('role', ['paciente', 'clinica', 'admin'])->default('paciente');
+            $table->enum('role', ['paciente', 'fisioterapeuta', 'admin'])->default('paciente');
+
+            $table->string('crefito')->nullable();
+            $table->string('cnpj')->nullable();
+            $table->string('razao_social')->nullable();
+
+
             $table->string('condicao')->nullable();
             $table->string('foto')->nullable();
             $table->boolean('ativo')->default(true);

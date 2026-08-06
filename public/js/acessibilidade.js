@@ -54,6 +54,19 @@ const DailyCare = {
             DailyCare.anunciar('Fonte resetada para 100%');
         },
 
+        definir(valor) {
+            valor = parseInt(valor, 10);
+            if (valor < this._min) valor = this._min;
+            if (valor > this._max) valor = this._max;
+            this._escala = valor;
+            this._aplicar();
+            this._salvar();
+        },
+
+        atual() {
+            return this._escala;
+        },
+
         _aplicar() {
             document.documentElement.style.fontSize = this._escala + '%';
         },
@@ -95,7 +108,7 @@ const DailyCare = {
             if (!this._opcoes.includes(tema) || tema === this._atual) return;
 
             this._atual = tema;
-            this._aplicar();
+            this._aplicarComTransicao();
             this._salvar();
             this._atualizarBotoes();
 
@@ -106,6 +119,17 @@ const DailyCare = {
             const idx = this._opcoes.indexOf(this._atual);
             const proximo = this._opcoes[(idx + 1) % this._opcoes.length];
             this.trocar(proximo);
+        },
+
+        _aplicarComTransicao() {
+            const body = document.body;
+            body.classList.add('tema-transition');
+            this._aplicar();
+
+            clearTimeout(this._timerTransicao);
+            this._timerTransicao = setTimeout(() => {
+                body.classList.remove('tema-transition');
+            }, 400);
         },
 
         _aplicar() {
@@ -195,7 +219,12 @@ const DailyCare = {
 
             // Escape: Fechar menus modais
             if (e.key === 'Escape') {
-                document.activeElement.blur();
+                const modalAberto = document.querySelector('.agenda-modal-backdrop.aberto, .auth-modal-backdrop.aberto');
+                if (DailyCare.menu.estaAberto()) {
+                    DailyCare.menu.fechar();
+                } else if (!modalAberto) {
+                    document.activeElement.blur();
+                }
             }
         }
     },
@@ -215,6 +244,77 @@ const DailyCare = {
     },
 
     // =============================================
+    // MENU LATERAL (GAVETA)
+    // =============================================
+    menu: {
+        _ultimoFoco: null,
+
+        abrir() {
+            const menu = document.getElementById('menu-lateral');
+            const backdrop = document.getElementById('menu-backdrop');
+            const botao = document.querySelector('.menu-hamburguer');
+            if (!menu || !backdrop) return;
+
+            this._ultimoFoco = document.activeElement;
+
+            backdrop.hidden = false;
+            requestAnimationFrame(() => backdrop.classList.add('aberto'));
+            menu.classList.add('aberto');
+            menu.setAttribute('aria-hidden', 'false');
+            if (botao) botao.setAttribute('aria-expanded', 'true');
+
+            document.body.style.overflow = 'hidden';
+
+            const primeiroLink = menu.querySelector('a, button');
+            if (primeiroLink) primeiroLink.focus();
+
+            DailyCare.anunciar('Menu lateral aberto');
+        },
+
+        fechar() {
+            const menu = document.getElementById('menu-lateral');
+            const backdrop = document.getElementById('menu-backdrop');
+            const botao = document.querySelector('.menu-hamburguer');
+            if (!menu || !backdrop) return;
+
+            menu.classList.remove('aberto');
+            menu.setAttribute('aria-hidden', 'true');
+            backdrop.classList.remove('aberto');
+            setTimeout(() => { backdrop.hidden = true; }, 300);
+            if (botao) botao.setAttribute('aria-expanded', 'false');
+
+            document.body.style.overflow = '';
+
+            if (this._ultimoFoco) {
+                this._ultimoFoco.focus();
+            } else if (botao) {
+                botao.focus();
+            }
+        },
+
+        estaAberto() {
+            const menu = document.getElementById('menu-lateral');
+            return menu && menu.classList.contains('aberto');
+        }
+    },
+
+    // =============================================
+    // AUTENTICACAO (fallback de navegacao)
+    // Abre o modal quando ele existe; caso contrario,
+    // redireciona para a pagina de login/registro.
+    // =============================================
+    auth: {
+        abrir(aba) {
+            const modal = window.DailyCare && window.DailyCare.authModal;
+            if (modal) {
+                modal.abrir(aba);
+                return;
+            }
+            window.location.href = aba === 'registro' ? '/registro' : '/login';
+        }
+    },
+
+    // =============================================
     // INICIALIZACAO
     // =============================================
     init() {
@@ -223,6 +323,10 @@ const DailyCare = {
         this.atalhos.init();
     }
 };
+
+// Expor no escopo global preservando modulos adicionados por outras paginas
+// (ex.: window.DailyCare.authModal, .buscaClinicas, .perfilClinica)
+window.DailyCare = Object.assign(window.DailyCare || {}, DailyCare);
 
 // Inicializar quando o DOM estiver pronto
 document.addEventListener('DOMContentLoaded', () => DailyCare.init());

@@ -3,17 +3,17 @@
 @section('titulo', 'Servicos de Acessibilidade')
 
 @section('conteudo')
-<a href="{{ route('dashboard') }}" style="display:inline-flex; align-items:center; gap:8px; color:#1A56DB; font-weight:600; margin-bottom:24px; text-decoration:none;">
-    <span aria-hidden="true">&#x2190;</span> Voltar ao Painel
+<a href="{{ route('dashboard') }}" style="display:inline-flex; align-items:center; gap:8px; color:#009688; font-weight:600; margin-bottom:24px; text-decoration:none;">
+    <i class="bi bi-arrow-left" aria-hidden="true"></i> Voltar ao Painel
 </a>
 
-<h1 style="font-size:1.75rem; font-weight:800; color:#111827; margin-bottom:32px;">
-    <span aria-hidden="true">&#x2713;</span> Gerenciar Servicos de Acessibilidade
+<h1 style="font-size:1.75rem; font-weight:800; color:var(--color-text); margin-bottom:32px;">
+    <i class="bi bi-check-lg" aria-hidden="true"></i> Gerenciar Servicos de Acessibilidade
 </h1>
 
 {{-- Formulario de adicao --}}
 <section class="card" style="padding:28px; margin-bottom:32px;" aria-label="Adicionar novo servico de acessibilidade">
-    <h2 style="font-size:1.125rem; font-weight:700; color:#111827; margin-bottom:16px;">Adicionar Servico</h2>
+    <h2 style="font-size:1.125rem; font-weight:700; color:var(--color-text); margin-bottom:16px;">Adicionar Servico</h2>
     <form method="POST" action="{{ route('admin.servicos-acessibilidade.store') }}" style="display:flex; gap:12px; flex-wrap:wrap; align-items:flex-end;">
         @csrf
         <div class="form-group" style="flex:1; min-width:300px;">
@@ -22,7 +22,7 @@
             @error('nome') <p class="form-error" role="alert">{{ $message }}</p> @enderror
         </div>
         <button type="submit" class="btn btn-primary">
-            <span aria-hidden="true">&#x2795;</span> Adicionar
+            <i class="bi bi-plus-lg" aria-hidden="true"></i> Adicionar
         </button>
     </form>
 </section>
@@ -41,7 +41,7 @@
                 @forelse ($servicos as $servico)
                     <tr>
                         <td style="font-weight:600;">
-                            <span aria-hidden="true" style="color:#047857;">&#x2713;</span> {{ $servico->nome }}
+                            <i class="bi bi-check-lg" aria-hidden="true" style="color:#047857;"></i> {{ $servico->nome }}
                         </td>
                         <td style="text-align:right;">
                             <form method="POST" action="{{ route('admin.servicos-acessibilidade.destroy', $servico) }}" style="display:inline;">
@@ -55,7 +55,7 @@
                     </tr>
                 @empty
                     <tr>
-                        <td colspan="2" style="text-align:center; color:#6B7280; padding:40px;">
+                        <td colspan="2" style="text-align:center; color:var(--color-text-secondary); padding:40px;">
                             Nenhum servico de acessibilidade cadastrado.
                         </td>
                     </tr>

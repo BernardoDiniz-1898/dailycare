@@ -8,8 +8,16 @@ use App\Models\ServicoAcessibilidade;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
+/**
+ * Controlador de perfil da clínica.
+ * Responsável por criar e editar os dados cadastrais da clínica.
+ * Os métodos usam validação de formulário e relacionamento many-to-many com especialidades e serviços.
+ */
 class ClinicaPerfilController extends Controller
 {
+    /**
+     * Abre a tela de edição do perfil da clínica do usuário autenticado.
+     */
     public function edit()
     {
         $clinica = Auth::user()->clinica;
@@ -24,6 +32,9 @@ class ClinicaPerfilController extends Controller
         return view('clinica.perfil-edit', compact('clinica', 'especialidades', 'servicos'));
     }
 
+    /**
+     * Exibe o formulário de criação de perfil para uma clínica ainda não cadastrada.
+     */
     public function create()
     {
         $especialidades = Especialidade::where('ativa', true)->get();
@@ -32,6 +43,10 @@ class ClinicaPerfilController extends Controller
         return view('clinica.perfil-create', compact('especialidades', 'servicos'));
     }
 
+    /**
+     * Cria o perfil de uma clínica e vincula especialidades e serviços de acessibilidade.
+     * O uso de sync e attach mostra como o Laravel persiste relações em tabelas intermediárias.
+     */
     public function store(Request $request)
     {
         $validated = $request->validate([
@@ -48,13 +63,16 @@ class ClinicaPerfilController extends Controller
             'estado' => 'required|string|size:2',
             'cep' => 'required|string|size:9',
             'descricao' => 'nullable|string|max:2000',
+            'preco_sessao' => 'nullable|numeric|min:0|max:99999.99',
             'especialidades' => 'required|array|min:1',
             'especialidades.*' => 'exists:especialidades,id',
             'servicos_acessibilidade' => 'nullable|array',
             'servicos_acessibilidade.*' => 'exists:servicos_acessibilidade,id',
         ]);
 
-        $clinica = Auth::user()->clinica()->create([
+        /** @var \App\Models\Usuario $user */
+        $user = Auth::user();
+        $clinica = $user->clinica()->create([
             'razao_social' => $validated['razao_social'],
             'nome_fantasia' => $validated['nome_fantasia'],
             'cnpj' => $validated['cnpj'],
@@ -68,6 +86,7 @@ class ClinicaPerfilController extends Controller
             'estado' => $validated['estado'],
             'cep' => $validated['cep'],
             'descricao' => $validated['descricao'] ?? null,
+            'preco_sessao' => $validated['preco_sessao'] ?? null,
         ]);
 
         $clinica->especialidades()->sync($validated['especialidades']);
@@ -80,6 +99,10 @@ class ClinicaPerfilController extends Controller
         return redirect()->route('dashboard')->with('success', 'Perfil da clinica criado com sucesso! Aguardando aprovacao do administrador.');
     }
 
+    /**
+     * Atualiza o perfil de uma clínica existente.
+     * O método substitui as relações de especialidades e serviços por um conjunto novo.
+     */
     public function update(Request $request)
     {
         $clinica = Auth::user()->clinica;
@@ -97,6 +120,7 @@ class ClinicaPerfilController extends Controller
             'estado' => 'required|string|size:2',
             'cep' => 'required|string|size:9',
             'descricao' => 'nullable|string|max:2000',
+            'preco_sessao' => 'nullable|numeric|min:0|max:99999.99',
             'especialidades' => 'required|array|min:1',
             'especialidades.*' => 'exists:especialidades,id',
             'servicos_acessibilidade' => 'nullable|array',
@@ -116,6 +140,7 @@ class ClinicaPerfilController extends Controller
             'estado' => $validated['estado'],
             'cep' => $validated['cep'],
             'descricao' => $validated['descricao'] ?? null,
+            'preco_sessao' => $validated['preco_sessao'] ?? null,
         ]);
 
         $clinica->especialidades()->sync($validated['especialidades']);

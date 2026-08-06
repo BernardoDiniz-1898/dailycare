@@ -3,8 +3,8 @@
 @section('titulo', 'Cadastrar Clinica')
 
 @section('conteudo')
-<h1 style="font-size:1.75rem; font-weight:800; color:#111827; margin-bottom:32px;">
-    <span aria-hidden="true">&#x1F3E5;</span> Cadastrar Clinica
+<h1 style="font-size:1.75rem; font-weight:800; color:var(--color-text); margin-bottom:32px;">
+    <i class="bi bi-hospital" aria-hidden="true"></i> Cadastrar Clinica
 </h1>
 
 <form method="POST" action="{{ route('clinica.perfil.store') }}" class="card form-section" style="padding:32px;" aria-label="Formulario de cadastro de clinica">
@@ -12,8 +12,8 @@
 
     {{-- Dados da Clinica --}}
     <fieldset>
-        <legend style="font-size:1.25rem; font-weight:700; color:#111827; margin-bottom:20px; padding-bottom:8px; border-bottom:2px solid #E5E7EB;">
-            <span aria-hidden="true">&#x1F4CB;</span> Dados da Clinica
+        <legend style="font-size:1.25rem; font-weight:700; color:var(--color-text); margin-bottom:20px; padding-bottom:8px; border-bottom:2px solid #E5E7EB;">
+            <i class="bi bi-clipboard-data" aria-hidden="true"></i> Dados da Clinica
         </legend>
         <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(220px, 1fr)); gap:20px;">
             <div class="form-group">
@@ -43,13 +43,19 @@
                 <label for="descricao" class="form-label">Descricao</label>
                 <textarea id="descricao" name="descricao" rows="3" class="form-input">{{ old('descricao') }}</textarea>
             </div>
+            <div class="form-group">
+                <label for="preco_sessao" class="form-label">Valor da sessao (R$)</label>
+                <input type="number" id="preco_sessao" name="preco_sessao" step="0.01" min="0"
+                       value="{{ old('preco_sessao') }}" class="form-input" placeholder="Ex: 180.00">
+                @error('preco_sessao') <p class="form-error" role="alert"><i class="bi bi-exclamation-triangle-fill" aria-hidden="true"></i> {{ $message }}</p> @enderror
+            </div>
         </div>
     </fieldset>
 
     {{-- Endereco --}}
     <fieldset style="margin-top:32px;">
-        <legend style="font-size:1.25rem; font-weight:700; color:#111827; margin-bottom:20px; padding-bottom:8px; border-bottom:2px solid #E5E7EB;">
-            <span aria-hidden="true">&#x1F4CD;</span> Endereco
+        <legend style="font-size:1.25rem; font-weight:700; color:var(--color-text); margin-bottom:20px; padding-bottom:8px; border-bottom:2px solid #E5E7EB;">
+            <i class="bi bi-geo-alt-fill" aria-hidden="true"></i> Endereco
         </legend>
         <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(220px, 1fr)); gap:20px;">
             <div class="form-group" style="grid-column:span 2;">
@@ -91,8 +97,8 @@
 
     {{-- Especialidades --}}
     <fieldset style="margin-top:32px;">
-        <legend style="font-size:1.25rem; font-weight:700; color:#111827; margin-bottom:20px; padding-bottom:8px; border-bottom:2px solid #E5E7EB;">
-            <span aria-hidden="true">&#x267E;</span> Especialidades Oferecidas <span class="required" aria-label="obrigatorio">*</span>
+        <legend style="font-size:1.25rem; font-weight:700; color:var(--color-text); margin-bottom:20px; padding-bottom:8px; border-bottom:2px solid #E5E7EB;">
+            <i class="bi bi-heart-pulse" aria-hidden="true"></i> Especialidades Oferecidas <span class="required" aria-label="obrigatorio">*</span>
         </legend>
         <div style="display:grid; grid-template-columns:repeat(auto-fill, minmax(200px, 1fr)); gap:12px;">
             @foreach ($especialidades as $esp)
@@ -108,8 +114,8 @@
 
     {{-- Acessibilidade --}}
     <fieldset style="margin-top:32px;">
-        <legend style="font-size:1.25rem; font-weight:700; color:#111827; margin-bottom:20px; padding-bottom:8px; border-bottom:2px solid #E5E7EB;">
-            <span aria-hidden="true">&#x2713;</span> Recursos de Acessibilidade
+        <legend style="font-size:1.25rem; font-weight:700; color:var(--color-text); margin-bottom:20px; padding-bottom:8px; border-bottom:2px solid #E5E7EB;">
+            <i class="bi bi-universal-access" aria-hidden="true"></i> Recursos de Acessibilidade
         </legend>
         <div style="display:grid; grid-template-columns:repeat(auto-fill, minmax(200px, 1fr)); gap:12px;">
             @foreach ($servicos as $servico)
@@ -124,7 +130,7 @@
 
     <div style="display:flex; gap:16px; margin-top:40px; padding-top:24px; border-top:2px solid #E5E7EB;">
         <button type="submit" class="btn btn-primary">
-            <span aria-hidden="true">&#x2795;</span> Cadastrar Clinica
+            <i class="bi bi-check-lg" aria-hidden="true"></i> Cadastrar Clinica
         </button>
         <a href="{{ route('dashboard') }}" class="btn btn-secondary">
             Cancelar
