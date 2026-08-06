@@ -4,8 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Agendamento;
 use App\Models\Clinica;
-use App\Models\HorarioDisponivel;
-
+use App\Models\Usuario;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -22,6 +21,10 @@ class AgendamentoController extends Controller
      */
     public function store(Request $request)
     {
+        if (! Auth::user()->isPaciente()) {
+            abort(403);
+        }
+
         $validated = $request->validate([
             'clinica_id' => 'required|exists:clinicas,id',
             'data' => 'required|date|after_or_equal:today',
@@ -29,8 +32,14 @@ class AgendamentoController extends Controller
             'observacao_paciente' => 'nullable|string|max:1000',
         ]);
 
+        $clinica = Clinica::where('id', $validated['clinica_id'])->where('status', 'aprovada')->where('ativa', true)->first();
+
+        if (! $clinica) {
+            abort(404);
+        }
+
         $existe = Agendamento::where('clinica_id', $validated['clinica_id'])
-            ->where('data', $validated['data'])
+            ->whereDate('data', $validated['data'])
             ->where('hora', $validated['hora'])
             ->whereNotIn('status', ['cancelado', 'recusado'])
             ->exists();
@@ -57,12 +66,12 @@ class AgendamentoController extends Controller
     public function update(Request $request, Agendamento $agendamento)
     {
 
-        /** @var \App\Models\Usuario $user */
+        /** @var Usuario $user */
         $user = Auth::user();
 
         if ($user->isClinica()) {
             $clinica = $user->clinica;
-            if (!$clinica || $agendamento->clinica_id != $clinica->id) {
+            if (! $clinica || $agendamento->clinica_id != $clinica->id) {
                 abort(403);
             }
         } elseif ($agendamento->paciente_id != $user->id) {
@@ -85,12 +94,12 @@ class AgendamentoController extends Controller
      */
     public function destroy(Agendamento $agendamento)
     {
-        /** @var \App\Models\Usuario $user */
+        /** @var Usuario $user */
         $user = Auth::user();
 
         if ($user->isClinica()) {
             $clinica = $user->clinica;
-            if (!$clinica || $agendamento->clinica_id != $clinica->id) {
+            if (! $clinica || $agendamento->clinica_id != $clinica->id) {
                 abort(403);
             }
         } elseif ($agendamento->paciente_id != $user->id) {

@@ -87,6 +87,7 @@ class ChatController extends Controller
     public function iniciar(Clinica $clinica)
     {
         abort_unless(Auth::user()->isPaciente(), 403);
+        abort_unless($clinica->status === 'aprovada' && $clinica->ativa, 404);
 
         $conversa = Conversa::firstOrCreate([
             'paciente_id' => Auth::id(),
